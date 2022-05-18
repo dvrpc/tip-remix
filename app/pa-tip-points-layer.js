@@ -1,0 +1,42 @@
+export const pointsLayer = {
+    id: "pa-tip-points",
+    type: "circle",
+    paint: {
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 7, 2, 12, 8],
+      "circle-color": [
+        "match",
+        ["get", "descriptio"],
+        "Bicycle/Pedestrian Improvement",
+        "#f26522",
+        "Bridge Repair/Replacement",
+        "#223860",
+        "Streetscape",
+        "#0b6d32",
+        "Transit Improvements",
+        "#729faa",
+        "Signal/ITS Improvements",
+        "#ed1c24",
+        "Roadway Rehabilitation",
+        "#511851",
+        "Roadway New Capacity",
+        "#9d1d20",
+        "Intersection/Interchange Improvements",
+        "#ffc10e",
+        "#5abf41",
+      ],
+      "circle-stroke-width": [
+        "case",
+        ["boolean", ["feature-state", "active"], false],
+        5,
+        0.5,
+      ],
+      "circle-stroke-color": [
+        "case",
+        ["boolean", ["feature-state", "active"], false],
+        "#fcc810",
+        "#fff",
+      ],
+    },
+    interactive: true,
+  };
+  
