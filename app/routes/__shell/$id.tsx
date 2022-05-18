@@ -55,7 +55,7 @@ export default function ProjectDetails() {
     : null;
 
   return (
-    <main className="prose prose-stone sm:prose-invert bg-stone-700 p-8">
+    <main className="bg-stone-700 max-h-full overflow-auto p-8 prose prose-stone sm:prose-invert">
       <Link
         to={{ pathname: "/", search: location.search }}
         className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
