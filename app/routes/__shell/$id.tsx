@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, useLoaderData, useLocation } from "remix";
+import {
+  json,
+  Link,
+  LoaderFunction,
+  useLoaderData,
+  useLocation,
+  useOutletContext,
+} from "remix";
 import { getProject } from "~/project";
 import { useAppContext } from "~/AppContext";
 
@@ -67,16 +74,45 @@ export default function ProjectDetails() {
   const funding = project.funding?.data
     ? getTotals(project.funding?.data)
     : null;
+  const { setIsVisible } = useOutletContext();
 
   return (
     <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
-      <Link
-        to={{ pathname: basename, search: location.search }}
-        className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
-      >
-        &#10094; Back
-      </Link>
-
+      <div className="flex">
+        <Link
+          to={{ pathname: basename, search: location.search }}
+          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
+          onClick={() => {
+            setIsVisible(
+              (prev: { isGeneral: boolean; visibility: boolean }) => {
+                return {
+                  ...prev,
+                  isGeneral: false,
+                  visibility: false,
+                };
+              }
+            );
+          }}
+        >
+          &#10094; Back
+        </Link>
+        <div
+          className="bg-yellow-400 cursor-pointer font-bold hover:bg-yellow-500 mb-4 ml-auto no-underline p-2 rounded text-stone-700"
+          onClick={() =>
+            setIsVisible(
+              (prev: { isGeneral: boolean; visibility: boolean }) => {
+                return {
+                  ...prev,
+                  isGeneral: false,
+                  visibility: true,
+                };
+              }
+            )
+          }
+        >
+          Comment
+        </div>
+      </div>
       <h2 className="mt-0">
         {project.id} | {project.road_name} {mcds}
       </h2>

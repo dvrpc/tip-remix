@@ -12,6 +12,7 @@ import { useAppContext } from "~/AppContext";
 import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
 import Map, { links as mapLinks } from "~/components/Map";
+import Modal from "~/components/Modal";
 
 interface Map {
   [key: string]: string[] | undefined;
@@ -79,6 +80,10 @@ export default function Projects() {
   const [showPopup, setShowPopup] = useState(null);
   const [hoverProject, setHoverProject] = useState(null);
   const mapData = useFetcher();
+  const [isVisible, setIsVisible] = useState({
+    visibility: false,
+    isGeneral: false,
+  });
 
   return (
     <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
@@ -107,9 +112,22 @@ export default function Projects() {
       <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
         <ul className="divide-x flex gap-4 items-center justify-end w-full">
           <li className="md:mr-auto">
-            <a className="underline" href="#">
-              <strong>Comment</strong>
-            </a>
+            <div
+              className="cursor-pointer underline"
+              onClick={() =>
+                setIsVisible((prev) => {
+                  return {
+                    ...prev,
+                    isGeneral: true,
+                    visibility: true,
+                  };
+                })
+              }
+            >
+              <strong className="bg-yellow-400 hover:bg-yellow-500 inline-block no-underline p-2 rounded text-stone-700">
+                General Comment
+              </strong>
+            </div>
           </li>
           <li>
             <a className="underline" href="/TIP/Draft/">
@@ -138,10 +156,12 @@ export default function Projects() {
             mrpFilterState,
             location,
             categories,
+            setIsVisible,
           }}
         />
       </main>
-      <aside className="md:col-span-3">
+      <aside className="flex justify-center md:col-span-3">
+        <Modal isVisible={isVisible} setIsVisible={setIsVisible} />
         <Map
           projects={projects}
           mapData={mapData}
