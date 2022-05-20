@@ -1,10 +1,16 @@
-import { useNavigate } from "remix";
+import { useNavigate, useSubmit } from "remix";
 import { useCallback, useEffect, useState } from "react";
 import Map, { Source, Layer, Popup } from "react-map-gl";
 import LayerPicker from "~/components/LayerPicker";
-import { basemapLayers, togglableLayers } from "~/mapbox-layers";
+import BoundaryPicker from "~/components/BoundaryPicker";
+import {
+  basemapLayers,
+  boundaryLayers,
+  togglableLayers,
+} from "~/mapbox-layers";
 import Legend from "./Legend";
 import { getCategoryColor } from "~/utils";
+import DetailsToggle from "./DetailsToggle";
 
 export const links = () => {
   return [
@@ -25,7 +31,11 @@ export default function MapContainer({
 }) {
   const navigate = useNavigate();
   const [interactiveLayerIds, setInteractiveLayerIds] = useState();
-  const [activeLayer, setActiveLayer] = useState(null);
+  const [activeLayer, setActiveLayer] = useState([]);
+  const [activeBoundary, setActiveBoundary] = useState([
+    "Counties and Muncipalities",
+  ]);
+  const submit = useSubmit();
 
   //map mousemove callback
   const onHover = useCallback((event) => {
@@ -78,13 +88,43 @@ export default function MapContainer({
       cursor="pointer"
       maxBounds={maxExtent}
       initialViewState={{ bounds: maxExtent }}
-      mapStyle="mapbox://styles/mapbox/light-v10"
+      mapStyle="mapbox://styles/mapbox/outdoors-v11"
       mapboxAccessToken="pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNqZDBkMDZhYjJ6YzczNHJ4cno5eTcydnMifQ.RJNJ7s7hBfrJITOBZBdcOA"
       interactiveLayerIds={interactiveLayerIds}
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
     >
+      {boundaryLayers.map((source) => {
+        const { key, layer, ...props } = source;
+
+        return (
+          <Source key={key} {...props}>
+            <Layer
+              {...layer}
+              layout={{
+                visibility: activeBoundary[0] === props.id ? "visible" : "none",
+              }}
+            />
+          </Source>
+        );
+      })}
+
+      {togglableLayers.map((source) => {
+        const { key, layer, ...props } = source;
+
+        return (
+          <Source key={key} {...props}>
+            <Layer
+              {...layer}
+              layout={{
+                visibility: activeLayer[0] === props.id ? "visible" : "none",
+              }}
+            />
+          </Source>
+        );
+      })}
+
       {mapData.type === "done" &&
         mapData.data.map((d) => (
           <Source type="geojson" data={d} key={d.id}>
@@ -92,26 +132,13 @@ export default function MapContainer({
           </Source>
         ))}
 
-      {Object.keys(togglableLayers).map((key) => {
-        const { layer, ...props } = togglableLayers[key];
-
-        return (
-          <Source key={key} {...props}>
-            <Layer
-              {...layer}
-              layout={{ visibility: activeLayer === key ? "visible" : "none" }}
-            />
-          </Source>
-        );
-      })}
-
       {showPopup ? (
         <Popup
           longitude={showPopup.longitude}
           latitude={showPopup.latitude}
           closeButton={false}
           closeOnClick={false}
-          maxWidth={"350px"}
+          maxWidth="350px"
         >
           <div
             className="-mb-[15px] -mt-[10px] -mx-[10px] border-b-8 cursor-pointer flex flex-nowrap flex-row items-stretch outline-stone-700 overflow-clip pointer-events-none rounded text-sm z-10"
@@ -131,10 +158,24 @@ export default function MapContainer({
         </Popup>
       ) : null}
 
-      <LayerPicker activeLayer={activeLayer} setActiveLayer={setActiveLayer} />
-
-      <LayerPicker activeLayer={activeLayer} setActiveLayer={setActiveLayer} />
-
+      <div className="absolute flex gap-4 m-4" style={{ colorScheme: "dark" }}>
+        <DetailsToggle
+          filter={activeBoundary}
+          setFilter={setActiveBoundary}
+          name="boundary"
+          title="Boundaries"
+          options={boundaryLayers.map((l) => l.id)}
+          deselect
+        />
+        <DetailsToggle
+          filter={activeLayer}
+          setFilter={setActiveLayer}
+          name="layer"
+          title="Layers"
+          options={togglableLayers.map((l) => l.id)}
+          deselect
+        />
+      </div>
       <Legend activeLayer={activeLayer} />
     </Map>
   );
