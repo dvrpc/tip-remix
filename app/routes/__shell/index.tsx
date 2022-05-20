@@ -7,7 +7,7 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { sortByProperty } from "~/utils";
-import DetailsCheckbox from "~/components/DetailsCheckbox";
+import DetailsToggle from "~/components/DetailsToggle";
 import CategoryIcon, {
   links as categoryIconLinks,
 } from "~/components/CategoryIcon";
@@ -68,7 +68,8 @@ export default function Panel() {
             setSortKey={setSortKey}
             submit={submit}
           />
-          <DetailsCheckbox
+          <DetailsToggle
+            multiple
             filter={categoryFilter}
             setFilter={setCategoryFilter}
             options={[
@@ -87,7 +88,8 @@ export default function Panel() {
             name="categories"
             submit={submit}
           />
-          <DetailsCheckbox
+          <DetailsToggle
+            multiple
             filter={aqcodeFilter}
             setFilter={setAqcodeFilter}
             options={[...new Set(projects.map((p) => p.aq_code))].sort()}
@@ -95,7 +97,8 @@ export default function Panel() {
             name="aqcodes"
             submit={submit}
           />
-          <DetailsCheckbox
+          <DetailsToggle
+            multiple
             filter={fundFilter}
             setFilter={setFundFilter}
             options={[...new Set(funds.map((f) => f.code))].sort()}
@@ -103,7 +106,8 @@ export default function Panel() {
             name="funds"
             submit={submit}
           />
-          <DetailsCheckbox
+          <DetailsToggle
+            multiple
             filter={mrpFilter}
             setFilter={setMrpFilter}
             title="MRP"

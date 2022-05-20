@@ -1,17 +1,74 @@
 export const basemapLayers = {
-  //county boundaries
-  //municipal boundaries
   //transit stations?
 };
 
-export const togglableLayers = {
-  ipd: {
-    key: "ipd",
-    id: "Indicators of Potential Disadvantage (2018)",
+export const boundaryLayers = [
+  {
+    key: "county",
+    id: "Counties and Muncipalities",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2018/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/DVRPC_MCD_PhiCPA/FeatureServer/0/query?where=state_name='Pennsylvania'&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      paint: {
+        "line-color": "#777",
+      },
+    },
+  },
+  {
+    key: "congressional",
+    id: "Congressional Districts",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_Congressional/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      paint: {
+        "line-color": "#777",
+      },
+    },
+  },
+  {
+    key: "senate",
+    id: "State Senate Districts",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_Senate/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      paint: {
+        "line-color": "#777",
+      },
+    },
+  },
+  {
+    key: "house",
+    id: "State House Districts",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_House/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      paint: {
+        "line-color": "#777",
+      },
+    },
+  },
+];
+
+export const togglableLayers = [
+  {
+    key: "ipd",
+    id: "Indicators of Potential Disadvantage (2019)",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
       type: "fill",
+      continuous: true,
+      legend: [
+        ["#253494", "Higher"],
+        ["#2c7fb8", ""],
+        ["#41b6c4", ""],
+        ["#a1dab4", ""],
+        ["#ffffcc", "Lower"],
+      ],
       paint: {
         "fill-color": [
           "interpolate",
@@ -52,7 +109,99 @@ export const togglableLayers = {
       },
     },
   },
-  cmp: {
+  {
+    key: "racialminority",
+    id: "Racial Minority Population Group (IPD 2019)",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
+    layer: {
+      type: "fill",
+      legend: [
+        ["#253494", "Well Above Average"],
+        ["#2c7fb8", "Above Average"],
+        ["#41b6c4", "Average"],
+        ["#a1dab4", "Below Average"],
+        ["#ffffcc", "Well Below Average"],
+      ],
+      paint: {
+        "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["get", "rm_score"],
+          0,
+          "#ffffcc",
+          1,
+          "#a1dab4",
+          2,
+          "#41b6c4",
+          3,
+          "#2c7fb8",
+          4,
+          "#253494",
+        ],
+        "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          7,
+          0.75,
+          9,
+          0.5,
+          11,
+          0.25,
+        ],
+      },
+    },
+  },
+  {
+    key: "lowincome",
+    id: "Low-Income Popluation Group (IPD 2019)",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
+    layer: {
+      type: "fill",
+      legend: [
+        ["#253494", "Well Above Average"],
+        ["#2c7fb8", "Above Average"],
+        ["#41b6c4", "Average"],
+        ["#a1dab4", "Below Average"],
+        ["#ffffcc", "Well Below Average"],
+      ],
+      paint: {
+        "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["get", "li_score"],
+          0,
+          "#ffffcc",
+          1,
+          "#a1dab4",
+          2,
+          "#41b6c4",
+          3,
+          "#2c7fb8",
+          4,
+          "#253494",
+        ],
+        "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          7,
+          0.75,
+          9,
+          0.5,
+          11,
+          0.25,
+        ],
+      },
+    },
+  },
+  {
     key: "cmp",
     id: "Congestion Management Subcorridor Areas",
     type: "geojson",
@@ -65,13 +214,21 @@ export const togglableLayers = {
       },
     },
   },
-  connections: {
+  {
     key: "connections",
-    id: "Connections 2045 Centers",
+    id: "Connections 2050 Centers",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2045_PlanningCenters/FeatureServer/0/query?where=1=1&outFields=lup_type&geometryPrecision=4&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2050_PlanningCenters/FeatureServer/0/query?where=state='PA'&outFields=lup_type&geometryPrecision=4&outSR=4326&f=geojson",
     layer: {
       type: "fill",
+      legend: [
+        ["#f26522", "Metropolitan Center"],
+        ["#223860", "Metropolitan Subcenter"],
+        ["#0b6d32", "Suburban Center"],
+        ["#729faa", "Town Center"],
+        ["#ed1c24", "Rural Center"],
+        ["#9d1d20", "Planned Town Center"],
+      ],
       paint: {
         "fill-color": [
           "case",
@@ -105,7 +262,7 @@ export const togglableLayers = {
       },
     },
   },
-  freight: {
+  {
     key: "freight",
     id: "Freight Centers",
     type: "geojson",
@@ -150,7 +307,7 @@ export const togglableLayers = {
       },
     },
   },
-  landuse: {
+  {
     key: "landuse",
     id: "DVRPC Land Use (2019)",
     url: "https://tiles.dvrpc.org/data/dvrpc-landuse-2015.json",
@@ -220,4 +377,59 @@ export const togglableLayers = {
       },
     },
   },
-};
+  {
+    key: "urbanizedareas",
+    id: "Urbanized Areas",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/UrbanAreas_PA/FeatureServer/0/query?where=1%3D1&outSR=4326&f=geojson",
+    layer: {
+      type: "fill",
+      paint: {
+        "fill-color": "#73B2FF",
+        "fill-opacity": 0.4,
+      },
+    },
+  },
+  {
+    key: "federalaidroutes",
+    id: "Federal Aid Routes",
+    type: "geojson",
+    data: "https://mapservices.pasda.psu.edu/server/rest/services/pasda/PennDOT/MapServer/2/query?where=FED_AID_SY=%271%27&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      paint: {
+        "line-color": "#A7C636",
+      },
+    },
+  },
+  {
+    key: "trails",
+    id: "Circuit Trails",
+    type: "geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CircuitTrails/FeatureServer/0/query?where=1%3D1&outFields=circuit&outSR=4326&f=geojson",
+    layer: {
+      type: "line",
+      legend: [
+        ["#7EB238", "Existing"],
+        ["#fdae61", "In Progress"],
+        ["#AF46A4", "Pipeline"],
+        ["#329aa7", "Planned"],
+      ],
+      paint: {
+        "line-color": [
+          "case",
+          ["==", ["get", "circuit"], "Existing"],
+          "#7EB238",
+          ["==", ["get", "circuit"], "In Progress"],
+          "#fdae61",
+          ["==", ["get", "circuit"], "Pipeline"],
+          "#AF46A4",
+          ["==", ["get", "circuit"], "Planned"],
+          "#329aa7",
+          "#cccccc",
+        ],
+        "line-width": 3,
+      },
+    },
+  },
+];

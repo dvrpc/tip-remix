@@ -9,10 +9,6 @@ export async function getProject(id) {
 }
 
 export async function searchProjects(keyword = "", filters = "") {
-  console.log(
-    "searchProjects",
-    `https://www.dvrpc.org/data/TIP/2023/list/${keyword}/${filters}`
-  );
   const data = await fetch(
     `https://www.dvrpc.org/data/TIP/2023/list/${keyword}/${filters}`
   );
