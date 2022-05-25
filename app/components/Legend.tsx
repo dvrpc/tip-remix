@@ -2,7 +2,9 @@ import { togglableLayers } from "~/mapbox-layers";
 import { categories } from "~/utils";
 
 export default function Legend({ activeLayer }) {
-  const source = togglableLayers.find((l) => l.id === activeLayer[0]);
+  const source = activeLayer
+    ? togglableLayers.find((l) => l.id === activeLayer[0])
+    : undefined;
 
   return (
     <div className="absolute bg-stone-600/90 bottom-0 cursor-default m-4 max-w-full overflow-clip p-4 rounded text-white z-50">

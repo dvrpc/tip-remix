@@ -1,16 +1,12 @@
 import { useNavigate, useSubmit } from "remix";
 import { useCallback, useEffect, useState } from "react";
 import Map, { Source, Layer, Popup } from "react-map-gl";
-import LayerPicker from "~/components/LayerPicker";
-import BoundaryPicker from "~/components/BoundaryPicker";
-import {
-  basemapLayers,
-  boundaryLayers,
-  togglableLayers,
-} from "~/mapbox-layers";
+import { LngLatBounds, MapLayerMouseEvent } from "mapbox-gl";
+import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
 import { getCategoryColor } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
+import { SingleValue } from "react-select";
 
 export const links = () => {
   return [
@@ -31,14 +27,12 @@ export default function MapContainer({
 }) {
   const navigate = useNavigate();
   const [interactiveLayerIds, setInteractiveLayerIds] = useState();
-  const [activeLayer, setActiveLayer] = useState([]);
-  const [activeBoundary, setActiveBoundary] = useState([
-    "Counties and Muncipalities",
-  ]);
+  const [activeLayer, setActiveLayer] = useState();
+  const [activeBoundary, setActiveBoundary] = useState();
   const submit = useSubmit();
 
   //map mousemove callback
-  const onHover = useCallback((event) => {
+  const onHover = useCallback((event: MapLayerMouseEvent) => {
     event.features
       ? setShowPopup({
           feature: event.features[0],
@@ -50,14 +44,14 @@ export default function MapContainer({
 
   const onMouseLeave = useCallback(() => setShowPopup(null), []);
 
-  //map click callbock
+  //map click callback
   const onClick = useCallback(
-    (event) => {
+    (event: MapLayerMouseEvent) => {
       const { features } = event;
       const feature = features && features[0];
       feature &&
         navigate({
-          pathname: feature.properties.mpms_id.toString(),
+          pathname: feature.properties?.mpms_id.toString(),
           search: location.search,
         });
     },
@@ -78,10 +72,10 @@ export default function MapContainer({
     }
   }, [mapData]);
 
-  const maxExtent = [
+  const maxExtent = new LngLatBounds([
     [-76.13660270099047, 39.51488251559762],
     [-74.38970960698468, 40.60856713855744],
-  ];
+  ]);
 
   return (
     <Map
@@ -103,7 +97,10 @@ export default function MapContainer({
             <Layer
               {...layer}
               layout={{
-                visibility: activeBoundary[0] === props.id ? "visible" : "none",
+                visibility:
+                  activeBoundary && activeBoundary[0] === props.id
+                    ? "visible"
+                    : "none",
               }}
             />
           </Source>
@@ -118,7 +115,10 @@ export default function MapContainer({
             <Layer
               {...layer}
               layout={{
-                visibility: activeLayer[0] === props.id ? "visible" : "none",
+                visibility:
+                  activeLayer && activeLayer[0] === props.id
+                    ? "visible"
+                    : "none",
               }}
             />
           </Source>
@@ -126,7 +126,7 @@ export default function MapContainer({
       })}
 
       {mapData.type === "done" &&
-        mapData.data.map((d) => (
+        mapData.data.map((d: any) => (
           <Source type="geojson" data={d} key={d.id}>
             <Layer {...d.layer} />
           </Source>
@@ -165,7 +165,7 @@ export default function MapContainer({
           name="boundary"
           title="Boundaries"
           options={boundaryLayers.map((l) => l.id)}
-          deselect
+          submit={submit}
         />
         <DetailsToggle
           filter={activeLayer}
@@ -174,6 +174,7 @@ export default function MapContainer({
           title="Layers"
           options={togglableLayers.map((l) => l.id)}
           deselect
+          submit={submit}
         />
       </div>
       <Legend activeLayer={activeLayer} />

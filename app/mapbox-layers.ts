@@ -9,6 +9,7 @@ export const boundaryLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/DVRPC_MCD_PhiCPA/FeatureServer/0/query?where=state_name='Pennsylvania'&outSR=4326&f=geojson",
     layer: {
+      id: "county",
       type: "line",
       paint: {
         "line-color": "#777",
@@ -21,6 +22,7 @@ export const boundaryLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_Congressional/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
+      id: "congressional",
       type: "line",
       paint: {
         "line-color": "#777",
@@ -33,6 +35,7 @@ export const boundaryLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_Senate/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
+      id: "senate",
       type: "line",
       paint: {
         "line-color": "#777",
@@ -45,6 +48,7 @@ export const boundaryLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_House/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
+      id: "house",
       type: "line",
       paint: {
         "line-color": "#777",
@@ -60,6 +64,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
+      id: "ipd",
       type: "fill",
       continuous: true,
       legend: [
@@ -115,6 +120,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
     layer: {
+      id: "racialminority",
       type: "fill",
       legend: [
         ["#253494", "Well Above Average"],
@@ -161,6 +167,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
     layer: {
+      id: "lowincome",
       type: "fill",
       legend: [
         ["#253494", "Well Above Average"],
@@ -207,6 +214,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CMP2019_CorridorSubCorridorAreas/FeatureServer/0/query?where=state='PA'&outFields=WEB_COLOR&returnGeometry=true&geometryPrecision=4&outSR=4326&f=geojson",
     layer: {
+      id: "cmp",
       type: "fill",
       paint: {
         "fill-color": ["get", "web_color"],
@@ -220,6 +228,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2050_PlanningCenters/FeatureServer/0/query?where=state='PA'&outFields=lup_type&geometryPrecision=4&outSR=4326&f=geojson",
     layer: {
+      id: "connections",
       type: "fill",
       legend: [
         ["#f26522", "Metropolitan Center"],
@@ -268,6 +277,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2045_Freight_Centers/FeatureServer/0/query?where=1%3D1&outFields=types&outSR=4326&f=geojson",
     layer: {
+      id: "freight",
       type: "fill",
       legend: [
         ["#f4bd48", "International Gateway"],
@@ -313,6 +323,7 @@ export const togglableLayers = [
     url: "https://tiles.dvrpc.org/data/dvrpc-landuse-2015.json",
     type: "vector",
     layer: {
+      id: "landuse",
       type: "fill",
       "source-layer": "lu2015",
       popup: {},
@@ -383,6 +394,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/UrbanAreas_PA/FeatureServer/0/query?where=1%3D1&outSR=4326&f=geojson",
     layer: {
+      id: "urbanizedareas",
       type: "fill",
       paint: {
         "fill-color": "#73B2FF",
@@ -396,6 +408,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://mapservices.pasda.psu.edu/server/rest/services/pasda/PennDOT/MapServer/2/query?where=FED_AID_SY=%271%27&outSR=4326&f=geojson",
     layer: {
+      id: "federalaidroutes",
       type: "line",
       paint: {
         "line-color": "#A7C636",
@@ -408,6 +421,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CircuitTrails/FeatureServer/0/query?where=1%3D1&outFields=circuit&outSR=4326&f=geojson",
     layer: {
+      id: "trails",
       type: "line",
       legend: [
         ["#7EB238", "Existing"],
