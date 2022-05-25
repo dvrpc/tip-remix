@@ -1,5 +1,6 @@
 import {
   json,
+  LoaderFunction,
   Outlet,
   useFetcher,
   useLoaderData,
@@ -9,30 +10,42 @@ import {
 } from "remix";
 import { useState } from "react";
 import { useAppContext } from "~/AppContext";
-import { getProjects, searchProjects } from "~/project";
+import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
 import Map, { links as mapLinks } from "~/components/Map";
+
+const categories = [
+  { value: "1", label: "Bicycle/Pedestrian Improvement" },
+  { value: "2", label: "Bridge Repair/Replacement" },
+  { value: "3", label: "Streetscape" },
+  { value: "4", label: "Transit Improvements" },
+  { value: "5", label: "Signal/ITS Improvements" },
+  { value: "6", label: "Roadway Rehabilitation" },
+  { value: "7", label: "Roadway New Capacity" },
+  { value: "8", label: "Intersection/Interchange Improvements" },
+  { value: "9", label: "Other" },
+];
 
 export const links = () => {
   return mapLinks();
 };
 
-export const loader = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const keyword = url.searchParams.get("keyword");
-  const categories = url.searchParams.getAll("categories");
-  const aqcode = url.searchParams.get("aqcode");
-  const filterLookup = { typecodes: categories, aqcodes: [aqcode] };
-  const filters = Object.keys(filterLookup)
-    .map((i) => `${i}=${filterLookup[i].join(",")}`)
-    .join(";");
-  console.log("url", keyword, filters);
-  let projects;
-  if (keyword) {
-    projects = await searchProjects(keyword, filters);
-  } else {
-    projects = await getProjects();
+  interface Map {
+    [key: string]: string[] | undefined;
   }
+  const filterLookup: Map = {
+    typecodes: url.searchParams.getAll("categories"),
+    aqcodes: url.searchParams.getAll("aqcodes"),
+    fundcodes: url.searchParams.getAll("funds"),
+    lrpids: url.searchParams.getAll("lrpids"),
+  };
+  const filters = Object.keys(filterLookup)
+    .map((i) => `${i}=${filterLookup[i]?.join(",")}`)
+    .join(";");
+  const projects = await searchProjects(keyword, filters);
   const funds = await getFunds();
   return { projects, funds };
 };
@@ -42,18 +55,29 @@ export default function Projects() {
     appContext: { appName, startYear, endYear },
   } = useAppContext();
   const { projects, funds } = useLoaderData();
+  const [searchParams] = useSearchParams();
   const location = useLocation();
   const transition = useTransition();
   const sortState = useState("road_name");
-  const categoryFilterState = useState(Array(9).fill(true));
-  const aqcodeFilterState = useState([]);
-  const fundFilterState = useState([]);
-  const mrpFilterState = useState([]);
+  const categoryFilterState = useState(
+    searchParams.getAll("categories").map((i) => ({
+      value: i,
+      label: categories.find((c) => c.value === i)?.label,
+    }))
+  );
+  const aqcodeFilterState = useState(
+    searchParams.getAll("aqcodes").map((i) => ({ value: i, label: i }))
+  );
+  const fundFilterState = useState(
+    searchParams.getAll("funds").map((i) => ({ value: i, label: i }))
+  );
+  const mrpFilterState = useState(
+    searchParams.getAll("mrpids").map((i) => ({ value: i, label: i }))
+  );
+  const keywordState = useState(searchParams.get("keyword"));
 
   const [showPopup, setShowPopup] = useState(null);
   const [hoverProject, setHoverProject] = useState(null);
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword");
   const mapData = useFetcher();
 
   return (
@@ -80,8 +104,8 @@ export default function Projects() {
           </h2>
         </div>
       </nav>
-      <nav className="col-span-1 flex items-center justify-end z-50 pr-4">
-        <ul className="divide-x gap-4 flex items-center justify-end w-full">
+      <nav className="col-span-1 flex items-center justify-end pr-4 z-50">
+        <ul className="divide-x flex gap-4 items-center justify-end w-full">
           <li className="md:mr-auto">
             <a className="underline" href="#">
               <strong>Comment</strong>
@@ -102,17 +126,18 @@ export default function Projects() {
       <main className="bg-stone-700 overflow-hidden text-white md:order-2">
         <Outlet
           context={{
-            keyword,
             transition,
             projects,
             funds,
             setHoverProject,
+            keywordState,
             sortState,
             categoryFilterState,
             aqcodeFilterState,
             fundFilterState,
             mrpFilterState,
             location,
+            categories,
           }}
         />
       </main>
@@ -123,7 +148,6 @@ export default function Projects() {
           setShowPopup={setShowPopup}
           showPopup={showPopup}
           location={location}
-          transition={transition}
         />
       </aside>
     </div>

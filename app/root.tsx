@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Links,
   LiveReload,
@@ -12,7 +13,7 @@ import { AppProvider } from "./AppContext";
 import styles from "./styles/app.css";
 
 const globals = {
-  appName: "Draft FY23 TIP for PA",
+  appName: "Draft FY2023 TIP for PA",
   startYear: 23,
   endYear: 26,
 };
@@ -32,18 +33,20 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   return (
-    <html lang="en">
-      <head>
-        <Links />
-      </head>
-      <body>
-        <AppProvider value={globals}>
-          <Outlet />
-        </AppProvider>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
+    <React.StrictMode>
+      <html lang="en">
+        <head>
+          <Links />
+        </head>
+        <body>
+          <AppProvider value={globals}>
+            <Outlet />
+          </AppProvider>
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </html>
+    </React.StrictMode>
   );
 }

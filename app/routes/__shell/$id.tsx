@@ -1,9 +1,23 @@
-import { json, Link, useLoaderData, useLocation } from "remix";
+import { json, Link, LoaderFunction, useLoaderData, useLocation } from "remix";
 import { getProject } from "~/project";
 import { useAppContext } from "~/AppContext";
 
-export const loader = async ({ params }) => {
-  return json(await getProject(params.id));
+type Project = {
+  municipalities?: string;
+  county: string;
+  id: string;
+  road_name: string;
+  description: string;
+  limits: string;
+  aq_code: string;
+  funding: any;
+  milestones: {
+    data: any[];
+  };
+};
+
+export const loader: LoaderFunction = async ({ params }) => {
+  return params.id && json(await getProject(params.id));
 };
 
 /**
@@ -18,7 +32,7 @@ export const loader = async ({ params }) => {
  * @param {Object} project
  * @returns string
  */
-function formatLocation(project) {
+function formatLocation(project: Project): string {
   let mcdArr = project.municipalities?.split(",") || [""];
   const lastMcd = mcdArr.pop();
   let mcds = "";
@@ -102,7 +116,7 @@ export default function ProjectDetails() {
           </tr>
         </thead>
         <tbody className="border-y-2">
-          {project.funding?.data.map((row) => (
+          {project.funding?.data.map((row: number[]) => (
             <tr key={row[0] + row[1]}>
               <td>{row[0]}</td>
               <td>{row[1]}</td>
@@ -115,21 +129,21 @@ export default function ProjectDetails() {
           ))}
           <tr>
             <td colSpan={2}>Program Year Totals (in Thousands):</td>
-            <td className="font-bold">{funding[0]}</td>
-            <td className="font-bold">{funding[1]}</td>
-            <td className="font-bold">{funding[2]}</td>
-            <td className="font-bold">{funding[3]}</td>
+            <td className="font-bold">{funding && funding[0]}</td>
+            <td className="font-bold">{funding && funding[1]}</td>
+            <td className="font-bold">{funding && funding[2]}</td>
+            <td className="font-bold">{funding && funding[3]}</td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td colSpan={2}>
               Total FY{startYear}-FY{endYear} Cost (in Thousands):
             </td>
-            <td>{funding[4]}</td>
+            <td>{funding && funding[4]}</td>
             <td colSpan={2}>
               Total FY{startYear}-FY{startYear + 12} Cost (in Thousands):
             </td>
-            <td>{funding[5]}</td>
+            <td>{funding && funding[5]}</td>
             <td>&nbsp;</td>
           </tr>
         </tbody>
@@ -148,7 +162,7 @@ export default function ProjectDetails() {
             </tr>
           </thead>
           <tbody>
-            {project.milestones.data.map((row) => (
+            {project.milestones.data.map((row: string[]) => (
               <tr key={row.join()}>
                 <td>{row[0]}</td>
                 <td>{row[1]}</td>
@@ -164,13 +178,13 @@ export default function ProjectDetails() {
   );
 }
 
-export const getTotals = (info) => {
-  let y1Funding,
-    y2Funding,
-    y3Funding,
-    y4Funding,
-    programYearsFunding,
-    totalFunding;
+export const getTotals = (info: number[][]) => {
+  let y1Funding: number,
+    y2Funding: number,
+    y3Funding: number,
+    y4Funding: number,
+    programYearsFunding: number,
+    totalFunding: number;
   y1Funding =
     y2Funding =
     y3Funding =
@@ -203,19 +217,19 @@ export const getTotals = (info) => {
   return convertToCurrency(formattedFunds);
 };
 
-const convertToCurrency = (jawns) => {
+const convertToCurrency = (cost: number[]): string[] | null => {
   const test = 0;
 
   // check if browser supports the locales and options arguments of toLocaleString
   try {
     test.toLocaleString("en-US");
-  } catch (e) {
+  } catch (e: any) {
     console.error("failed ", e);
-    return e.name === "RangeError";
+    if (e.name === "RangeError") return null;
   }
 
   // add commas
-  return jawns.map((fund) =>
+  return cost.map((fund) =>
     fund
       .toLocaleString("en-US", { style: "currency", currency: "USD" })
       .slice(0, -3)

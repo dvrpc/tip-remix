@@ -3,14 +3,16 @@ export async function getProjects() {
   return await data.json();
 }
 
-export async function getProject(id) {
+export async function getProject(id: string) {
   const data = await fetch(`https://www.dvrpc.org/data/TIP/2023/id/${id}`);
   return await data.json();
 }
 
-export async function searchProjects(keyword = "", filters = "") {
+export async function searchProjects(keyword: string | null, filters = "") {
   const data = await fetch(
-    `https://www.dvrpc.org/data/TIP/2023/list/${keyword}/${filters}`
+    `https://www.dvrpc.org/data/TIP/2023/list/${
+      keyword ? keyword : "_"
+    }/${filters}`
   );
   return await data.json();
 }

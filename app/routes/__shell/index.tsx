@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createRef, useRef, useState } from "react";
 import {
   Form,
   Link,
@@ -18,32 +18,36 @@ export const links = () => {
 
 export default function Panel() {
   const {
-    keyword,
     transition,
     projects,
     funds,
     setHoverProject,
+    keywordState,
     sortState,
     categoryFilterState,
     aqcodeFilterState,
     fundFilterState,
     mrpFilterState,
     location,
+    categories,
   } = useOutletContext();
+  const [keyword, setKeyword] = keywordState;
   const [sortKey, setSortKey] = sortState;
   const [categoryFilter, setCategoryFilter] = categoryFilterState;
   const [aqcodeFilter, setAqcodeFilter] = aqcodeFilterState;
   const [fundFilter, setFundFilter] = fundFilterState;
   const [mrpFilter, setMrpFilter] = mrpFilterState;
   const navigate = useNavigate();
-  const submit = useSubmit();
+  const submitHandler = useSubmit();
+  const formRef = useRef<HTMLFormElement>(null);
+  const submit = () => submitHandler(formRef.current);
 
   return (
     <article
       className="flex flex-col max-h-full"
       style={{ colorScheme: "dark" }}
     >
-      <Form className="m-8 mb-0">
+      <Form className="m-8 mb-0" ref={formRef}>
         <div className="flex flex-row gap-2">
           <input
             type="search"
@@ -51,7 +55,11 @@ export default function Panel() {
             placeholder="Search by keyword or MPMS"
             defaultValue={keyword}
             onChange={(e) =>
-              e.target.value.length || navigate("", { keyword: null })
+              e.target.value.length ||
+              navigate({
+                pathname: "",
+                search: { ...location.search, keyword: "" },
+              })
             }
             className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />
@@ -62,60 +70,75 @@ export default function Panel() {
             {transition.submission ? "Searching..." : "Search"}
           </button>
         </div>
-        <div className="flex flex-row gap-2 justify-between my-4">
-          <SortPicker
-            sortKey={sortKey}
-            setSortKey={setSortKey}
-            submit={submit}
-          />
-          <DetailsToggle
-            multiple
-            filter={categoryFilter}
-            setFilter={setCategoryFilter}
-            options={[
-              "",
-              "Bicycle/Pedestrian Improvement",
-              "Bridge Repair/Replacement",
-              "Streetscape",
-              "Transit Improvements",
-              "Signal/ITS Improvements",
-              "Roadway Rehabilitation",
-              "Roadway New Capacity",
-              "Intersection/Interchange Improvements",
-              "Other",
-            ]}
-            title="Category"
-            name="categories"
-            submit={submit}
-          />
-          <DetailsToggle
-            multiple
-            filter={aqcodeFilter}
-            setFilter={setAqcodeFilter}
-            options={[...new Set(projects.map((p) => p.aq_code))].sort()}
-            title="AQ Code"
-            name="aqcodes"
-            submit={submit}
-          />
-          <DetailsToggle
-            multiple
-            filter={fundFilter}
-            setFilter={setFundFilter}
-            options={[...new Set(funds.map((f) => f.code))].sort()}
-            title="Fund"
-            name="funds"
-            submit={submit}
-          />
-          <DetailsToggle
-            multiple
-            filter={mrpFilter}
-            setFilter={setMrpFilter}
-            title="MRP"
-            name="lrpids"
-            options={[...new Set(projects.map((p) => p.mrp))].sort()}
-            submit={submit}
-          />
-        </div>
+        <details>
+          <summary className="cursor-pointer text-right">
+            advanced{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="inline-block"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div className="flex flex-col gap-2 justify-between my-4">
+            <DetailsToggle
+              options={[
+                { value: "id", label: "ID" },
+                { value: "road_name", label: "Name" },
+                { value: "category", label: "Category" },
+              ]}
+              name="sortKey"
+              title="Sort"
+              filter={sortKey}
+              setFilter={setSortKey}
+              submit={submit}
+            />
+            <DetailsToggle
+              multiple
+              filter={categoryFilter}
+              setFilter={setCategoryFilter}
+              options={categories}
+              title="Category"
+              name="categories"
+              submit={submit}
+            />
+            <DetailsToggle
+              multiple
+              filter={aqcodeFilter}
+              setFilter={setAqcodeFilter}
+              options={[...new Set(projects?.map((p) => p.aq_code))].sort()}
+              title="AQ Code"
+              name="aqcodes"
+              submit={submit}
+            />
+            <DetailsToggle
+              multiple
+              filter={fundFilter}
+              setFilter={setFundFilter}
+              options={[...new Set(funds.map((f) => f.code))].sort()}
+              title="Fund"
+              name="funds"
+              submit={submit}
+            />
+            <DetailsToggle
+              multiple
+              filter={mrpFilter}
+              setFilter={setMrpFilter}
+              title="MRP"
+              name="lrpids"
+              options={[...new Set(projects?.map((p) => p.mrp))].sort()}
+              submit={submit}
+            />
+          </div>
+        </details>
       </Form>
       <ul className="flex flex-col mt-4 overflow-auto p-8 pt-0">
         {projects?.sort(sortByProperty(sortKey, true)).map((p) => (
