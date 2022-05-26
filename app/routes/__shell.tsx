@@ -168,6 +168,7 @@ export default function Projects() {
           setShowPopup={setShowPopup}
           showPopup={showPopup}
           location={location}
+          hoverProject={hoverProject}
         />
       </aside>
     </div>

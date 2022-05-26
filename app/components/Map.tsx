@@ -1,5 +1,5 @@
-import { useNavigate, useSubmit } from "remix";
-import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useSubmit, useParams } from "remix";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, { Source, Layer, Popup } from "react-map-gl";
 import { LngLatBounds, MapLayerMouseEvent } from "mapbox-gl";
 import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
@@ -8,6 +8,8 @@ import { getCategoryColor } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
 import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
+
+import type { MapRef } from "react-map-gl";
 
 export const links = () => {
   return [
@@ -25,6 +27,7 @@ export default function MapContainer({
   setShowPopup,
   showPopup,
   location,
+  hoverProject,
 }) {
   const navigate = useNavigate();
   const {
@@ -37,6 +40,10 @@ export default function MapContainer({
     value: "Counties and Muncipalities",
   });
   const submit = useSubmit();
+  const { id } = useParams();
+  const map = useRef<MapRef>();
+
+  console.log(id);
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
@@ -79,6 +86,21 @@ export default function MapContainer({
     }
   }, [mapData]);
 
+  //zoom to project
+  useEffect(() => {
+    console.log(interactiveLayerIds && interactiveLayerIds[0]);
+    if (mapData.type === "done" && interactiveLayerIds) {
+      console.log(map.current?.querySourceFeatures(interactiveLayerIds[0]));
+      //map.current.panTo(getLatLng(id));
+    }
+  }, [mapData, id, interactiveLayerIds]);
+
+  //Filter highlighted project
+  const filter = useMemo(
+    () => ["in", "mpms_id", hoverProject ? parseInt(hoverProject, 10) : ""],
+    [hoverProject]
+  );
+
   const maxExtent = new LngLatBounds([
     [-76.13660270099047, 39.51488251559762],
     [-74.38970960698468, 40.60856713855744],
@@ -95,6 +117,7 @@ export default function MapContainer({
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
+      ref={map}
     >
       {boundaryLayers.map((source) => {
         const { key, layer, ...props } = source;
@@ -131,7 +154,9 @@ export default function MapContainer({
       {mapData.type === "done" &&
         mapData.data.map((d: any) => (
           <Source type="geojson" data={d} key={d.id}>
+            <Layer {...d.highlightLayer} filter={filter} />
             <Layer {...d.layer} />
+            <Layer {...d.backlightLayer} filter={filter} />
           </Source>
         ))}
 

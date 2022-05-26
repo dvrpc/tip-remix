@@ -121,17 +121,17 @@ export default function ProjectDetails() {
         {project.description ? project.description : "No description provided."}
       </p>
       {project.limits && (
-        <p>
+        <div>
           <strong>Limits:</strong> {project.limits}
-        </p>
+        </div>
       )}
       {project.aq_code && (
-        <p>
+        <div>
           <strong>Air Quality Code</strong>: {project.aq_code}
-        </p>
+        </div>
       )}
-      <table className="mt-4 table-fixed">
-        <caption>
+      <table className="mt-0 table-fixed">
+        <caption className="text-left">
           <h3>{appName} Program Years (in Thousands)</h3>
         </caption>
         <thead>
@@ -164,7 +164,7 @@ export default function ProjectDetails() {
             </tr>
           ))}
           <tr>
-            <td colSpan={2}>Program Year Totals (in Thousands):</td>
+            <td colSpan={2}>Program Year Totals:</td>
             <td className="font-bold">{funding && funding[0]}</td>
             <td className="font-bold">{funding && funding[1]}</td>
             <td className="font-bold">{funding && funding[2]}</td>
@@ -173,21 +173,28 @@ export default function ProjectDetails() {
           </tr>
           <tr>
             <td colSpan={2}>
-              Total FY{startYear}-FY{endYear} Cost (in Thousands):
+              Total FY{startYear}-FY{endYear} Cost:
             </td>
             <td>{funding && funding[4]}</td>
             <td colSpan={2}>
-              Total FY{startYear}-FY{startYear + 12} Cost (in Thousands):
+              Total FY{startYear}-FY{startYear + 12} Cost:
             </td>
             <td>{funding && funding[5]}</td>
             <td>&nbsp;</td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={7} className="italic">
+              All numbers in thousands.
+            </td>
+          </tr>
+        </tfoot>
       </table>
 
       {project.milestones?.data?.length ? (
         <table className="mt-4 table-auto">
-          <caption>
+          <caption className="text-left">
             <h3>Milestones</h3>
           </caption>
           <thead>

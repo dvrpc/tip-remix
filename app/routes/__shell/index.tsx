@@ -68,7 +68,7 @@ export default function Panel() {
             {transition.submission ? "Searching..." : "Search"}
           </button>
         </div>
-        <details open className="group">
+        <details open className="group open:mb-6">
           <summary className="cursor-pointer group-open:before:content-['hide_'] hover:text-stone-300 text-center text-stone-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@ export default function Panel() {
             key={p.id}
             id={p.id}
             data-p={JSON.stringify(p)}
-            onMouseEnter={(e) => setHoverProject(e.target.id)}
+            onMouseEnter={(e) => setHoverProject(e.target.closest('li').id)}
             onMouseLeave={() => setHoverProject(null)}
           >
             <div className="border-b border-stone-400 flex flex-1 items-center">

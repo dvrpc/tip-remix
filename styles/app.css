@@ -28,7 +28,7 @@ input[type="checkbox"]:checked {
 }
 
 .react-select .react-select__value-container {
-  @apply p-0.5;
+  @apply px-4 py-0.5;
 }
 
 .react-select .react-select__menu {
@@ -53,4 +53,14 @@ input[type="checkbox"]:checked {
 .react-select .react-select__single-value,
 .react-select .react-select__multi-value__label {
   @apply text-stone-200;
+}
+
+.mapboxgl-map .react-select .react-select__value-container {
+  @apply font-bold text-sm;
+}
+
+.react-select
+  .react-select__control--menu-is-open
+  .react-select__dropdown-indicator {
+  @apply text-yellow-400;
 }
