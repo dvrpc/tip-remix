@@ -7,6 +7,7 @@ import Legend from "./Legend";
 import { getCategoryColor } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
 import { SingleValue } from "react-select";
+import { useAppContext } from "~/AppContext";
 
 export const links = () => {
   return [
@@ -26,9 +27,15 @@ export default function MapContainer({
   location,
 }) {
   const navigate = useNavigate();
+  const {
+    appContext: { basename },
+  } = useAppContext();
   const [interactiveLayerIds, setInteractiveLayerIds] = useState();
   const [activeLayer, setActiveLayer] = useState();
-  const [activeBoundary, setActiveBoundary] = useState();
+  const [activeBoundary, setActiveBoundary] = useState({
+    label: "Counties and Muncipalities",
+    value: "Counties and Muncipalities",
+  });
   const submit = useSubmit();
 
   //map mousemove callback
@@ -61,7 +68,7 @@ export default function MapContainer({
   //Load data layers based on project ids
   useEffect(() => {
     if (projects.length) {
-      mapData.load(`/map/${projects.map((p) => p.id).join(",")}`);
+      mapData.load(`${basename}/map/${projects.map((p) => p.id).join(",")}`);
     }
   }, [projects]);
 
@@ -82,7 +89,7 @@ export default function MapContainer({
       cursor="pointer"
       maxBounds={maxExtent}
       initialViewState={{ bounds: maxExtent }}
-      mapStyle="mapbox://styles/mapbox/outdoors-v11"
+      mapStyle="mapbox://styles/crvanpollard/cl309ua6g006a15qks975tm31"
       mapboxAccessToken="pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNqZDBkMDZhYjJ6YzczNHJ4cno5eTcydnMifQ.RJNJ7s7hBfrJITOBZBdcOA"
       interactiveLayerIds={interactiveLayerIds}
       onMouseMove={onHover}
@@ -98,9 +105,7 @@ export default function MapContainer({
               {...layer}
               layout={{
                 visibility:
-                  activeBoundary && activeBoundary[0] === props.id
-                    ? "visible"
-                    : "none",
+                  activeBoundary?.value === props.id ? "visible" : "none",
               }}
             />
           </Source>
@@ -116,9 +121,7 @@ export default function MapContainer({
               {...layer}
               layout={{
                 visibility:
-                  activeLayer && activeLayer[0] === props.id
-                    ? "visible"
-                    : "none",
+                  activeLayer?.value === props.id ? "visible" : "none",
               }}
             />
           </Source>
@@ -177,7 +180,7 @@ export default function MapContainer({
           submit={submit}
         />
       </div>
-      <Legend activeLayer={activeLayer} />
+      <Legend activeLayer={activeLayer?.value} />
     </Map>
   );
 }

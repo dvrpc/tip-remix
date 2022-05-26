@@ -1,5 +1,4 @@
 import {
-  json,
   LoaderFunction,
   Outlet,
   useFetcher,
@@ -13,6 +12,10 @@ import { useAppContext } from "~/AppContext";
 import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
 import Map, { links as mapLinks } from "~/components/Map";
+
+interface Map {
+  [key: string]: string[] | undefined;
+}
 
 const categories = [
   { value: "1", label: "Bicycle/Pedestrian Improvement" },
@@ -33,9 +36,6 @@ export const links = () => {
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const keyword = url.searchParams.get("keyword");
-  interface Map {
-    [key: string]: string[] | undefined;
-  }
   const filterLookup: Map = {
     typecodes: url.searchParams.getAll("categories"),
     aqcodes: url.searchParams.getAll("aqcodes"),
@@ -81,8 +81,8 @@ export default function Projects() {
   const mapData = useFetcher();
 
   return (
-    <div className="grid grid-cols-3 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
-      <nav className="col-span-2 z-50">
+    <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
+      <nav className="col-span-3 z-50">
         <div className="flex items-center">
           <div className="divide-gray-800 divide-x-2 flex gap-6 items-center m-4">
             <a href="https://www.dvrpc.org/" rel="external">
@@ -104,7 +104,7 @@ export default function Projects() {
           </h2>
         </div>
       </nav>
-      <nav className="col-span-1 flex items-center justify-end pr-4 z-50">
+      <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
         <ul className="divide-x flex gap-4 items-center justify-end w-full">
           <li className="md:mr-auto">
             <a className="underline" href="#">
@@ -123,7 +123,7 @@ export default function Projects() {
           </li>
         </ul>
       </nav>
-      <main className="bg-stone-700 overflow-hidden text-white md:order-2">
+      <main className="bg-stone-700 overflow-hidden text-white md:col-span-2 md:order-2">
         <Outlet
           context={{
             transition,
@@ -141,7 +141,7 @@ export default function Projects() {
           }}
         />
       </main>
-      <aside className="md:col-span-2">
+      <aside className="md:col-span-3">
         <Map
           projects={projects}
           mapData={mapData}

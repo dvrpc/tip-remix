@@ -69,7 +69,7 @@ export default function ProjectDetails() {
     : null;
 
   return (
-    <main className="bg-stone-700 max-h-full overflow-auto p-8 prose prose-stone sm:prose-invert">
+    <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
       <Link
         to={{ pathname: basename, search: location.search }}
         className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
@@ -117,7 +117,7 @@ export default function ProjectDetails() {
         </thead>
         <tbody className="border-y-2">
           {project.funding?.data.map((row: number[]) => (
-            <tr key={row[0] + row[1]}>
+            <tr key={row[0] + row[1]} className="border-b-white/5">
               <td>{row[0]}</td>
               <td>{row[1]}</td>
               <td>${row[2]}</td>
@@ -163,7 +163,7 @@ export default function ProjectDetails() {
           </thead>
           <tbody>
             {project.milestones.data.map((row: string[]) => (
-              <tr key={row.join()}>
+              <tr key={row.join()} className="border-b-white/5">
                 <td>{row[0]}</td>
                 <td>{row[1]}</td>
                 <td>{row[2]}</td>
@@ -174,7 +174,7 @@ export default function ProjectDetails() {
       ) : (
         <h3>No milestones are available for this project.</h3>
       )}
-    </main>
+    </article>
   );
 }
 

@@ -68,9 +68,8 @@ export default function Panel() {
             {transition.submission ? "Searching..." : "Search"}
           </button>
         </div>
-        <details>
-          <summary className="cursor-pointer text-right">
-            advanced{" "}
+        <details open className="group">
+          <summary className="cursor-pointer group-open:before:content-['hide_'] hover:text-stone-300 text-center text-stone-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -86,7 +85,8 @@ export default function Panel() {
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div className="flex flex-col gap-2 justify-between my-4">
+          <div className="grid grid-cols-3 gap-2 items-stretch">
+            <div className="col-span-1">
             <DetailsToggle
               options={[
                 { value: "id", label: "ID" },
@@ -99,6 +99,8 @@ export default function Panel() {
               setFilter={setSortKey}
               submit={submit}
             />
+            </div>
+            <div className="col-span-2">
             <DetailsToggle
               multiple
               filter={categoryFilter}
@@ -108,6 +110,9 @@ export default function Panel() {
               name="categories"
               submit={submit}
             />
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2 my-2">
             <DetailsToggle
               multiple
               filter={aqcodeFilter}
@@ -138,7 +143,7 @@ export default function Panel() {
           </div>
         </details>
       </Form>
-      <ul className="flex flex-col mt-4 overflow-auto p-8 pt-0">
+      <ul className="flex flex-col overflow-auto p-8 pt-0">
         {projects?.sort(sortByProperty(sortKey, true)).map((p) => (
           <li
             className="flex flex-nowrap flex-row hover:bg-stone-700 hover:underline items-stretch"

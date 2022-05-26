@@ -20,20 +20,28 @@ input[type="checkbox"]:checked {
 }
 
 .react-select .react-select__control {
-  @apply bg-stone-600 border-2 border-stone-600 hover:border-stone-500;
+  @apply bg-stone-600 border-2 border-stone-600 hover:border-stone-500 min-w-[140px];
 }
 
 .react-select .react-select__control--is-focused {
   @apply border-stone-400 hover:border-stone-400 shadow-none;
 }
 
+.react-select .react-select__value-container {
+  @apply p-0.5;
+}
+
 .react-select .react-select__menu {
-  @apply bg-stone-700 border-2 border-stone-600;
+  @apply bg-stone-700 border-2 border-stone-600 z-20;
 }
 
 .react-select .react-select__option,
 .react-select .react-select__multi-value {
   @apply bg-stone-700 hover:bg-stone-800 text-stone-200;
+}
+
+.react-select .react-select__indicator {
+  @apply p-0;
 }
 
 .react-select .react-select__indicator-separator {
