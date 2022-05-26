@@ -118,22 +118,7 @@ export default function CommentForm({
         {!isVisible.isGeneral && <input type="hidden" value={projectId} />}
         <label>
           Comment{" "}
-          {isVisible.isGeneral ? (
-            <small
-              className="cursor-pointer hover:text-stone-300 underline"
-              onClick={() =>
-                setIsVisible((prev) => {
-                  return {
-                    ...prev,
-                    isGeneral: false,
-                    visibility: true,
-                  };
-                })
-              }
-            >
-              (Want to leave a comment about Project {id}?)
-            </small>
-          ) : (
+          {!isVisible.isGeneral ? (
             <>
               {" "}
               for Project {projectId}{" "}
@@ -152,7 +137,22 @@ export default function CommentForm({
                 (Want to leave a general comment instead?)
               </small>
             </>
-          )}
+          ) : id ? (
+            <small
+              className="cursor-pointer hover:text-stone-300 underline"
+              onClick={() =>
+                setIsVisible((prev) => {
+                  return {
+                    ...prev,
+                    isGeneral: false,
+                    visibility: true,
+                  };
+                })
+              }
+            >
+              (Want to leave a comment about Project {id}?)
+            </small>
+          ) : null}
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
