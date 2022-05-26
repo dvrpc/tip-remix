@@ -10,29 +10,26 @@ export default function CommentForm({
 }: VisibilityProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [county, setCounty] = useState("");
   const [projectId, setProjectId] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { id } = useParams();
 
-  // autofill county and mpms
+  // autofill mpms
   useEffect(() => {
     if (!id) {
-      setCounty("");
       setProjectId("");
       return;
     }
 
     (async () => {
       const data = await getProject(id);
-      setCounty(data.county);
       setProjectId(data.id);
     })();
-  }, [id, setCounty, setProjectId, getProject]);
+  }, [id, setProjectId, getProject]);
 
-  const validate = (params = [county, projectId, fullName, email, comment]) => {
+  const validate = (params = [projectId, fullName, email, comment]) => {
     let ret = true;
     // only validate the fields required for general comments
     if (isVisible.isGeneral) params = params.slice(2);
@@ -46,7 +43,7 @@ export default function CommentForm({
   };
 
   const clear = (
-    arr = [setCounty, setProjectId, setFullName, setEmail, setComment, setError]
+    arr = [setProjectId, setFullName, setEmail, setComment, setError]
   ) => {
     // if there is a project selected clear all fields except those that have been autofilled ie the first 2
     if (id) arr = arr.slice(2);
@@ -65,7 +62,7 @@ export default function CommentForm({
         Name: fullName,
         email,
         comment_text: comment,
-        ...(!isVisible.isGeneral && { county, MPMS: projectId }),
+        ...(!isVisible.isGeneral && { MPMS: projectId }),
       };
 
       const request = await fetch(
@@ -97,7 +94,9 @@ export default function CommentForm({
   return (
     <>
       <div className="flex pt-4 px-4">
-        <h2 className="text-xl">Leave a Comment:</h2>
+        <h2 className="text-xl">
+          Leave a Comment{!isVisible.isGeneral && <> for Project {projectId}</>}
+        </h2>
         <span
           className="close cursor-pointer ml-auto text-2xl"
           onClick={() => {
@@ -116,24 +115,44 @@ export default function CommentForm({
       <form className="flex flex-col p-4" onSubmit={handleSubmit} id="test">
         <Input label={"Full name"} value={fullName} setValue={setFullName} />
         <Input label={"Email"} value={email} type="email" setValue={setEmail} />
-        {!isVisible.isGeneral && (
-          <div className="flex">
-            <Input
-              label={"County"}
-              value={county}
-              setValue={setCounty}
-              styles={{ width: "50%", marginRight: "2%" }}
-            />
-            <Input
-              label={"Project ID"}
-              value={projectId}
-              setValue={setProjectId}
-              styles={{ width: "50%", marginLeft: "2%" }}
-            />
-          </div>
-        )}
+        {!isVisible.isGeneral && <input type="hidden" value={projectId} />}
         <label>
-          Comment:
+          Comment{" "}
+          {isVisible.isGeneral ? (
+            <small
+              className="cursor-pointer hover:text-stone-300 underline"
+              onClick={() =>
+                setIsVisible((prev) => {
+                  return {
+                    ...prev,
+                    isGeneral: false,
+                    visibility: true,
+                  };
+                })
+              }
+            >
+              (Want to leave a comment about Project {id}?)
+            </small>
+          ) : (
+            <>
+              {" "}
+              for Project {projectId}{" "}
+              <small
+                className="cursor-pointer hover:text-stone-300 underline"
+                onClick={() =>
+                  setIsVisible((prev) => {
+                    return {
+                      ...prev,
+                      isGeneral: true,
+                      visibility: true,
+                    };
+                  })
+                }
+              >
+                (Want to leave a general comment instead?)
+              </small>
+            </>
+          )}
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}

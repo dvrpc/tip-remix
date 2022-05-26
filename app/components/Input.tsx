@@ -15,7 +15,7 @@ export default function Input({
 }: InputProps) {
   return (
     <label style={styles}>
-      {label}:
+      {label}
       <input
         type={type ? type : ""}
         value={value}
