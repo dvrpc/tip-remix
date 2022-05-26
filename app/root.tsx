@@ -13,6 +13,7 @@ import { AppProvider } from "./AppContext";
 import styles from "./styles/app.css";
 
 const globals = {
+  basename: "/tip/draft/map",
   appName: "Draft FY2023 TIP for PA",
   startYear: 23,
   endYear: 26,

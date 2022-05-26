@@ -59,7 +59,7 @@ function formatLocation(project: Project): string {
 
 export default function ProjectDetails() {
   const {
-    appContext: { appName, startYear, endYear },
+    appContext: { appName, basename, startYear, endYear },
   } = useAppContext();
   const project = useLoaderData();
   const location = useLocation();
@@ -71,7 +71,7 @@ export default function ProjectDetails() {
   return (
     <main className="bg-stone-700 max-h-full overflow-auto p-8 prose prose-stone sm:prose-invert">
       <Link
-        to={{ pathname: "/", search: location.search }}
+        to={{ pathname: basename, search: location.search }}
         className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
       >
         &#10094; Back

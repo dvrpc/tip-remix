@@ -1,16 +1,14 @@
-import { createRef, useRef, useState } from "react";
-import {
-  Form,
-  Link,
-  useNavigate,
-  useOutletContext,
-  useSubmit,
-} from "@remix-run/react";
+import { useRef, useState } from "react";
+import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
 import CategoryIcon, {
   links as categoryIconLinks,
 } from "~/components/CategoryIcon";
+
+interface Map {
+  [key: string]: string | undefined;
+}
 
 export const links = () => {
   return categoryIconLinks();
@@ -182,7 +180,7 @@ function SortPicker({ sortKey, setSortKey, submit }) {
     ? "after:content-['×'] after:text-xl after:ml-1 after:-mt-1"
     : "after:border-b-2 after:border-r-2 after:rotate-45 after:mt-2";
 
-  const options = {
+  const options: Map = {
     id: "ID",
     road_name: "Name",
     category: "Category",

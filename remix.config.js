@@ -1,11 +1,13 @@
 /**
  * @type {import('@remix-run/dev').AppConfig}
  */
+const { mountRoutes } = require("remix-mount-routes");
+const basePath = process.env.REMIX_BASEPATH ?? "/tip/draft/map";
+
 module.exports = {
   ignoredRouteFiles: [".*"],
-  serverDependenciesToBundle: [/react-syntax-highlighter/],
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "build/index.js",
-  // publicPath: "/build/",
+  publicPath: `${basePath}/build/`,
+  assetsBuildDirectory: `public${basePath}/build`,
+  serverDependenciesToBundle: ["mapbox-gl"],
+  routes: () => mountRoutes(basePath, "routes"),
 };
