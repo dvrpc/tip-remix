@@ -1,3 +1,4 @@
+import type { MapboxGeoJSONFeature } from "mapbox-gl";
 /**
  * Factory method for creating a sort function given a property name and optionally sorted descending.
  *
@@ -5,7 +6,7 @@
  * @param {boolean} isAscending
  * @returns Function
  */
-export function sortByProperty(prop, isAscending = true) {
+export function sortByProperty(prop: string, isAscending: boolean = true) {
   return (a, b) => {
     if (a[prop] < b[prop]) {
       return isAscending ? -1 : 1;
@@ -15,6 +16,41 @@ export function sortByProperty(prop, isAscending = true) {
     }
     return 0;
   };
+}
+
+/**
+ * Helper function to parse an array of GeoJson features and generate a bounding box
+ *
+ * @param {object} data
+ * @returns object
+ */
+export function getBoundingBox({
+  features,
+}: {
+  features: MapboxGeoJSONFeature[];
+}): {} {
+  let bounds = {};
+
+  for (let i = 0; i < features.length; i++) {
+    //Point
+    let coords = features[i].geometry.coordinates;
+    if (["MultiPoint", "LineString"].includes(features[i].geometry.type))
+      coords = coords.flat();
+    else if (
+      ["MultiLineString", "Polygon"].includes(features[i].geometry.type)
+    )
+      coords = coords.flat(2);
+    else if ("MultiPolygon" === features[i].geometry.type)
+      coords = coords.flat(3);
+
+    const [longitude, latitude] = coords;
+    bounds.xMin = bounds.xMin < longitude ? bounds.xMin : longitude;
+    bounds.xMax = bounds.xMax > longitude ? bounds.xMax : longitude;
+    bounds.yMin = bounds.yMin < latitude ? bounds.yMin : latitude;
+    bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
+  }
+
+  return bounds;
 }
 
 export const categories = {
@@ -36,7 +72,7 @@ export const categories = {
  * @param {string} category name
  * @returns {string} color for the category
  */
-export function getCategoryColor(category) {
+export function getCategoryColor(category: string): string {
   if (category in categories) return categories[category];
   else return categories.Other;
 }

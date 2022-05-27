@@ -4,7 +4,7 @@ import Map, { Source, Layer, Popup } from "react-map-gl";
 import { LngLatBounds, MapLayerMouseEvent } from "mapbox-gl";
 import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
-import { getCategoryColor } from "~/utils";
+import { getCategoryColor, getBoundingBox } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
 import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
@@ -42,8 +42,6 @@ export default function MapContainer({
   const submit = useSubmit();
   const { id } = useParams();
   const map = useRef<MapRef>();
-
-  console.log(id);
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
@@ -88,10 +86,24 @@ export default function MapContainer({
 
   //zoom to project
   useEffect(() => {
-    console.log(interactiveLayerIds && interactiveLayerIds[0]);
-    if (mapData.type === "done" && interactiveLayerIds) {
-      console.log(map.current?.querySourceFeatures(interactiveLayerIds[0]));
-      //map.current.panTo(getLatLng(id));
+    if (id && mapData.type === "done" && interactiveLayerIds) {
+      const features = interactiveLayerIds
+        .map((layer) =>
+          map.current?.querySourceFeatures(layer, {
+            filter: ["in", "mpms_id", parseInt(id, 10)],
+          })
+        )
+        .reduce((prev, curr) => [...prev, ...curr]);
+      const bbox = getBoundingBox({ features });
+      const { xMin, xMax, yMin, yMax } = bbox;
+      xMin &&
+        map.current?.fitBounds(
+          [
+            [xMin, yMin],
+            [xMax, yMax],
+          ],
+          { maxZoom: 11 }
+        );
     }
   }, [mapData, id, interactiveLayerIds]);
 
@@ -153,7 +165,7 @@ export default function MapContainer({
 
       {mapData.type === "done" &&
         mapData.data.map((d: any) => (
-          <Source type="geojson" data={d} key={d.id}>
+          <Source type="geojson" data={d} id={d.id} key={d.id}>
             <Layer {...d.highlightLayer} filter={filter} />
             <Layer {...d.layer} />
             <Layer {...d.backlightLayer} filter={filter} />

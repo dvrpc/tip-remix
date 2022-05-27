@@ -156,7 +156,7 @@ export default function CommentForm({
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
+            className="appearance-none bg-stone-600 flex-1 h-36 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />
         </label>
         {error && <div className="text-red-500">{error}</div>}
