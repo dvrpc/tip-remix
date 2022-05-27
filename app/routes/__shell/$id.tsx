@@ -147,7 +147,7 @@ export default function ProjectDetails() {
             <th>FY{startYear + 2}</th>
             <th>FY{startYear + 3}</th>
             <th>
-              FY{startYear + 4}-{startYear + 12}
+              FY{startYear + 4}-{startYear + 11}
             </th>
           </tr>
         </thead>
@@ -177,7 +177,7 @@ export default function ProjectDetails() {
             </td>
             <td>{funding && funding[4]}</td>
             <td colSpan={2}>
-              Total FY{startYear}-FY{startYear + 12} Cost:
+              Total FY{startYear}-FY{startYear + 11} Cost:
             </td>
             <td>{funding && funding[5]}</td>
             <td>&nbsp;</td>
@@ -186,7 +186,7 @@ export default function ProjectDetails() {
         <tfoot>
           <tr>
             <td colSpan={7} className="italic">
-              All numbers in thousands.
+              All costs in thousands.
             </td>
           </tr>
         </tfoot>
