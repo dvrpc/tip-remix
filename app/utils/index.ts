@@ -36,9 +36,7 @@ export function getBoundingBox({
     let coords = features[i].geometry.coordinates;
     if (["MultiPoint", "LineString"].includes(features[i].geometry.type))
       coords = coords.flat();
-    else if (
-      ["MultiLineString", "Polygon"].includes(features[i].geometry.type)
-    )
+    else if (["MultiLineString", "Polygon"].includes(features[i].geometry.type))
       coords = coords.flat(2);
     else if ("MultiPolygon" === features[i].geometry.type)
       coords = coords.flat(3);
@@ -76,3 +74,9 @@ export function getCategoryColor(category: string): string {
   if (category in categories) return categories[category];
   else return categories.Other;
 }
+
+export const legendLinks = {
+  ipd: "https://www.dvrpc.org/webmaps/ipd/#map",
+  trails: "https://www.dvrpc.org/webmaps/thecircuit/",
+  cmp: "https://www.dvrpc.org/webmaps/CMP2019/",
+};
