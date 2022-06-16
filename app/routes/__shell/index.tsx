@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
@@ -53,7 +53,17 @@ export default function Panel() {
             placeholder="Search by keyword or MPMS"
             defaultValue={keyword}
             onChange={(e) => {
-              e.target.value.length || navigate("");
+              if (!e.target.value.length) {
+                [
+                  setCategoryFilter,
+                  setAqcodeFilter,
+                  setFundFilter,
+                  setMrpFilter,
+                ].map((setState) => {
+                  setState([]);
+                });
+                navigate("");
+              }
             }}
             className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />

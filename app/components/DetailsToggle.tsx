@@ -55,7 +55,7 @@ export default function DetailsToggle({
 
   return (
     <ReactSelect
-      defaultValue={filter && filter[0]?.value?.length ? filter : null}
+      value={filter && filter[0]?.value?.length ? filter : null}
       onChange={(val) => {
         setFilter(val);
         setTimeout(() => submit(), 1);
