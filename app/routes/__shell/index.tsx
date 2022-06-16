@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
