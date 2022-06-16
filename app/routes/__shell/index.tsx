@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
 import CategoryIcon, {
   links as categoryIconLinks,
 } from "~/components/CategoryIcon";
+import { useAppContext } from "~/AppContext";
 
 interface Map {
   [key: string]: string | undefined;
@@ -29,6 +30,7 @@ export default function Panel() {
     location,
     categories,
   } = useOutletContext();
+  const { basename } = useAppContext();
   const [keyword, setKeyword] = keywordState;
   const [sortKey, setSortKey] = sortState;
   const [categoryFilter, setCategoryFilter] = categoryFilterState;
@@ -39,6 +41,21 @@ export default function Panel() {
   const submitHandler = useSubmit();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = () => submitHandler(formRef.current);
+  const [initialRender, setInitialRender] = useState(true);
+
+  // dont run on initial load (initialRender), if the keyword is empty "submit" form after 8 tenths of a second being empty
+  useEffect(() => {
+    if (!initialRender) {
+      const timer = setTimeout(() => {
+        if (!keyword) {
+          submit();
+        }
+      }, 800);
+      return () => clearTimeout(timer);
+    } else {
+      setInitialRender(!initialRender);
+    }
+  }, [keyword]);
 
   return (
     <article
@@ -52,13 +69,14 @@ export default function Panel() {
             name="keyword"
             placeholder="Search by keyword or MPMS"
             defaultValue={keyword}
-            onChange={(e) =>
+            onChange={(e) => {
+              setKeyword(e.target.value);
               e.target.value.length ||
-              navigate({
-                pathname: basename,
-                search: { ...location.search, keyword: "" },
-              })
-            }
+                navigate({
+                  pathname: basename,
+                  search: { ...location.search, keyword: "" },
+                });
+            }}
             className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />
           <button
