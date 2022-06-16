@@ -13,6 +13,7 @@ export const boundaryLayers = [
       type: "line",
       paint: {
         "line-color": "#777",
+        "line-width": 1.75,
       },
     },
   },
