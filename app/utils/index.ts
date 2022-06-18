@@ -74,9 +74,3 @@ export function getCategoryColor(category: string): string {
   if (category in categories) return categories[category];
   else return categories.Other;
 }
-
-export const legendLinks = {
-  ipd: "https://www.dvrpc.org/webmaps/ipd/#map",
-  trails: "https://www.dvrpc.org/webmaps/thecircuit/",
-  cmp: "https://www.dvrpc.org/webmaps/CMP2019/",
-};
