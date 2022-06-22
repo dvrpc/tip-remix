@@ -36,9 +36,7 @@ export function getBoundingBox({
     let coords = features[i].geometry.coordinates;
     if (["MultiPoint", "LineString"].includes(features[i].geometry.type))
       coords = coords.flat();
-    else if (
-      ["MultiLineString", "Polygon"].includes(features[i].geometry.type)
-    )
+    else if (["MultiLineString", "Polygon"].includes(features[i].geometry.type))
       coords = coords.flat(2);
     else if ("MultiPolygon" === features[i].geometry.type)
       coords = coords.flat(3);
