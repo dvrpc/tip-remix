@@ -39,6 +39,7 @@ export default function Panel() {
   const submitHandler = useSubmit();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = () => submitHandler(formRef.current);
+  let params = new URLSearchParams(location.search);
 
   return (
     <article
@@ -54,15 +55,11 @@ export default function Panel() {
             defaultValue={keyword}
             onChange={(e) => {
               if (!e.target.value.length) {
-                [
-                  setCategoryFilter,
-                  setAqcodeFilter,
-                  setFundFilter,
-                  setMrpFilter,
-                ].map((setState) => {
-                  setState([]);
+                params.set("keyword", "");
+                navigate({
+                  pathname: location.pathname,
+                  search: params.toString(),
                 });
-                navigate("");
               }
             }}
             className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
