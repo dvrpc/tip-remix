@@ -28,6 +28,7 @@ export default function Panel() {
     mrpFilterState,
     location,
     categories,
+    mappedProjects,
   } = useOutletContext();
   const [keyword, setKeyword] = keywordState;
   const [sortKey, setSortKey] = sortState;
@@ -162,6 +163,9 @@ export default function Panel() {
                 <strong>{p.id}</strong>
                 <span className="leading-tight">{p.road_name}</span>
               </Link>
+              {!mappedProjects.has(p.id) && (
+                <span className="text-zinc-500">Not Mapped</span>
+              )}
             </div>
           </li>
         ))}
