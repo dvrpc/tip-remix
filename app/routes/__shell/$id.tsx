@@ -96,22 +96,6 @@ export default function ProjectDetails() {
         >
           &#10094; Back
         </Link>
-        <div
-          className="bg-yellow-400 cursor-pointer font-bold hover:bg-yellow-500 mb-4 ml-auto no-underline p-2 rounded text-stone-700"
-          onClick={() =>
-            setIsVisible(
-              (prev: { isGeneral: boolean; visibility: boolean }) => {
-                return {
-                  ...prev,
-                  isGeneral: false,
-                  visibility: true,
-                };
-              }
-            )
-          }
-        >
-          Comment
-        </div>
       </div>
       <h2 className="mt-0">
         {project.id} | {project.road_name} {mcds}
