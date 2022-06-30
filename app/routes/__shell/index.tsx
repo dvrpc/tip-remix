@@ -164,7 +164,7 @@ export default function Panel() {
                 <span className="leading-tight">{p.road_name}</span>
               </Link>
               {!mappedProjects.has(p.id) && (
-                <span className="text-zinc-500">Not Mapped</span>
+                <span className="ml-auto text-zinc-500">Not Mapped</span>
               )}
             </div>
           </li>
