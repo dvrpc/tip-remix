@@ -88,16 +88,14 @@ export default function Projects() {
 
   const { data } = mapData;
   const [mappedProjects, setMappedProjects] = useState(new Set());
-  useEffect(() => {
-    if (data) {
-      let ret = new Set();
-      Object.keys(data).map((key) => {
-        let { features } = data[key];
-        features.map((feature) => ret.add(feature.properties.mpms_id));
-      });
-      setMappedProjects(ret);
-    }
-  }, [data]);
+  if (data && !mappedProjects.size) {
+    let ret = new Set();
+    Object.keys(data).map((key) => {
+      let { features } = data[key];
+      features.map((feature) => ret.add(feature.properties.mpms_id));
+    });
+    setMappedProjects(ret);
+  }
 
   return (
     <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
