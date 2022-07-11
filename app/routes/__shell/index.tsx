@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
@@ -39,6 +39,7 @@ export default function Panel() {
   const submitHandler = useSubmit();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = () => submitHandler(formRef.current);
+  let params = new URLSearchParams(location.search);
 
   return (
     <article
@@ -52,13 +53,15 @@ export default function Panel() {
             name="keyword"
             placeholder="Search by keyword or MPMS"
             defaultValue={keyword}
-            onChange={(e) =>
-              e.target.value.length ||
-              navigate({
-                pathname: basename,
-                search: { ...location.search, keyword: "" },
-              })
-            }
+            onChange={(e) => {
+              if (!e.target.value.length) {
+                params.set("keyword", "");
+                navigate({
+                  pathname: location.pathname,
+                  search: params.toString(),
+                });
+              }
+            }}
             className="appearance-none bg-stone-600 flex-1 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />
           <button
