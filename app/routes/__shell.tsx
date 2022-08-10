@@ -8,7 +8,7 @@ import {
   useSearchParams,
   useTransition,
 } from "remix";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "~/AppContext";
 import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
@@ -86,6 +86,17 @@ export default function Projects() {
     isGeneral: false,
   });
 
+  const { data } = mapData;
+  const [mappedProjects, setMappedProjects] = useState(new Set());
+  if (data && !mappedProjects.size) {
+    let ret = new Set();
+    Object.keys(data).map((key) => {
+      let { features } = data[key];
+      features.map((feature) => ret.add(feature.properties.mpms_id));
+    });
+    setMappedProjects(ret);
+  }
+
   return (
     <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
       <nav className="col-span-3 z-50">
@@ -143,6 +154,7 @@ export default function Projects() {
             location,
             categories,
             setIsVisible,
+            mappedProjects,
           }}
         />
       </main>
