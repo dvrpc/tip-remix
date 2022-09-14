@@ -44,8 +44,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     fundcodes: url.searchParams.getAll("funds"),
     lrpids: url.searchParams.getAll("lrpids"),
   };
-  const filters = Object.keys(filterLookup)
-    .map((i) => `${i}=${filterLookup[i]?.join(",")}`)
+  const filters = Object.entries(filterLookup)
+    .filter(([k, v]) => v[0] && v[0].length)
+    .map(([k, v]) => `${k}=${v.join(",")}`)
     .join(";");
   const projects = await searchProjects(keyword, filters);
   const funds = await getFunds();
