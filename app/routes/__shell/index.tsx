@@ -29,6 +29,7 @@ export default function Panel() {
     location,
     categories,
     mappedProjects,
+    pointsWithinView,
   } = useOutletContext();
   const [keyword, setKeyword] = keywordState;
   const [sortKey, setSortKey] = sortState;
@@ -157,19 +158,20 @@ export default function Panel() {
             onMouseEnter={(e) => setHoverProject(e.target.closest("li").id)}
             onMouseLeave={() => setHoverProject(null)}
           >
-            <div className="border-b border-stone-400 flex flex-1 items-center">
-              <Link
-                to={{ pathname: p.id.toString(), search: location.search }}
-                className="flex gap-4 items-center"
-              >
-                <CategoryIcon categoryName={p.category} />
-                <strong>{p.id}</strong>
-                <span className="leading-tight">{p.road_name}</span>
-              </Link>
-              {mappedProjects.size > 0 && !mappedProjects.has(p.id) && (
-                <span className="ml-auto text-zinc-500">Not Mapped</span>
+            {mappedProjects.size > 0 &&
+              mappedProjects.has(p.id) &&
+              pointsWithinView.has(p.id) && (
+                <div className="border-b border-stone-400 flex flex-1 items-center">
+                  <Link
+                    to={{ pathname: p.id.toString(), search: location.search }}
+                    className="flex gap-4 items-center"
+                  >
+                    <CategoryIcon categoryName={p.category} />
+                    <strong>{p.id}</strong>
+                    <span className="leading-tight">{p.road_name}</span>
+                  </Link>
+                </div>
               )}
-            </div>
           </li>
         ))}
       </ul>

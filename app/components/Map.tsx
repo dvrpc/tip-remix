@@ -10,6 +10,7 @@ import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
 
 import type { MapRef } from "react-map-gl";
+import { render } from "react-dom";
 
 export const links = () => {
   return [
@@ -28,6 +29,7 @@ export default function MapContainer({
   showPopup,
   location,
   hoverProject,
+  setPointsWithinView,
 }) {
   const navigate = useNavigate();
   const {
@@ -117,6 +119,21 @@ export default function MapContainer({
     [-76.13660270099047, 39.51488251559762],
     [-74.38970960698468, 40.60856713855744],
   ]);
+
+  const features = map.current?.queryRenderedFeatures({
+    layers: ["pa-tip-points", "pa-tip-lines"],
+  });
+
+  useEffect(() => {
+    if (features) {
+      const pointsWithinView = new Set();
+      for (const feature of features) {
+        const id = feature.properties.mpms_id;
+        if (!pointsWithinView.has(id)) pointsWithinView.add(id);
+      }
+      setPointsWithinView(new Set(pointsWithinView));
+    }
+  }, [features]);
 
   return (
     <Map
