@@ -5,6 +5,7 @@ import DetailsToggle from "~/components/DetailsToggle";
 import CategoryIcon, {
   links as categoryIconLinks,
 } from "~/components/CategoryIcon";
+import ProjectLink from "~/components/ProjectLink";
 
 interface Map {
   [key: string]: string | undefined;
@@ -29,7 +30,7 @@ export default function Panel() {
     location,
     categories,
     mappedProjects,
-    pointsWithinView,
+    projectsWithinView,
   } = useOutletContext();
   const [keyword, setKeyword] = keywordState;
   const [sortKey, setSortKey] = sortState;
@@ -149,31 +150,13 @@ export default function Panel() {
         </details>
       </Form>
       <ul className="flex flex-col overflow-auto p-8 pt-0">
-        {projects?.sort(sortByProperty(sortKey, true)).map((p) => (
-          <li
-            className="flex flex-nowrap flex-row hover:bg-stone-700 hover:underline items-stretch"
-            key={p.id}
-            id={p.id}
-            data-p={JSON.stringify(p)}
-            onMouseEnter={(e) => setHoverProject(e.target.closest("li").id)}
-            onMouseLeave={() => setHoverProject(null)}
-          >
-            {mappedProjects.size > 0 &&
-              mappedProjects.has(p.id) &&
-              pointsWithinView.has(p.id) && (
-                <div className="border-b border-stone-400 flex flex-1 items-center">
-                  <Link
-                    to={{ pathname: p.id.toString(), search: location.search }}
-                    className="flex gap-4 items-center"
-                  >
-                    <CategoryIcon categoryName={p.category} />
-                    <strong>{p.id}</strong>
-                    <span className="leading-tight">{p.road_name}</span>
-                  </Link>
-                </div>
-              )}
-          </li>
-        ))}
+        {projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
+          return !projectsWithinView.size ? (
+            <ProjectLink p={p} />
+          ) : (
+            projectsWithinView.has(p.id) && <ProjectLink p={p} />
+          );
+        })}
       </ul>
     </article>
   );

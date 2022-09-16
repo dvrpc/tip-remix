@@ -29,7 +29,7 @@ export default function MapContainer({
   showPopup,
   location,
   hoverProject,
-  setPointsWithinView,
+  setProjectsWithinView,
 }) {
   const navigate = useNavigate();
   const {
@@ -120,20 +120,19 @@ export default function MapContainer({
     [-74.38970960698468, 40.60856713855744],
   ]);
 
-  const features = map.current?.queryRenderedFeatures({
-    layers: ["pa-tip-points", "pa-tip-lines"],
-  });
-
-  useEffect(() => {
+  const showProjectsWithinView = () => {
+    const features = map.current?.queryRenderedFeatures({
+      layers: ["pa-tip-points", "pa-tip-lines"],
+    });
     if (features) {
-      const pointsWithinView = new Set();
+      const projectsWithinView = new Set();
       for (const feature of features) {
         const id = feature.properties.mpms_id;
-        if (!pointsWithinView.has(id)) pointsWithinView.add(id);
+        if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
-      setPointsWithinView(new Set(pointsWithinView));
+      setProjectsWithinView(new Set(projectsWithinView));
     }
-  }, [features]);
+  };
 
   return (
     <Map
@@ -215,7 +214,10 @@ export default function MapContainer({
         </Popup>
       ) : null}
 
-      <div className="absolute flex gap-4 m-4" style={{ colorScheme: "dark" }}>
+      <div
+        className="absolute flex gap-4 m-4 w-full"
+        style={{ colorScheme: "dark" }}
+      >
         <DetailsToggle
           filter={activeBoundary}
           setFilter={setActiveBoundary}
@@ -233,6 +235,22 @@ export default function MapContainer({
           deselect
           submit={submit}
         />
+        <div className="inline-flex" role="group">
+          <button
+            type="button"
+            className="bg-stone-600 border-r-2 border-stone-100 font-bold px-4 py-2.5 rounded-l text-stone-100"
+            onClick={showProjectsWithinView}
+          >
+            Show Projects within Area
+          </button>
+          <button
+            type="button"
+            className="bg-stone-600 font-bold px-4 py-2.5 rounded-r text-stone-100"
+            onClick={() => setProjectsWithinView(new Set())}
+          >
+            Show All Projects
+          </button>
+        </div>
       </div>
       <Legend activeLayer={activeLayer?.value} />
     </Map>
