@@ -120,7 +120,7 @@ export default function MapContainer({
     [-74.38970960698468, 40.60856713855744],
   ]);
 
-  const showProjectsWithinView = () => {
+  const onMoveEnd = () => {
     const features = map.current?.queryRenderedFeatures({
       layers: ["pa-tip-points", "pa-tip-lines"],
     });
@@ -145,6 +145,7 @@ export default function MapContainer({
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
+      onMoveEnd={onMoveEnd}
       ref={map}
     >
       {boundaryLayers.map((source) => {
@@ -235,22 +236,6 @@ export default function MapContainer({
           deselect
           submit={submit}
         />
-        <div className="inline-flex" role="group">
-          <button
-            type="button"
-            className="bg-stone-600 border-r-2 border-stone-100 font-bold px-4 py-2.5 rounded-l text-stone-100"
-            onClick={showProjectsWithinView}
-          >
-            Show Projects within Area
-          </button>
-          <button
-            type="button"
-            className="bg-stone-600 font-bold px-4 py-2.5 rounded-r text-stone-100"
-            onClick={() => setProjectsWithinView(new Set())}
-          >
-            Show All Projects
-          </button>
-        </div>
       </div>
       <Legend activeLayer={activeLayer?.value} />
     </Map>
