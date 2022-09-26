@@ -10,10 +10,11 @@ export const boundaryLayers = [
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/DVRPC_MCD_PhiCPA/FeatureServer/0/query?where=state_name='Pennsylvania'&outSR=4326&f=geojson",
     layer: {
       id: "county",
-      type: "line",
+      type: "fill",
       paint: {
-        "line-color": "#777",
-        "line-width": 1.75,
+        "fill-color": "transparent",
+        "fill-opacity": 1,
+        "fill-outline-color": "#777",
       },
     },
   },
@@ -24,9 +25,11 @@ export const boundaryLayers = [
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_Congressional/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
       id: "congressional",
-      type: "line",
+      type: "fill",
       paint: {
-        "line-color": "#777",
+        "fill-color": "transparent",
+        "fill-opacity": 1,
+        "fill-outline-color": "#777",
       },
     },
   },
@@ -37,9 +40,11 @@ export const boundaryLayers = [
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_Senate/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
       id: "senate",
-      type: "line",
+      type: "fill",
       paint: {
-        "line-color": "#777",
+        "fill-color": "transparent",
+        "fill-opacity": 1,
+        "fill-outline-color": "#777",
       },
     },
   },
@@ -50,9 +55,11 @@ export const boundaryLayers = [
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_House/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
     layer: {
       id: "house",
-      type: "line",
+      type: "fill",
       paint: {
-        "line-color": "#777",
+        "fill-color": "transparent",
+        "fill-opacity": 1,
+        "fill-outline-color": "#777",
       },
     },
   },

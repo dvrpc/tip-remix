@@ -118,6 +118,62 @@ export default function MapContainer({
     [-74.38970960698468, 40.60856713855744],
   ]);
 
+  let activeFeature = null;
+  // track the currently hovered over feature also hover effect
+  map.current?.on(
+    "mousemove",
+    ["county", "congressional", "senate", "house"],
+    (e) => {
+      if (e.features.length > 0) {
+        if (activeFeature) {
+          map.current?.setFeatureState(
+            { source: activeBoundary.value, id: activeFeature.id },
+            { hover: false }
+          );
+        }
+        activeFeature = e.features[0];
+        map.current?.setFeatureState(
+          { source: activeBoundary.value, id: activeFeature.id },
+          { hover: true }
+        );
+      }
+    }
+  );
+  map.current?.on(
+    "mouseleave",
+    ["county", "congressional", "senate", "house"],
+    () => {
+      if (activeFeature) {
+        map.current?.setFeatureState(
+          { source: activeBoundary.value, id: activeFeature.id },
+          { hover: false }
+        );
+      }
+      activeFeature = null;
+    }
+  );
+
+  // click event for zooming to boundary within boundary layer
+  map.current?.on(
+    "click",
+    ["county", "congressional", "senate", "house"],
+    (e) => {
+      const isProject = map.current?.queryRenderedFeatures(e.point, {
+        layers: ["pa-tip-points", "pa-tip-lines"],
+      });
+      if (activeFeature && !isProject?.length) {
+        const coords = activeFeature.geometry.coordinates[0];
+        const bounds = new LngLatBounds(coords[0], coords[0]);
+        for (const coord of coords) {
+          bounds.extend(coord);
+        }
+        map.current?.fitBounds(bounds, {
+          padding: 25,
+        });
+      }
+    }
+  );
+
   return (
     <Map
       cursor="pointer"
@@ -135,13 +191,34 @@ export default function MapContainer({
         const { key, layer, ...props } = source;
 
         return (
-          <Source key={key} {...props}>
+          <Source key={key} {...props} generateId>
+            <Layer
+              id="highlight"
+              type="fill"
+              paint={{
+                "fill-color": "#0080ff",
+                "fill-opacity": [
+                  "case",
+                  ["boolean", ["feature-state", "hover"], false],
+                  0.5,
+                  0,
+                ],
+              }}
+            />
             <Layer
               {...layer}
               layout={{
                 visibility:
                   activeBoundary?.value === props.id ? "visible" : "none",
               }}
+            />
+            <Layer
+              layout={{
+                visibility:
+                  activeBoundary?.value === props.id ? "visible" : "none",
+              }}
+              type="line"
+              paint={{ "line-color": "#777", "line-width": 1.75 }}
             />
           </Source>
         );
