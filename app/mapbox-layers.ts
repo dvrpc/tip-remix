@@ -64,8 +64,8 @@ export const togglableLayers = [
     id: "Indicators of Potential Disadvantage (2019)",
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
-    link: "https://www.dvrpc.org/webmaps/ipd/#map",
     layer: {
+      link: "https://www.dvrpc.org/webmaps/ipd/#map",
       id: "ipd",
       type: "fill",
       continuous: true,
@@ -215,8 +215,8 @@ export const togglableLayers = [
     id: "Congestion Management Subcorridor Areas",
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CMP2019_CorridorSubCorridorAreas/FeatureServer/0/query?where=state='PA'&outFields=WEB_COLOR&returnGeometry=true&geometryPrecision=4&outSR=4326&f=geojson",
-    link: "https://www.dvrpc.org/webmaps/CMP2019/",
     layer: {
+      link: "https://www.dvrpc.org/webmaps/CMP2019/",
       id: "cmp",
       type: "fill",
       paint: {
@@ -423,8 +423,8 @@ export const togglableLayers = [
     id: "Circuit Trails",
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CircuitTrails/FeatureServer/0/query?where=1%3D1&outFields=circuit&outSR=4326&f=geojson",
-    link: "https://www.dvrpc.org/webmaps/thecircuit/",
     layer: {
+      link: "https://www.dvrpc.org/webmaps/thecircuit/",
       id: "trails",
       type: "line",
       legend: [

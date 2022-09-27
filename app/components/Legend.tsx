@@ -11,10 +11,10 @@ export default function Legend({ activeLayer }: { activeLayer: string }) {
       {source && source.layer.legend ? (
         <div className="border-b border-stone-700/90 flex gap-4 justify-between mb-4 pb-4">
           <h3 className="font-bold text-sm">{source.id}</h3>
-          {source.link && (
+          {source.layer.link && (
             <a
               className="inherit italic mr-auto underline"
-              href={source.link}
+              href={source.layer.link}
               target="_blank"
             >
               More Info
