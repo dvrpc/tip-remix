@@ -9,6 +9,10 @@ export default function DetailsToggle({
   submit,
   multiple = false,
   deselect = false,
+  onChange = (val: any) => {
+    setFilter(val);
+    setTimeout(() => submit(), 1);
+  },
 }: {
   filter:
     | MultiValue<{
@@ -44,6 +48,7 @@ export default function DetailsToggle({
   submit: () => void;
   multiple?: boolean;
   deselect?: boolean;
+  onChange?: Function;
 }) {
   if (options === undefined || options === null) {
     return null;
@@ -56,11 +61,7 @@ export default function DetailsToggle({
   return (
     <ReactSelect
       value={filter && filter[0]?.value?.length ? filter : null}
-      onChange={(val) => {
-        if (!filter) setFilter(val);
-        else if (filter.value === val.value) setFilter(null);
-        setTimeout(() => submit(), 1);
-      }}
+      onChange={onChange}
       options={opts}
       className="react-select"
       classNamePrefix="react-select"
