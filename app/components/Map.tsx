@@ -140,6 +140,7 @@ export default function MapContainer({
         }
       }
     );
+    // handles when mouse leaves boundary area
     map.current?.on(
       "mouseleave",
       ["county", "congressional", "senate", "house"],
@@ -153,7 +154,6 @@ export default function MapContainer({
         activeFeature = null;
       }
     );
-
     // click event for zooming to boundary within boundary layer
     map.current?.on(
       "click",
@@ -215,9 +215,12 @@ export default function MapContainer({
               }}
             />
             <Layer
+              id={`${activeBoundary?.value} Lines`}
               layout={{
                 visibility:
-                  activeBoundary?.value === props.id ? "visible" : "none",
+                  activeBoundary?.value + " Lines" === props.id + " Lines"
+                    ? "visible"
+                    : "none",
               }}
               type="line"
               paint={{ "line-color": "#777", "line-width": 1.75 }}
