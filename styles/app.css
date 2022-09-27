@@ -64,3 +64,21 @@ input[type="checkbox"]:checked {
   .react-select__dropdown-indicator {
   @apply text-yellow-400;
 }
+
+#default-extent-btn {
+  height: 29px;
+  width: 29px;
+  right: 10px;
+  top: calc(1% + 97px);
+  padding: 5px;
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+#default-extent-img {
+  height: 100%;
+}

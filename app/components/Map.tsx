@@ -1,6 +1,6 @@
 import { useNavigate, useSubmit, useParams } from "remix";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Map, { Source, Layer, Popup } from "react-map-gl";
+import Map, { Source, Layer, Popup, NavigationControl } from "react-map-gl";
 import { LngLatBounds, MapLayerMouseEvent } from "mapbox-gl";
 import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
@@ -131,6 +131,20 @@ export default function MapContainer({
       onClick={onClick}
       ref={map}
     >
+      <NavigationControl />
+      <div
+        id="default-extent-btn"
+        className="overlays shadow"
+        aria-label="Default DVRPC Extent"
+        onClick={() => map.current?.fitBounds(maxExtent)}
+      >
+        <img
+          id="default-extent-img"
+          src="https://www.dvrpc.org/img/banner/new/bug-favicon.png"
+          alt="DVRPC logo"
+        />
+      </div>
+
       {boundaryLayers.map((source) => {
         const { key, layer, ...props } = source;
 
