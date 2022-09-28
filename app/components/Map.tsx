@@ -125,19 +125,36 @@ export default function MapContainer({
       "mousemove",
       ["county", "congressional", "senate", "house"],
       (e) => {
-        if (e.features.length > 0) {
-          if (activeFeature) {
+        if (!activeFeature) {
+          if (
+            !map.current?.getFeatureState({
+              source: activeBoundary.value,
+              id: e.features[0].id,
+            }).hover
+          ) {
+            map.current?.setFeatureState(
+              { source: activeBoundary.value, id: e.features[0].id },
+              { hover: true }
+            );
+          }
+        } else if (activeFeature.id !== e.features[0].id) {
+          if (
+            map.current?.getFeatureState({
+              source: activeBoundary.value,
+              id: activeFeature.id,
+            }).hover
+          ) {
             map.current?.setFeatureState(
               { source: activeBoundary.value, id: activeFeature.id },
               { hover: false }
             );
+            map.current?.setFeatureState(
+              { source: activeBoundary.value, id: e.features[0].id },
+              { hover: true }
+            );
           }
-          activeFeature = e.features[0];
-          map.current?.setFeatureState(
-            { source: activeBoundary.value, id: activeFeature.id },
-            { hover: true }
-          );
         }
+        activeFeature = e.features[0];
       }
     );
     // handles when mouse leaves boundary area
