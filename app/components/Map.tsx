@@ -208,11 +208,14 @@ export default function MapContainer({
     >
       {boundaryLayers.map((source) => {
         const { key, layer, ...props } = source;
+        const layout = {
+          visibility: activeBoundary?.value === props.id ? "visible" : "none",
+        };
 
         return (
           <Source key={key} {...props} generateId>
             <Layer
-              id="highlight"
+              id={`highlight-${source.id}`}
               type="fill"
               paint={{
                 "fill-color": "#0080ff",
@@ -223,24 +226,14 @@ export default function MapContainer({
                   0,
                 ],
               }}
+              layout={layout}
             />
+            <Layer {...layer} layout={layout} />
             <Layer
-              {...layer}
-              layout={{
-                visibility:
-                  activeBoundary?.value === props.id ? "visible" : "none",
-              }}
-            />
-            <Layer
-              id={`${activeBoundary?.value} Lines`}
-              layout={{
-                visibility:
-                  activeBoundary?.value + " Lines" === props.id + " Lines"
-                    ? "visible"
-                    : "none",
-              }}
+              id={`line-${source.id}`}
               type="line"
               paint={{ "line-color": "#777", "line-width": 1.75 }}
+              layout={layout}
             />
           </Source>
         );
