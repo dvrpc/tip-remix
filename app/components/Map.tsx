@@ -218,7 +218,7 @@ export default function MapContainer({
               id={`highlight-${source.id}`}
               type="fill"
               paint={{
-                "fill-color": "#0080ff",
+                "fill-color": "#facc15",
                 "fill-opacity": [
                   "case",
                   ["boolean", ["feature-state", "hover"], false],
