@@ -137,6 +137,17 @@ export default function Projects() {
               How to Use
             </Link>
           </li>
+          <li>
+            <Link
+              className="underline"
+              to={{
+                pathname: `${basename}/notmapped`,
+                search: location.search,
+              }}
+            >
+              Not Mapped Projects
+            </Link>
+          </li>
         </ul>
       </nav>
       <main className="bg-stone-700 overflow-hidden text-white md:col-span-2 md:order-2">
