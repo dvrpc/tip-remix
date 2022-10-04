@@ -151,7 +151,7 @@ export default function Panel() {
       </Form>
       <ul className="flex flex-col overflow-auto p-8 pt-0">
         {projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
-          return !projectsWithinView.size ? (
+          return mappedProjects.has(p.id) && !projectsWithinView.size ? (
             <ProjectLink p={p} />
           ) : (
             projectsWithinView.has(p.id) && <ProjectLink p={p} />

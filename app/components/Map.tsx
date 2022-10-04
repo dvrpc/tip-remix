@@ -6,11 +6,9 @@ import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
 import { getCategoryColor, getBoundingBox } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
-import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
 
 import type { MapRef } from "react-map-gl";
-import { render } from "react-dom";
 
 export const links = () => {
   return [
