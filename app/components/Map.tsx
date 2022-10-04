@@ -10,6 +10,7 @@ import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
 
 import type { MapRef } from "react-map-gl";
+import { render } from "react-dom";
 
 export const links = () => {
   return [
@@ -28,6 +29,7 @@ export default function MapContainer({
   showPopup,
   location,
   hoverProject,
+  setProjectsWithinView,
 }) {
   const navigate = useNavigate();
   const {
@@ -118,6 +120,20 @@ export default function MapContainer({
     [-74.38970960698468, 40.60856713855744],
   ]);
 
+  const onMoveEnd = () => {
+    const features = map.current?.queryRenderedFeatures({
+      layers: ["pa-tip-points", "pa-tip-lines"],
+    });
+    if (features) {
+      const projectsWithinView = new Set();
+      for (const feature of features) {
+        const id = feature.properties.mpms_id;
+        if (!projectsWithinView.has(id)) projectsWithinView.add(id);
+      }
+      setProjectsWithinView(new Set(projectsWithinView));
+    }
+  };
+
   return (
     <Map
       cursor="pointer"
@@ -129,6 +145,7 @@ export default function MapContainer({
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
+      onMoveEnd={onMoveEnd}
       ref={map}
     >
       <NavigationControl />
@@ -212,7 +229,10 @@ export default function MapContainer({
         </Popup>
       ) : null}
 
-      <div className="absolute flex gap-4 m-4" style={{ colorScheme: "dark" }}>
+      <div
+        className="absolute flex gap-4 m-4 w-full"
+        style={{ colorScheme: "dark" }}
+      >
         <DetailsToggle
           filter={activeBoundary}
           setFilter={setActiveBoundary}

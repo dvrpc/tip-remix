@@ -97,6 +97,7 @@ export default function Projects() {
     });
     setMappedProjects(ret);
   }
+  const [projectsWithinView, setProjectsWithinView] = useState(new Set());
 
   return (
     <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
@@ -156,6 +157,7 @@ export default function Projects() {
             categories,
             setIsVisible,
             mappedProjects,
+            projectsWithinView,
           }}
         />
       </main>
@@ -168,6 +170,7 @@ export default function Projects() {
           showPopup={showPopup}
           location={location}
           hoverProject={hoverProject}
+          setProjectsWithinView={setProjectsWithinView}
         />
       </aside>
     </div>
