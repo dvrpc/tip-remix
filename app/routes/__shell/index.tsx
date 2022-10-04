@@ -148,30 +148,31 @@ export default function Panel() {
         </details>
       </Form>
       <ul className="flex flex-col overflow-auto p-8 pt-0">
-        {projects?.sort(sortByProperty(sortKey, true)).map((p) => (
-          <li
-            className="flex flex-nowrap flex-row hover:bg-stone-700 hover:underline items-stretch"
-            key={p.id}
-            id={p.id}
-            data-p={JSON.stringify(p)}
-            onMouseEnter={(e) => setHoverProject(e.target.closest("li").id)}
-            onMouseLeave={() => setHoverProject(null)}
-          >
-            <div className="border-b border-stone-400 flex flex-1 items-center">
-              <Link
-                to={{ pathname: p.id.toString(), search: location.search }}
-                className="flex gap-4 items-center"
+        {projects?.sort(sortByProperty(sortKey, true)).map((p) => {
+          return (
+            mappedProjects.has(p.id) && (
+              <li
+                className="flex flex-nowrap flex-row hover:bg-stone-700 hover:underline items-stretch"
+                key={p.id}
+                id={p.id}
+                data-p={JSON.stringify(p)}
+                onMouseEnter={(e) => setHoverProject(e.target.closest("li").id)}
+                onMouseLeave={() => setHoverProject(null)}
               >
-                <CategoryIcon categoryName={p.category} />
-                <strong>{p.id}</strong>
-                <span className="leading-tight">{p.road_name}</span>
-              </Link>
-              {mappedProjects.size > 0 && !mappedProjects.has(p.id) && (
-                <span className="ml-auto text-zinc-500">Not Mapped</span>
-              )}
-            </div>
-          </li>
-        ))}
+                <div className="border-b border-stone-400 flex flex-1 items-center">
+                  <Link
+                    to={{ pathname: p.id.toString(), search: location.search }}
+                    className="flex gap-4 items-center"
+                  >
+                    <CategoryIcon categoryName={p.category} />
+                    <strong>{p.id}</strong>
+                    <span className="leading-tight">{p.road_name}</span>
+                  </Link>
+                </div>
+              </li>
+            )
+          );
+        })}
       </ul>
     </article>
   );
