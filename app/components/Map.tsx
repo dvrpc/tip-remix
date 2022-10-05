@@ -245,8 +245,14 @@ export default function MapContainer({
           name="layer"
           title="Layers"
           options={togglableLayers.map((l) => l.id)}
-          deselect
           submit={submit}
+          deselect={true}
+          onChange={(val) => {
+            if (!activeLayer) setActiveLayer(val);
+            else if (activeLayer.value !== val.value) setActiveLayer(val);
+            else if (activeLayer.value === val.value) setActiveLayer(null);
+            setTimeout(() => submit(), 1);
+          }}
         />
       </div>
       <Legend activeLayer={activeLayer?.value} />
