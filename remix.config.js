@@ -2,7 +2,7 @@
  * @type {import('@remix-run/dev').AppConfig}
  */
 const { mountRoutes } = require("remix-mount-routes");
-const basePath = process.env.REMIX_BASEPATH ?? "/tip/draft/map";
+const basePath = process.env.REMIX_BASEPATH ?? "/tip/pa/map";
 
 module.exports = {
   ignoredRouteFiles: [".*"],
