@@ -6,7 +6,6 @@ import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
 import { getCategoryColor, getBoundingBox } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
-import { SingleValue } from "react-select";
 import { useAppContext } from "~/AppContext";
 
 import type { MapRef } from "react-map-gl";
@@ -28,6 +27,7 @@ export default function MapContainer({
   showPopup,
   location,
   hoverProject,
+  setProjectsWithinView,
 }) {
   const navigate = useNavigate();
   const {
@@ -118,6 +118,20 @@ export default function MapContainer({
     [-74.38970960698468, 40.60856713855744],
   ]);
 
+  const onMoveEnd = () => {
+    const features = map.current?.queryRenderedFeatures({
+      layers: ["pa-tip-points", "pa-tip-lines"],
+    });
+    if (features) {
+      const projectsWithinView = new Set();
+      for (const feature of features) {
+        const id = feature.properties.mpms_id;
+        if (!projectsWithinView.has(id)) projectsWithinView.add(id);
+      }
+      setProjectsWithinView(new Set(projectsWithinView));
+    }
+  };
+
   return (
     <Map
       cursor="pointer"
@@ -129,6 +143,7 @@ export default function MapContainer({
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
+      onMoveEnd={onMoveEnd}
       ref={map}
     >
       <NavigationControl />
@@ -212,7 +227,10 @@ export default function MapContainer({
         </Popup>
       ) : null}
 
-      <div className="absolute flex gap-4 m-4" style={{ colorScheme: "dark" }}>
+      <div
+        className="absolute flex gap-4 m-4 w-full"
+        style={{ colorScheme: "dark" }}
+      >
         <DetailsToggle
           filter={activeBoundary}
           setFilter={setActiveBoundary}
@@ -227,8 +245,14 @@ export default function MapContainer({
           name="layer"
           title="Layers"
           options={togglableLayers.map((l) => l.id)}
-          deselect
           submit={submit}
+          deselect={true}
+          onChange={(val) => {
+            if (!activeLayer) setActiveLayer(val);
+            else if (activeLayer.value !== val.value) setActiveLayer(val);
+            else if (activeLayer.value === val.value) setActiveLayer(null);
+            setTimeout(() => submit(), 1);
+          }}
         />
       </div>
       <Legend activeLayer={activeLayer?.value} />

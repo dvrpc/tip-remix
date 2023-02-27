@@ -15,8 +15,8 @@ import * as gtag from "~/utils/gtags.client";
 import styles from "./styles/app.css";
 
 const globals = {
-  basename: "/tip/draft/map",
-  appName: "Draft FY2023 TIP for PA",
+  basename: "/tip/pa/map",
+  appName: "FY2023 TIP for PA",
   startYear: 23,
   endYear: 26,
   ga_tracking_id: "UA-9825778-1",
@@ -49,7 +49,8 @@ export default function App() {
       <html lang="en">
         <head>
           <Links />
-          {process.env.NODE_ENV === "development" || !globals.ga_tracking_id ? null : (
+          {process.env.NODE_ENV === "development" ||
+          !globals.ga_tracking_id ? null : (
             <>
               <script
                 async
