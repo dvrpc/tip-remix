@@ -8,6 +8,7 @@ import {
 } from "remix";
 import { getProject } from "~/project";
 import { useAppContext } from "~/AppContext";
+import { extractIdFromSplat } from "~/utils";
 
 type Project = {
   municipalities?: string;
@@ -24,8 +25,7 @@ type Project = {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  params = params["*"]?.split("/");
-  const id = params[params.length - 1];
+  const id = extractIdFromSplat(params);
   return id && json(await getProject(id));
 };
 

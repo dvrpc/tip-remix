@@ -7,6 +7,7 @@ import Legend from "./Legend";
 import { getCategoryColor, getBoundingBox } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
 import { useAppContext } from "~/AppContext";
+import { extractIdFromSplat } from "~/utils";
 
 import type { MapRef } from "react-map-gl";
 
@@ -40,8 +41,11 @@ export default function MapContainer({
     value: "Counties and Muncipalities",
   });
   const submit = useSubmit();
-  const { id } = useParams();
   const map = useRef<MapRef>();
+  const params = useParams()
+  const id = Object.keys(params).length > 0
+    ? extractIdFromSplat(params)
+    : null
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
