@@ -101,6 +101,37 @@ export default function ProjectDetails() {
         >
           &#10094; Back
         </Link>
+        <button
+          className="flex hover:bg-stone-600 items-center justify-center mb-4 min-w-[33%] ml-auto p-2 rounded"
+          onClick={(e) => {
+            if (typeof window !== "undefined") {
+              const button = e.currentTarget;
+              const buttonText = e.currentTarget.innerHTML;
+              button.innerText = "✓ Copied";
+              navigator.clipboard.writeText(window.location.href);
+              setTimeout(() => {
+                button.innerHTML = buttonText;
+              }, 2000);
+            }
+          }}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mr-1"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M3 19V1H17V5H21V23H7V19H3ZM15 17V3H5V17H15ZM17 7V19H9V21H19V7H17Z"
+              fill="currentColor"
+            />
+          </svg>
+          Copy URL to clipboard
+        </button>
       </div>
       <h2 className="mt-0">
         {project.id} | {project.road_name} {mcds}
