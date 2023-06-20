@@ -150,13 +150,17 @@ export default function Panel() {
         </details>
       </Form>
       <ul className="flex flex-col overflow-auto p-8 pt-0">
-        {projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
-          return mappedProjects.has(p.id) && !projectsWithinView.size ? (
-            <ProjectLink p={p} />
-          ) : (
-            projectsWithinView.has(p.id) && <ProjectLink p={p} />
-          );
-        })}
+        {projects.length ? (
+          projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
+            return mappedProjects.has(p.id) && !projectsWithinView.size ? (
+              <ProjectLink p={p} />
+            ) : (
+              projectsWithinView.has(p.id) && <ProjectLink p={p} />
+            );
+          })
+        ) : (
+          <div>No results found...</div>
+        )}
       </ul>
     </article>
   );
