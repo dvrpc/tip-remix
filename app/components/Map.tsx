@@ -145,12 +145,14 @@ export default function MapContainer({
 
   const onLoad = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const center = [
-      parseFloat(urlParams.get("lng")),
-      parseFloat(urlParams.get("lat")),
-    ];
-    const zoom = parseFloat(urlParams.get("z"));
-    map.current?.flyTo({ center: center, zoom: zoom });
+    if (urlParams.has("lng") && urlParams.has("lat") && urlParams.has("z")) {
+      const center = [
+        parseFloat(urlParams.get("lng")),
+        parseFloat(urlParams.get("lat")),
+      ];
+      const zoom = parseFloat(urlParams.get("z"));
+      map.current?.flyTo({ center: center, zoom: zoom });
+    }
   };
 
   return (
