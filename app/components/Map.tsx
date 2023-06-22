@@ -42,10 +42,8 @@ export default function MapContainer({
   });
   const submit = useSubmit();
   const map = useRef<MapRef>();
-  const params = useParams()
-  const id = Object.keys(params).length > 0
-    ? extractIdFromSplat(params)
-    : null
+  const params = useParams();
+  const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
@@ -127,6 +125,15 @@ export default function MapContainer({
       layers: ["pa-tip-points", "pa-tip-lines"],
     });
     if (features) {
+      const latLng = map.current?.getCenter();
+      const str = location.search.split("&lat=")[0];
+      window.history.replaceState(
+        { ...window.history },
+        location.pathname,
+        `${str}&lat=${latLng?.lat}&lng=${
+          latLng?.lng
+        }&z=${map.current?.getZoom()}`
+      );
       const projectsWithinView = new Set();
       for (const feature of features) {
         const id = feature.properties.mpms_id;
@@ -134,6 +141,16 @@ export default function MapContainer({
       }
       setProjectsWithinView(new Set(projectsWithinView));
     }
+  };
+
+  const onLoad = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const center = [
+      parseFloat(urlParams.get("lng")),
+      parseFloat(urlParams.get("lat")),
+    ];
+    const zoom = parseFloat(urlParams.get("z"));
+    map.current?.flyTo({ center: center, zoom: zoom });
   };
 
   return (
@@ -148,6 +165,7 @@ export default function MapContainer({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       onMoveEnd={onMoveEnd}
+      onLoad={onLoad}
       ref={map}
     >
       <NavigationControl />
