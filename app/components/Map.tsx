@@ -125,21 +125,22 @@ export default function MapContainer({
       layers: ["pa-tip-points", "pa-tip-lines"],
     });
     if (features) {
-      const latLng = map.current?.getCenter();
-      const str = location.search.split("&lat=")[0];
-      window.history.replaceState(
-        { ...window.history },
-        location.pathname,
-        `${str}&lat=${latLng?.lat}&lng=${
-          latLng?.lng
-        }&z=${map.current?.getZoom()}`
-      );
       const projectsWithinView = new Set();
       for (const feature of features) {
         const id = feature.properties.mpms_id;
         if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
       setProjectsWithinView(new Set(projectsWithinView));
+      const latLng = map.current?.getCenter();
+      const params = location.search.split("&lat=")[0];
+      const str = `${params ? `${params}&` : "?"}lat=${latLng?.lat}&lng=${
+        latLng?.lng
+      }&z=${map.current?.getZoom()}`;
+      window.history.replaceState(
+        { ...window.history },
+        location.pathname,
+        str
+      );
     }
   };
 
