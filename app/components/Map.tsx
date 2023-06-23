@@ -150,6 +150,17 @@ export default function MapContainer({
       onMoveEnd={onMoveEnd}
       ref={map}
     >
+      <button
+        className="absolute bg-[#57534e] mr-12 mt-[10px] p-2 right-0 rounded text-white"
+        style={{
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontWeight: 700,
+        }}
+        onClick={zoomCallback}
+      >
+        Zoom to Project
+      </button>
       <NavigationControl />
       <div
         id="default-extent-btn"
@@ -258,17 +269,6 @@ export default function MapContainer({
             setTimeout(() => submit(), 1);
           }}
         />
-        <button
-          className="bg-[#57534e] p-2 rounded text-white"
-          style={{
-            fontSize: "0.875rem",
-            lineHeight: "1.25rem",
-            fontWeight: 700,
-          }}
-          onClick={zoomCallback}
-        >
-          Zoom to Project
-        </button>
       </div>
       <Legend activeLayer={activeLayer?.value} />
     </Map>
