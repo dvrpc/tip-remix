@@ -88,26 +88,28 @@ export default function MapContainer({
 
   //zoom to project
   useEffect(() => {
-    if (id && mapData.type === "done" && interactiveLayerIds) {
-      const features = interactiveLayerIds
-        .map((layer) =>
-          map.current?.querySourceFeatures(layer, {
-            filter: ["in", "mpms_id", parseInt(id, 10)],
-          })
-        )
-        .reduce((prev, curr) => [...prev, ...curr]);
-      const bbox = getBoundingBox({ features });
-      const { xMin, xMax, yMin, yMax } = bbox;
-      xMin &&
-        map.current?.fitBounds(
-          [
-            [xMin, yMin],
-            [xMax, yMax],
-          ],
-          { maxZoom: 11 }
-        );
-    }
+    if (id && mapData.type === "done" && interactiveLayerIds) zoomCallback();
   }, [mapData, id, interactiveLayerIds]);
+
+  const zoomCallback = () => {
+    const features = interactiveLayerIds
+      .map((layer) =>
+        map.current?.querySourceFeatures(layer, {
+          filter: ["in", "mpms_id", parseInt(id, 10)],
+        })
+      )
+      .reduce((prev, curr) => [...prev, ...curr]);
+    const bbox = getBoundingBox({ features });
+    const { xMin, xMax, yMin, yMax } = bbox;
+    xMin &&
+      map.current?.fitBounds(
+        [
+          [xMin, yMin],
+          [xMax, yMax],
+        ],
+        { maxZoom: 11 }
+      );
+  };
 
   //Filter highlighted project
   const filter = useMemo(
@@ -279,6 +281,17 @@ export default function MapContainer({
             setTimeout(() => submit(), 1);
           }}
         />
+        <button
+          className="bg-[#57534e] p-2 rounded text-white"
+          style={{
+            fontSize: "0.875rem",
+            lineHeight: "1.25rem",
+            fontWeight: 700,
+          }}
+          onClick={zoomCallback}
+        >
+          Zoom to Project
+        </button>
       </div>
       <Legend activeLayer={activeLayer?.value} />
     </Map>
