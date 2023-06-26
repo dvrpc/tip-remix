@@ -132,7 +132,7 @@ export default function MapContainer({
       }
       setProjectsWithinView(new Set(projectsWithinView));
       const latLng = map.current?.getCenter();
-      const params = location.search.split("&lat=")[0];
+      const params = location.search.split(/\&lat=|\?lat=/)[0];
       const str = `${params ? `${params}&` : "?"}lat=${latLng?.lat}&lng=${
         latLng?.lng
       }&z=${map.current?.getZoom()}`;
