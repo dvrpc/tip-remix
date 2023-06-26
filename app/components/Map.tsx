@@ -42,10 +42,8 @@ export default function MapContainer({
   });
   const submit = useSubmit();
   const map = useRef<MapRef>();
-  const params = useParams()
-  const id = Object.keys(params).length > 0
-    ? extractIdFromSplat(params)
-    : null
+  const params = useParams();
+  const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
@@ -133,6 +131,28 @@ export default function MapContainer({
         if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
       setProjectsWithinView(new Set(projectsWithinView));
+      const latLng = map.current?.getCenter();
+      const params = location.search.split("&lat=")[0];
+      const str = `${params ? `${params}&` : "?"}lat=${latLng?.lat}&lng=${
+        latLng?.lng
+      }&z=${map.current?.getZoom()}`;
+      window.history.replaceState(
+        { ...window.history },
+        location.pathname,
+        str
+      );
+    }
+  };
+
+  const onLoad = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("lng") && urlParams.has("lat") && urlParams.has("z")) {
+      const center = [
+        parseFloat(urlParams.get("lng")),
+        parseFloat(urlParams.get("lat")),
+      ];
+      const zoom = parseFloat(urlParams.get("z"));
+      map.current?.flyTo({ center: center, zoom: zoom });
     }
   };
 
@@ -148,6 +168,7 @@ export default function MapContainer({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       onMoveEnd={onMoveEnd}
+      onLoad={onLoad}
       ref={map}
     >
       <NavigationControl />
