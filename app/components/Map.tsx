@@ -151,7 +151,7 @@ export default function MapContainer({
       ref={map}
     >
       <button
-        className="absolute bg-[#57534e] mr-12 mt-[10px] p-2 right-0 rounded text-white"
+        className="absolute bg-[#57534e] mr-12 mt-[10px] p-2 right-0 rounded text-white z-[999]"
         style={{
           fontSize: "0.875rem",
           lineHeight: "1.25rem",
