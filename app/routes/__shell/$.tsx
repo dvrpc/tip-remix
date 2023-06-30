@@ -140,11 +140,13 @@ export default function ProjectDetails() {
             {project.id} | {project.road_name} {mcds}
           </h2>
 
-          <p>
-            {project.description
-              ? project.description
-              : "No description provided."}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: project.description
+                ? project.description.replaceAll("\n", "<br/>")
+                : "No description provided.",
+            }}
+          ></p>
           {project.limits && (
             <div>
               <strong>Limits:</strong> {project.limits}
