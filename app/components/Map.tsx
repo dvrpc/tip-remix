@@ -42,10 +42,8 @@ export default function MapContainer({
   });
   const submit = useSubmit();
   const map = useRef<MapRef>();
-  const params = useParams()
-  const id = Object.keys(params).length > 0
-    ? extractIdFromSplat(params)
-    : null
+  const params = useParams();
+  const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
 
   //map mousemove callback
   const onHover = useCallback((event: MapLayerMouseEvent) => {
@@ -90,26 +88,28 @@ export default function MapContainer({
 
   //zoom to project
   useEffect(() => {
-    if (id && mapData.type === "done" && interactiveLayerIds) {
-      const features = interactiveLayerIds
-        .map((layer) =>
-          map.current?.querySourceFeatures(layer, {
-            filter: ["in", "mpms_id", parseInt(id, 10)],
-          })
-        )
-        .reduce((prev, curr) => [...prev, ...curr]);
-      const bbox = getBoundingBox({ features });
-      const { xMin, xMax, yMin, yMax } = bbox;
-      xMin &&
-        map.current?.fitBounds(
-          [
-            [xMin, yMin],
-            [xMax, yMax],
-          ],
-          { maxZoom: 11 }
-        );
-    }
+    if (id && mapData.type === "done" && interactiveLayerIds) zoomCallback();
   }, [mapData, id, interactiveLayerIds]);
+
+  const zoomCallback = () => {
+    const features = interactiveLayerIds
+      .map((layer) =>
+        map.current?.querySourceFeatures(layer, {
+          filter: ["in", "mpms_id", parseInt(id, 10)],
+        })
+      )
+      .reduce((prev, curr) => [...prev, ...curr]);
+    const bbox = getBoundingBox({ features });
+    const { xMin, xMax, yMin, yMax } = bbox;
+    xMin &&
+      map.current?.fitBounds(
+        [
+          [xMin, yMin],
+          [xMax, yMax],
+        ],
+        { maxZoom: 11 }
+      );
+  };
 
   //Filter highlighted project
   const filter = useMemo(
@@ -133,6 +133,28 @@ export default function MapContainer({
         if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
       setProjectsWithinView(new Set(projectsWithinView));
+      const latLng = map.current?.getCenter();
+      const params = location.search.split(/\&lat=|\?lat=/)[0];
+      const str = `${params ? `${params}&` : "?"}lat=${latLng?.lat}&lng=${
+        latLng?.lng
+      }&z=${map.current?.getZoom()}`;
+      window.history.replaceState(
+        { ...window.history },
+        location.pathname,
+        str
+      );
+    }
+  };
+
+  const onLoad = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("lng") && urlParams.has("lat") && urlParams.has("z")) {
+      const center = [
+        parseFloat(urlParams.get("lng")),
+        parseFloat(urlParams.get("lat")),
+      ];
+      const zoom = parseFloat(urlParams.get("z"));
+      map.current?.flyTo({ center: center, zoom: zoom });
     }
   };
 
@@ -148,8 +170,20 @@ export default function MapContainer({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       onMoveEnd={onMoveEnd}
+      onLoad={onLoad}
       ref={map}
     >
+      <button
+        className="absolute bg-[#57534e] mr-12 mt-[10px] p-2 right-0 rounded text-white z-[999]"
+        style={{
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontWeight: 700,
+        }}
+        onClick={zoomCallback}
+      >
+        Zoom to Project
+      </button>
       <NavigationControl />
       <div
         id="default-extent-btn"

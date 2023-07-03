@@ -61,9 +61,9 @@ export const boundaryLayers = [
 export const togglableLayers = [
   {
     key: "ipd",
-    id: "Indicators of Potential Disadvantage (2019)",
+    id: "Indicators of Potential Disadvantage (2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
       link: "https://www.dvrpc.org/webmaps/ipd/#map",
       id: "ipd",
@@ -118,9 +118,9 @@ export const togglableLayers = [
   },
   {
     key: "racialminority",
-    id: "Racial Minority Population Group (IPD 2019)",
+    id: "Racial Minority Population Group (IPD 2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "racialminority",
       type: "fill",
@@ -165,9 +165,9 @@ export const togglableLayers = [
   },
   {
     key: "lowincome",
-    id: "Low-Income Popluation Group (IPD 2019)",
+    id: "Low-Income Popluation Group (IPD 2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2019/FeatureServer/0/query?where=geoid10+like+%2742%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "lowincome",
       type: "fill",
