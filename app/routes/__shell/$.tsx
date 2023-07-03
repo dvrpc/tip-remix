@@ -143,7 +143,7 @@ export default function ProjectDetails() {
           <p
             dangerouslySetInnerHTML={{
               __html: project.description
-                ? project.description.replaceAll("\n", "<br/>")
+                ? project.description.replace(/[\r\n]+/g, "<br/>")
                 : "No description provided.",
             }}
           ></p>
