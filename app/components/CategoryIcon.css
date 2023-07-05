@@ -1,0 +1,28 @@
+.category-Other,
+.category-null {
+  object-position: -62px -62px;
+}
+.category-Intersection\/Interchange_Improvements {
+  object-position: 0px -62px;
+}
+.category-Signal\/ITS_Improvements {
+  object-position: -124px -62px;
+}
+.category-Roadway_Rehabilitation {
+  object-position: -186px 0px;
+}
+.category-Bicycle\/Pedestrian_Improvement {
+  object-position: 0px 0px;
+}
+.category-Streetscape {
+  object-position: -186px -62px;
+}
+.category-Bridge_Repair\/Replacement {
+  object-position: -62px 0px;
+}
+.category-Transit_Improvements {
+  object-position: 0px -124px;
+}
+.category-Roadway_New_Capacity {
+  object-position: -124px 0px;
+}
