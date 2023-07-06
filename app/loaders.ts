@@ -3,7 +3,7 @@ export async function getPoints(ids: string) {
     `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2024_2027_Point/FeatureServer/0/query?`,
     {
       method: "POST",
-      body: `where=1=1&geometryType=esriGeometryPoint&returnGeometry=true&geometryPrecision=&outSR=4326&f=geojson`,
+      body: `where=1=1&outFields=*&f=geojson`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -17,7 +17,7 @@ export async function getLines(ids: string) {
     `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2024_2027_Line/FeatureServer/0/query`,
     {
       method: "POST",
-      body: `where=1=1&geometryType=esriGeometryPoint&returnGeometry=true&geometryPrecision=&outSR=4326&f=geojson`,
+      body: `where=1=1&outFields=*&f=geojson`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
