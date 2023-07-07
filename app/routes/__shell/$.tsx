@@ -77,7 +77,6 @@ export default function ProjectDetails() {
     ? getTotals(project.funding?.data)
     : null;
   const { setIsVisible } = useOutletContext();
-  console.log(!project.id);
 
   return (
     <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
@@ -173,9 +172,6 @@ export default function ProjectDetails() {
                 <th>FY{startYear + 1}</th>
                 <th>FY{startYear + 2}</th>
                 <th>FY{startYear + 3}</th>
-                <th>
-                  FY{startYear + 4}-{startYear + 11}
-                </th>
               </tr>
             </thead>
             <tbody className="border-y-2">
@@ -187,7 +183,6 @@ export default function ProjectDetails() {
                   <td>${row[3]}</td>
                   <td>${row[4]}</td>
                   <td>${row[5]}</td>
-                  <td>${row[6] + row[7]}</td>
                 </tr>
               ))}
               <tr>
@@ -196,18 +191,12 @@ export default function ProjectDetails() {
                 <td className="font-bold">{funding && funding[1]}</td>
                 <td className="font-bold">{funding && funding[2]}</td>
                 <td className="font-bold">{funding && funding[3]}</td>
-                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td colSpan={2}>
                   Total FY{startYear}-FY{endYear} Cost:
                 </td>
                 <td>{funding && funding[4]}</td>
-                <td colSpan={2}>
-                  Total FY{startYear}-FY{startYear + 11} Cost:
-                </td>
-                <td>{funding && funding[5]}</td>
-                <td>&nbsp;</td>
               </tr>
             </tbody>
             <tfoot>

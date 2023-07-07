@@ -81,5 +81,5 @@ export const backlightedLinesLayer = {
     ],
     "line-opacity": 0.2,
   },
-  filter: ["in", "mpms_id", ""],
+  filter: ["in", "dbnum", ""],
 };

@@ -93,7 +93,7 @@ export default function Projects() {
     let ret = new Set();
     Object.keys(data).map((key) => {
       let { features } = data[key];
-      features.map((feature) => ret.add(feature.properties.mpms_id));
+      features.map((feature) => ret.add(feature.properties.dbnum));
     });
     setMappedProjects(ret);
   }

@@ -129,7 +129,7 @@ export default function MapContainer({
     if (features) {
       const projectsWithinView = new Set();
       for (const feature of features) {
-        const id = feature.properties.mpms_id;
+        const id = feature.properties.dbnum;
         if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
       setProjectsWithinView(new Set(projectsWithinView));
