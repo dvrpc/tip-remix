@@ -5,7 +5,7 @@ export const linesLayer = {
     "line-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 7, 3, 11, 5.5],
     "line-color": [
       "match",
-      ["get", "descriptio"],
+      ["get", "type_desc"],
       "Bicycle/Pedestrian Improvement",
       "#f26522",
       "Bridge Repair/Replacement",
@@ -50,7 +50,7 @@ export const highlightedLinesLayer = {
     "line-color": "#444",
     "line-opacity": 0.75,
   },
-  filter: ["in", "mpms_id", ""],
+  filter: ["in", "dbnum", ""],
 };
 
 export const backlightedLinesLayer = {
@@ -60,7 +60,7 @@ export const backlightedLinesLayer = {
     "line-width": 60,
     "line-color": [
       "match",
-      ["get", "descriptio"],
+      ["get", "type_desc"],
       "Bicycle/Pedestrian Improvement",
       "#f26522",
       "Bridge Repair/Replacement",

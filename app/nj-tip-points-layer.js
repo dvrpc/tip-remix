@@ -5,7 +5,7 @@ export const pointsLayer = {
     "circle-radius": ["interpolate", ["linear"], ["zoom"], 7, 2, 12, 8],
     "circle-color": [
       "match",
-      ["get", "descriptio"],
+      ["get", "type_desc"],
       "Bicycle/Pedestrian Improvement",
       "#f26522",
       "Bridge Repair/Replacement",
@@ -49,7 +49,7 @@ export const highlightedPointsLayer = {
     "circle-stroke-width": 3,
     "circle-stroke-color": "#444",
   },
-  filter: ["in", "mpms_id", ""],
+  filter: ["in", "dbnum", ""],
 };
 
 export const backlightedPointsLayer = {
@@ -61,7 +61,7 @@ export const backlightedPointsLayer = {
     "circle-stroke-width": 30,
     "circle-stroke-color": [
       "match",
-      ["get", "descriptio"],
+      ["get", "type_desc"],
       "Bicycle/Pedestrian Improvement",
       "#f26522",
       "Bridge Repair/Replacement",

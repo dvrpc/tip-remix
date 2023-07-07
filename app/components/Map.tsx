@@ -65,7 +65,7 @@ export default function MapContainer({
       const feature = features && features[0];
       feature &&
         navigate({
-          pathname: feature.properties?.mpms_id.toString(),
+          pathname: feature.properties?.dbnum.toString(),
           search: location.search,
         });
     },
@@ -95,7 +95,7 @@ export default function MapContainer({
     const features = interactiveLayerIds
       .map((layer) =>
         map.current?.querySourceFeatures(layer, {
-          filter: ["in", "mpms_id", parseInt(id, 10)],
+          filter: ["in", "dbnum", parseInt(id, 10)],
         })
       )
       .reduce((prev, curr) => [...prev, ...curr]);
@@ -113,7 +113,7 @@ export default function MapContainer({
 
   //Filter highlighted project
   const filter = useMemo(
-    () => ["in", "mpms_id", hoverProject ? parseInt(hoverProject, 10) : ""],
+    () => ["in", "dbnum", hoverProject ? parseInt(hoverProject, 10) : ""],
     [hoverProject]
   );
 
@@ -251,15 +251,15 @@ export default function MapContainer({
             className="-mb-[15px] -mt-[10px] -mx-[10px] border-b-8 cursor-pointer flex flex-nowrap flex-row items-stretch outline-stone-700 overflow-clip pointer-events-none rounded text-sm z-10"
             style={{
               borderColor: getCategoryColor(
-                showPopup.feature.properties.descriptio
+                showPopup.feature.properties.type_desc
               ),
             }}
           >
             <div className="bg-stone-700 flex font-bold items-center p-2 text-lg text-stone-100">
-              <div>{showPopup.feature.properties.mpms_id}</div>
+              <div>{showPopup.feature.properties.dbnum}</div>
             </div>
             <div className="bg-stone-600 flex items-center p-2 text-stone-100">
-              <div>{showPopup.feature.properties.road_name}</div>
+              <div>{showPopup.feature.properties.projectnam}</div>
             </div>
           </div>
         </Popup>
