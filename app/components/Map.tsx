@@ -95,7 +95,7 @@ export default function MapContainer({
     const features = interactiveLayerIds
       .map((layer) =>
         map.current?.querySourceFeatures(layer, {
-          filter: ["in", "dbnum", parseInt(id, 10)],
+          filter: ["in", "dbnum", id],
         })
       )
       .reduce((prev, curr) => [...prev, ...curr]);
@@ -113,7 +113,7 @@ export default function MapContainer({
 
   //Filter highlighted project
   const filter = useMemo(
-    () => ["in", "dbnum", hoverProject ? parseInt(hoverProject, 10) : ""],
+    () => ["in", "dbnum", hoverProject ? hoverProject : ""],
     [hoverProject]
   );
 
