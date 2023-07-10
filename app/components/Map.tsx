@@ -9,8 +9,6 @@ import DetailsToggle from "./DetailsToggle";
 import { useAppContext } from "~/AppContext";
 import { extractIdFromSplat } from "~/utils";
 
-import type { MapRef } from "react-map-gl";
-
 export const links = () => {
   return [
     {
@@ -22,6 +20,7 @@ export const links = () => {
 };
 
 export default function MapContainer({
+  map,
   projects,
   mapData,
   setShowPopup,
@@ -41,7 +40,6 @@ export default function MapContainer({
     value: "Counties and Muncipalities",
   });
   const submit = useSubmit();
-  const map = useRef<MapRef>();
   const params = useParams();
   const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
 
