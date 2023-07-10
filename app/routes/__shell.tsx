@@ -93,7 +93,7 @@ export default function Projects() {
     let ret = new Set();
     Object.keys(data).map((key) => {
       let { features } = data[key];
-      features.map((feature) => ret.add(feature.properties.mpms_id));
+      features.map((feature) => ret.add(feature.properties.dbnum));
     });
     setMappedProjects(ret);
   }
@@ -126,8 +126,16 @@ export default function Projects() {
       <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
         <ul className="divide-x flex gap-4 items-center justify-end w-full">
           <li>
-            <a className="underline" href="https://www.dvrpc.org/TIP/pa/">
+            <a className="underline" href="https://www.dvrpc.org/TIP/">
               Overview &amp; Documents
+            </a>
+          </li>
+          <li>
+            <a
+              className="underline"
+              href="https://www.dvrpc.org/webmaps/mrp2050/"
+            >
+              Major Regional Projects
             </a>
           </li>
           <li>

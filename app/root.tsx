@@ -15,10 +15,10 @@ import * as gtag from "~/utils/gtags.client";
 import styles from "./styles/app.css";
 
 const globals = {
-  basename: "/tip/pa/map",
-  appName: "FY2023 TIP for PA",
-  startYear: 23,
-  endYear: 26,
+  basename: "/tip/draft/map",
+  appName: "Draft TIP for NJ",
+  startYear: 24,
+  endYear: 27,
   ga_tracking_id: "UA-9825778-1",
 };
 

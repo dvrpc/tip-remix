@@ -65,7 +65,7 @@ export default function MapContainer({
       const feature = features && features[0];
       feature &&
         navigate({
-          pathname: feature.properties?.mpms_id.toString(),
+          pathname: feature.properties?.dbnum.toString(),
           search: location.search,
         });
     },
@@ -82,7 +82,7 @@ export default function MapContainer({
   //Don't enable data layers until they are loaded
   useEffect(() => {
     if (mapData.type === "done") {
-      setInteractiveLayerIds(["pa-tip-lines", "pa-tip-points"]);
+      setInteractiveLayerIds(["nj-tip-lines", "nj-tip-points"]);
     }
   }, [mapData]);
 
@@ -95,7 +95,7 @@ export default function MapContainer({
     const features = interactiveLayerIds
       .map((layer) =>
         map.current?.querySourceFeatures(layer, {
-          filter: ["in", "mpms_id", parseInt(id, 10)],
+          filter: ["in", "dbnum", id],
         })
       )
       .reduce((prev, curr) => [...prev, ...curr]);
@@ -113,23 +113,23 @@ export default function MapContainer({
 
   //Filter highlighted project
   const filter = useMemo(
-    () => ["in", "mpms_id", hoverProject ? parseInt(hoverProject, 10) : ""],
+    () => ["in", "dbnum", hoverProject ? hoverProject : ""],
     [hoverProject]
   );
 
   const maxExtent = new LngLatBounds([
-    [-76.13660270099047, 39.51488251559762],
-    [-74.38970960698468, 40.60856713855744],
+    [-76.025391, 39.255651],
+    [-73.490295, 41.033787],
   ]);
 
   const onMoveEnd = () => {
     const features = map.current?.queryRenderedFeatures({
-      layers: ["pa-tip-points", "pa-tip-lines"],
+      layers: ["nj-tip-points", "nj-tip-lines"],
     });
     if (features) {
       const projectsWithinView = new Set();
       for (const feature of features) {
-        const id = feature.properties.mpms_id;
+        const id = feature.properties.dbnum;
         if (!projectsWithinView.has(id)) projectsWithinView.add(id);
       }
       setProjectsWithinView(new Set(projectsWithinView));
@@ -251,15 +251,15 @@ export default function MapContainer({
             className="-mb-[15px] -mt-[10px] -mx-[10px] border-b-8 cursor-pointer flex flex-nowrap flex-row items-stretch outline-stone-700 overflow-clip pointer-events-none rounded text-sm z-10"
             style={{
               borderColor: getCategoryColor(
-                showPopup.feature.properties.descriptio
+                showPopup.feature.properties.type_desc
               ),
             }}
           >
             <div className="bg-stone-700 flex font-bold items-center p-2 text-lg text-stone-100">
-              <div>{showPopup.feature.properties.mpms_id}</div>
+              <div>{showPopup.feature.properties.dbnum}</div>
             </div>
             <div className="bg-stone-600 flex items-center p-2 text-stone-100">
-              <div>{showPopup.feature.properties.road_name}</div>
+              <div>{showPopup.feature.properties.projectnam}</div>
             </div>
           </div>
         </Popup>

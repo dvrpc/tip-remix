@@ -5,12 +5,12 @@ import {
   backlightedLinesLayer,
   highlightedLinesLayer,
   linesLayer,
-} from "~/pa-tip-lines-layer";
+} from "~/nj-tip-lines-layer";
 import {
   backlightedPointsLayer,
   highlightedPointsLayer,
   pointsLayer,
-} from "~/pa-tip-points-layer";
+} from "~/nj-tip-points-layer";
 
 export const loader = async ({ params }) => {
   let [lines, points] = await Promise.all([
@@ -19,14 +19,14 @@ export const loader = async ({ params }) => {
   ]);
   lines = {
     ...lines,
-    id: "pa-tip-lines",
+    id: "nj-tip-lines",
     layer: linesLayer,
     highlightLayer: highlightedLinesLayer,
     backlightLayer: backlightedLinesLayer,
   };
   points = {
     ...points,
-    id: "pa-tip-points",
+    id: "nj-tip-points",
     layer: pointsLayer,
     highlightLayer: highlightedPointsLayer,
     backlightLayer: backlightedPointsLayer,

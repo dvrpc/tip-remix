@@ -7,7 +7,7 @@ export const boundaryLayers = [
     key: "county",
     id: "Counties and Muncipalities",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/DVRPC_MCD_PhiCPA/FeatureServer/0/query?where=state_name='Pennsylvania'&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/DVRPC_MCD_PhiCPA/FeatureServer/0/query?where=state_name%3D%27New+Jersey%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=&resultRecordCount=&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=geojson",
     layer: {
       id: "county",
       type: "line",
@@ -21,38 +21,27 @@ export const boundaryLayers = [
     key: "congressional",
     id: "Congressional Districts",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_Congressional/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/NJ_Congressional/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=&resultRecordCount=&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=geojson",
     layer: {
       id: "congressional",
       type: "line",
       paint: {
         "line-color": "#777",
+        "line-width": 1.75,
       },
     },
   },
   {
-    key: "senate",
-    id: "State Senate Districts",
+    key: "legislative",
+    id: "Legislative Districts",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_Senate/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/NJ_State_Legislative/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=&resultRecordCount=&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=geojson",
     layer: {
-      id: "senate",
+      id: "legislative",
       type: "line",
       paint: {
         "line-color": "#777",
-      },
-    },
-  },
-  {
-    key: "house",
-    id: "State House Districts",
-    type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/PA_State_House/FeatureServer/0/query?where=1=1&outSR=4326&f=geojson",
-    layer: {
-      id: "house",
-      type: "line",
-      paint: {
-        "line-color": "#777",
+        "line-width": 1.75,
       },
     },
   },
@@ -63,7 +52,7 @@ export const togglableLayers = [
     key: "ipd",
     id: "Indicators of Potential Disadvantage (2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
       link: "https://www.dvrpc.org/webmaps/ipd/#map",
       id: "ipd",
@@ -120,7 +109,7 @@ export const togglableLayers = [
     key: "racialminority",
     id: "Racial Minority Population Group (IPD 2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "racialminority",
       type: "fill",
@@ -167,7 +156,7 @@ export const togglableLayers = [
     key: "lowincome",
     id: "Low-Income Popluation Group (IPD 2021)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2742%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "lowincome",
       type: "fill",
@@ -214,7 +203,7 @@ export const togglableLayers = [
     key: "cmp",
     id: "Congestion Management Subcorridor Areas",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CMP2019_CorridorSubCorridorAreas/FeatureServer/0/query?where=state='PA'&outFields=WEB_COLOR&returnGeometry=true&geometryPrecision=4&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Transportation/CMP2019_CorridorSubCorridorAreas/FeatureServer/0/query?where=state='NJ'&outFields=WEB_COLOR&returnGeometry=true&geometryPrecision=4&outSR=4326&f=geojson",
     layer: {
       link: "https://www.dvrpc.org/webmaps/CMP2019/",
       id: "cmp",
@@ -229,7 +218,7 @@ export const togglableLayers = [
     key: "connections",
     id: "Connections 2050 Centers",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2050_PlanningCenters/FeatureServer/0/query?where=state='PA'&outFields=lup_type&geometryPrecision=4&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2050_PlanningCenters/FeatureServer/0/query?where=state='NJ'&outFields=lup_type&geometryPrecision=4&outSR=4326&f=geojson",
     layer: {
       id: "connections",
       type: "fill",
@@ -395,7 +384,7 @@ export const togglableLayers = [
     key: "urbanizedareas",
     id: "Urbanized Areas",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/UrbanAreas_PA/FeatureServer/0/query?where=1%3D1&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/UrbanAreas_NJ/FeatureServer/0/query?where=1%3D1&outSR=4326&f=geojson",
     layer: {
       id: "urbanizedareas",
       type: "fill",
