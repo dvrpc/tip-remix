@@ -131,6 +131,14 @@ export default function Projects() {
             </a>
           </li>
           <li>
+            <a
+              className="underline"
+              href="https://www.dvrpc.org/webmaps/mrp2050/"
+            >
+              Major Regional Projects
+            </a>
+          </li>
+          <li>
             <Link
               className="underline"
               to={{ pathname: `${basename}/howtouse`, search: location.search }}
