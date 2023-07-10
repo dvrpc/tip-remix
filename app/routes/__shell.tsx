@@ -8,12 +8,14 @@ import {
   useSearchParams,
   useTransition,
 } from "remix";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { useAppContext } from "~/AppContext";
 import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
 import Map, { links as mapLinks } from "~/components/Map";
 import Modal from "~/components/Modal";
+
+import type { MapRef } from "react-map-gl";
 
 interface Map {
   [key: string]: string[] | undefined;
@@ -98,6 +100,7 @@ export default function Projects() {
     setMappedProjects(ret);
   }
   const [projectsWithinView, setProjectsWithinView] = useState(new Set());
+  const map = useRef<MapRef>();
 
   return (
     <div className="grid grid-cols-5 grid-rows-[min-content_1fr] text-stone-800 w-screen md:h-screen md:overflow-hidden">
@@ -177,12 +180,14 @@ export default function Projects() {
             setIsVisible,
             mappedProjects,
             projectsWithinView,
+            map,
           }}
         />
       </main>
       <aside className="flex justify-center md:col-span-3">
         <Modal isVisible={isVisible} setIsVisible={setIsVisible} />
         <Map
+          map={map}
           projects={projects}
           mapData={mapData}
           setShowPopup={setShowPopup}

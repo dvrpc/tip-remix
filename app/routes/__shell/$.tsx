@@ -4,11 +4,13 @@ import {
   LoaderFunction,
   useLoaderData,
   useLocation,
+  useNavigate,
   useOutletContext,
 } from "remix";
 import { getProject } from "~/project";
 import { useAppContext } from "~/AppContext";
-import { extractIdFromSplat } from "~/utils";
+import { extractIdFromSplat, getBoundingBox } from "~/utils";
+import { LngLatBounds } from "mapbox-gl";
 
 type Project = {
   municipalities?: string;
@@ -76,7 +78,7 @@ export default function ProjectDetails() {
   const funding = project.funding?.data
     ? getTotals(project.funding?.data)
     : null;
-  const { setIsVisible } = useOutletContext();
+  const { setIsVisible, mappedProjects, map } = useOutletContext();
 
   return (
     <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
@@ -133,6 +135,31 @@ export default function ProjectDetails() {
           Copy URL to clipboard
         </button>
       </div>
+      {mappedProjects.has(project.id) && (
+        <button
+          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
+          onClick={() => {
+            const features = ["nj-tip-points", "nj-tip-lines"]
+              .map((layer) =>
+                map.current?.querySourceFeatures(layer, {
+                  filter: ["in", "dbnum", project.id],
+                })
+              )
+              .reduce((prev, curr) => [...prev, ...curr]);
+            const bbox = getBoundingBox({ features });
+            const { xMin, xMax, yMin, yMax } = bbox;
+            const center = new LngLatBounds(
+              [xMin, yMin],
+              [xMax, yMax]
+            ).getCenter();
+            window.open(
+              `http://maps.google.com/maps?q=&layer=c&cbll=${center.lat},${center.lng}&cbp=11,0,0,0,0`
+            );
+          }}
+        >
+          Streetview
+        </button>
+      )}
       {project.id ? (
         <>
           <h2 className="mt-0">
