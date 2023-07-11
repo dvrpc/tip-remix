@@ -178,7 +178,9 @@ export default function MapContainer({
           lineHeight: "1.25rem",
           fontWeight: 700,
         }}
-        onClick={zoomCallback}
+        onClick={() => {
+          if (id) zoomCallback();
+        }}
       >
         Zoom to Project
       </button>
