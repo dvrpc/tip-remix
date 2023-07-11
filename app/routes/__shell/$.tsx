@@ -185,7 +185,7 @@ export default function ProjectDetails() {
           )}
           <table className="mt-0 table-fixed">
             <caption className="text-left">
-              <h3>{appName} Program Years (in Thousands)</h3>
+              <h3>{appName} Program Years (in Millions)</h3>
             </caption>
             <thead>
               <tr>
@@ -199,6 +199,9 @@ export default function ProjectDetails() {
                 <th>FY{startYear + 1}</th>
                 <th>FY{startYear + 2}</th>
                 <th>FY{startYear + 3}</th>
+                <th>
+                  FY{startYear + 4}-{startYear + 9}
+                </th>
               </tr>
             </thead>
             <tbody className="border-y-2">
@@ -210,6 +213,7 @@ export default function ProjectDetails() {
                   <td>${row[3]}</td>
                   <td>${row[4]}</td>
                   <td>${row[5]}</td>
+                  <td>${row[6]}</td>
                 </tr>
               ))}
               <tr>
@@ -224,12 +228,17 @@ export default function ProjectDetails() {
                   Total FY{startYear}-FY{endYear} Cost:
                 </td>
                 <td>{funding && funding[4]}</td>
+                <td colSpan={2}>
+                  Total FY{startYear}-FY{startYear + 9} Cost:
+                </td>
+                <td>{funding && funding[5]}</td>
+                <td>&nbsp;</td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
                 <td colSpan={7} className="italic">
-                  All costs in thousands.
+                  All costs in millions.
                 </td>
               </tr>
             </tfoot>
@@ -303,7 +312,7 @@ export const getTotals = (info: number[][]) => {
     y2Funding += row[3];
     y3Funding += row[4];
     y4Funding += row[5];
-    totalFunding += row[6] + row[7];
+    totalFunding += row[6];
   });
 
   programYearsFunding = y1Funding + y2Funding + y3Funding + y4Funding;
@@ -335,8 +344,16 @@ const convertToCurrency = (cost: number[]): string[] | null => {
 
   // add commas
   return cost.map((fund) =>
-    fund
-      .toLocaleString("en-US", { style: "currency", currency: "USD" })
-      .slice(0, -3)
+    fund === 0
+      ? fund.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        })
+      : fund.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 3,
+        })
   );
 };
