@@ -137,6 +137,7 @@ export default function Projects() {
             <a
               className="underline"
               href="https://www.dvrpc.org/webmaps/mrp2050/"
+              target="_blank"
             >
               Major Regional Projects
             </a>
