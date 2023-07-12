@@ -54,7 +54,7 @@ export default function Panel() {
           <input
             type="search"
             name="keyword"
-            placeholder="Search by keyword or MPMS"
+            placeholder="Search by keyword or DB #"
             defaultValue={keyword}
             onChange={(e) => {
               if (!e.target.value.length) {
