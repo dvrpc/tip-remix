@@ -12,7 +12,7 @@ export const boundaryLayers = [
       id: "county",
       type: "line",
       paint: {
-        "line-color": "#777",
+        "line-color": "#6e6e6e",
         "line-width": 1.75,
       },
     },
@@ -26,8 +26,7 @@ export const boundaryLayers = [
       id: "congressional",
       type: "line",
       paint: {
-        "line-color": "#777",
-        "line-width": 1.75,
+        "line-color": "#6e6e6e",
       },
     },
   },
@@ -40,8 +39,7 @@ export const boundaryLayers = [
       id: "legislative",
       type: "line",
       paint: {
-        "line-color": "#777",
-        "line-width": 1.75,
+        "line-color": "#6e6e6e",
       },
     },
   },
@@ -112,6 +110,7 @@ export const togglableLayers = [
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2021/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "racialminority",
+      link: "https://www.dvrpc.org/webmaps/ipd/#map",
       type: "fill",
       legend: [
         ["#253494", "Well Above Average"],
@@ -223,28 +222,28 @@ export const togglableLayers = [
       id: "connections",
       type: "fill",
       legend: [
-        ["#f26522", "Metropolitan Center"],
-        ["#223860", "Metropolitan Subcenter"],
-        ["#0b6d32", "Suburban Center"],
-        ["#729faa", "Town Center"],
-        ["#ed1c24", "Rural Center"],
-        ["#9d1d20", "Planned Town Center"],
+        ["#993404", "Metropolitan Center"],
+        ["#d95f0e", "Metropolitan Subcenter"],
+        ["#fe9929", "Suburban Center"],
+        ["#fec44f", "Planned Town Center"],
+        ["#fee391", "Town Center"],
+        ["#ffffd4", "Rural Center"],
       ],
       paint: {
         "fill-color": [
           "case",
           ["==", ["get", "lup_type"], "Metropolitan Center"],
-          "#f26522",
+          "#993404",
           ["==", ["get", "lup_type"], "Metropolitan Subcenter"],
-          "#223860",
+          "#d95f0e",
           ["==", ["get", "lup_type"], "Suburban Center"],
-          "#0b6d32",
+          "#fe9929",
           ["==", ["get", "lup_type"], "Town Center"],
-          "#729faa",
+          "#fee391",
           ["==", ["get", "lup_type"], "Rural Center"],
-          "#ed1c24",
+          "#ffffd4",
           ["==", ["get", "lup_type"], "Planned Town Center"],
-          "#9d1d20",
+          "#fec44f",
           "#cccccc",
         ],
         "fill-opacity": [
@@ -311,7 +310,7 @@ export const togglableLayers = [
   },
   {
     key: "landuse",
-    id: "DVRPC Land Use (2019)",
+    id: "DVRPC Land Use (2015)",
     url: "https://tiles.dvrpc.org/data/dvrpc-landuse-2015.json",
     type: "vector",
     layer: {
