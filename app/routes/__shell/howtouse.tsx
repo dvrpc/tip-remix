@@ -26,10 +26,9 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the Draft DVRPC FY2023 TIP for Pennsylvania (FY23-FY26) on a map. This
-          Draft TIP was developed jointly in cooperation with PennDOT, SEPTA,
-          Pottstown Area Rapid Transit (PART), and DVRPC's member cities and
-          counties.
+          the Draft DVRPC FY2023 TIP for Pennsylvania (FY24-FY27) on a map. This
+          Draft TIP was developed jointly in cooperation with NJDOT, NJ TRANSIT,
+          DRPA/PATCO and DVRPC's member cities and counties.
         </p>
         <p>
           During times when the public is asked to comment on a Draft TIP, this
@@ -40,15 +39,15 @@ export default function HowToUse() {
         </p>
         <p>
           <strong>
-            Comments are now accepted for the Draft DVRPC FY2023 TIP for
-            Pennsylvania (FY23-FY26) from Friday, May 27, 2022 until 5:00 p.m.
-            on Tuesday, June 28, 2022 local time.
+            Comments are now accepted for the Draft DVRPC FY2024 TIP for New
+            Jersey (FY24-FY27) from Monday, July 17, 2023 until 5:00 p.m. on
+            Friday, August 18, 2023 local time.
           </strong>
         </p>
         <p>
           The Draft TIP, including comments submitted during the comment period
           and any recommended changes, will be presented to DVRPC stakeholders
-          and the DVRPC Board for adoption on Thursday, July 28, 2022.
+          and the DVRPC Board for adoption on Thursday, September 28, 2023.
         </p>
         <h2>How to Use & Map Navigation</h2>
         <p>
@@ -63,10 +62,10 @@ export default function HowToUse() {
         </p>
         <p>
           You can search and view all Draft TIP projects by searching by keyword
-          or by PennDOT’s MPMS number which is a unique identifier, which is
-          located in the main header. You can also use several filters from drop
-          downs under the search bar. You can sort by ID (MPMS #), Name, or
-          category. You can filter by category (bike/ped improvement, bridge
+          or by NJDOT’s DB number which is a unique identifier, which is located
+          in the main header. You can also use several filters from drop downs
+          under the search bar. You can sort by ID (DB #), Name, or category.
+          You can filter by category (bike/ped improvement, bridge
           rehab/replace, transit improvements, etc…), by Air Quality Code, Fund,
           or even Long-Range Plan Major Regional Project (MRP) code.
         </p>
@@ -97,7 +96,7 @@ export default function HowToUse() {
         <h2>Read Comments</h2>
         <p>
           Public Comments and responses will not be available until after the
-          July 28, 2022 DVRPC Board meeting.
+          September 28, 2023 DVRPC Board meeting.
         </p>
       </div>
     </article>
