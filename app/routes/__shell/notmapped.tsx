@@ -28,7 +28,7 @@ export default function NotMapped() {
         >
           &#10094; Back
         </Link>
-        <h2 className="mx-auto text-xl">Not Mapped Projects</h2>
+        <h2 className="mx-auto text-xl">Unmapped Projects</h2>
       </div>
       <ul className="flex flex-col overflow-auto p-8 pt-0">
         {projects?.map((p: any) => {

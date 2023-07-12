@@ -157,7 +157,7 @@ export default function Projects() {
                 search: location.search,
               }}
             >
-              Not Mapped Projects
+              Unmapped Projects
             </Link>
           </li>
         </ul>
