@@ -393,19 +393,19 @@ export const togglableLayers = [
       },
     },
   },
-  {
-    key: "federalaidroutes",
-    id: "Federal Aid Routes",
-    type: "geojson",
-    data: "https://mapservices.pasda.psu.edu/server/rest/services/pasda/PennDOT/MapServer/2/query?where=FED_AID_SY=%271%27&outSR=4326&f=geojson",
-    layer: {
-      id: "federalaidroutes",
-      type: "line",
-      paint: {
-        "line-color": "#A7C636",
-      },
-    },
-  },
+  // {
+  //   key: "federalaidroutes",
+  //   id: "Federal Aid Routes",
+  //   type: "geojson",
+  //   data: "https://mapservices.pasda.psu.edu/server/rest/services/pasda/PennDOT/MapServer/2/query?where=FED_AID_SY=%271%27&outSR=4326&f=geojson",
+  //   layer: {
+  //     id: "federalaidroutes",
+  //     type: "line",
+  //     paint: {
+  //       "line-color": "#A7C636",
+  //     },
+  //   },
+  // },
   {
     key: "trails",
     id: "Circuit Trails",

@@ -4,7 +4,7 @@ import Map, { Source, Layer, Popup, NavigationControl } from "react-map-gl";
 import { LngLatBounds, MapLayerMouseEvent } from "mapbox-gl";
 import { boundaryLayers, togglableLayers } from "~/mapbox-layers";
 import Legend from "./Legend";
-import { getCategoryColor, getBoundingBox } from "~/utils";
+import { getCategoryColor, getBoundingBox, maskFilters } from "~/utils";
 import DetailsToggle from "./DetailsToggle";
 import { useAppContext } from "~/AppContext";
 import { extractIdFromSplat } from "~/utils";
@@ -116,8 +116,8 @@ export default function MapContainer({
   );
 
   const maxExtent = new LngLatBounds([
-    [-76.025391, 39.255651],
-    [-73.490295, 41.033787],
+    [-76.22863800000046, 39.20737082851355],
+    [-73.61526500000066, 40.68729040007025],
   ]);
 
   const onMoveEnd = () => {
@@ -161,7 +161,7 @@ export default function MapContainer({
       cursor="pointer"
       maxBounds={maxExtent}
       initialViewState={{ bounds: maxExtent }}
-      mapStyle="mapbox://styles/crvanpollard/cl309ua6g006a15qks975tm31"
+      mapStyle="mapbox://styles/crvanpollard/ck5fpyqti0v971itf7edp2eyd"
       mapboxAccessToken="pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNqZDBkMDZhYjJ6YzczNHJ4cno5eTcydnMifQ.RJNJ7s7hBfrJITOBZBdcOA"
       interactiveLayerIds={interactiveLayerIds}
       onMouseMove={onHover}
@@ -238,6 +238,26 @@ export default function MapContainer({
             <Layer {...d.backlightLayer} filter={filter} />
           </Source>
         ))}
+
+      <Source
+        id="county-mask"
+        type="vector"
+        url="https://tiles.dvrpc.org/data/dvrpc-municipal.json"
+      >
+        <Layer
+          id="county-fill"
+          type="fill"
+          source="counties"
+          source-layer="county"
+          paint={{ "fill-color": "rgba(0,0,0,0.1)" }}
+          filter={[
+            "all",
+            ...(activeBoundary.value === "Counties and Muncipalities"
+              ? maskFilters.dvrpc
+              : [...maskFilters.nj, ...maskFilters.dvrpc]),
+          ]}
+        />
+      </Source>
 
       {showPopup ? (
         <Popup

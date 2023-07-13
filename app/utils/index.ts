@@ -77,10 +77,38 @@ export function getCategoryColor(category: string): string {
 
 /**
  * extracts id from splat params.
- * @param {Object} params 
+ * @param {Object} params
  * @returns {number} id from url
  */
 export function extractIdFromSplat(params) {
   params = params["*"]?.split("/");
   return params[params.length - 1];
 }
+
+export const maskFilters = {
+  nj: [
+    ["!=", "name", "Atlantic"],
+    ["!=", "name", "Bergen"],
+    ["!=", "name", "Cape May"],
+    ["!=", "name", "Cumberland"],
+    ["!=", "name", "Essex"],
+    ["!=", "name", "Hudson"],
+    ["!=", "name", "Hunterdon"],
+    ["!=", "name", "Middlesex"],
+    ["!=", "name", "Monmouth"],
+    ["!=", "name", "Morris"],
+    ["!=", "name", "Ocean"],
+    ["!=", "name", "Passaic"],
+    ["!=", "name", "Salem"],
+    ["!=", "name", "Somerset"],
+    ["!=", "name", "Sussex"],
+    ["!=", "name", "Union"],
+    ["!=", "name", "Warren"],
+  ],
+  dvrpc: [
+    ["!=", "name", "Burlington"],
+    ["!=", "name", "Camden"],
+    ["!=", "name", "Gloucester"],
+    ["!=", "name", "Mercer"],
+  ],
+};
