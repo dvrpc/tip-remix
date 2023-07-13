@@ -200,22 +200,23 @@ export default function ProjectDetails() {
                 <th>FY{startYear + 2}</th>
                 <th>FY{startYear + 3}</th>
                 <th>
-                  FY{startYear + 4}-{startYear + 9}
+                  LFY{startYear + 4}-{startYear + 9}
                 </th>
               </tr>
             </thead>
             <tbody className="border-y-2">
-              {project.funding?.data.map((row: number[]) => (
-                <tr key={row[0] + row[1]} className="border-b-white/5">
-                  <td>{row[0]}</td>
-                  <td>{row[1]}</td>
-                  <td>${row[2]}</td>
-                  <td>${row[3]}</td>
-                  <td>${row[4]}</td>
-                  <td>${row[5]}</td>
-                  <td>${row[6]}</td>
-                </tr>
-              ))}
+              {project.funding?.data.map((row: number[]) => {
+                const totals = convertToCurrency(row.slice(2));
+                return (
+                  <tr key={row[0] + row[1]} className="border-b-white/5">
+                    <td>{row[0]}</td>
+                    <td>{row[1]}</td>
+                    {totals?.map((total) => (
+                      <td>{total}</td>
+                    ))}
+                  </tr>
+                );
+              })}
               <tr>
                 <td colSpan={2}>Program Year Totals:</td>
                 <td className="font-bold">{funding && funding[0]}</td>
