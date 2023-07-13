@@ -172,7 +172,7 @@ export default function MapContainer({
       ref={map}
     >
       <button
-        className="absolute bg-[#57534e] mr-12 mt-[10px] p-2 right-0 rounded text-white z-[999]"
+        className="absolute bg-[#57534e] mr-12 mt-4 p-2 right-0 rounded text-white z-[999]"
         style={{
           fontSize: "0.875rem",
           lineHeight: "1.25rem",
@@ -290,6 +290,19 @@ export default function MapContainer({
             setTimeout(() => submit(), 1);
           }}
         />
+        {activeLayer && (
+          <button
+            className="bg-[#57534e] p-2 rounded text-white z-[999]"
+            style={{
+              fontSize: "0.875rem",
+              lineHeight: "1.25rem",
+              fontWeight: 700,
+            }}
+            onClick={() => setActiveLayer(null)}
+          >
+            Clear Layer
+          </button>
+        )}
       </div>
       <Legend activeLayer={activeLayer?.value} />
     </Map>
