@@ -135,31 +135,49 @@ export default function ProjectDetails() {
           Copy URL to clipboard
         </button>
       </div>
-      {mappedProjects.has(project.id) && (
-        <button
-          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
-          onClick={() => {
-            const features = ["nj-tip-points", "nj-tip-lines"]
-              .map((layer) =>
-                map.current?.querySourceFeatures(layer, {
-                  filter: ["in", "dbnum", project.id],
-                })
-              )
-              .reduce((prev, curr) => [...prev, ...curr]);
-            const bbox = getBoundingBox({ features });
-            const { xMin, xMax, yMin, yMax } = bbox;
-            const center = new LngLatBounds(
-              [xMin, yMin],
-              [xMax, yMax]
-            ).getCenter();
-            window.open(
-              `http://maps.google.com/maps?q=&layer=c&cbll=${center.lat},${center.lng}&cbp=11,0,0,0,0`
-            );
-          }}
+      <div className="flex">
+        {mappedProjects.has(project.id) && (
+          <button
+            className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
+            onClick={() => {
+              const features = ["nj-tip-points", "nj-tip-lines"]
+                .map((layer) =>
+                  map.current?.querySourceFeatures(layer, {
+                    filter: ["in", "dbnum", project.id],
+                  })
+                )
+                .reduce((prev, curr) => [...prev, ...curr]);
+              const bbox = getBoundingBox({ features });
+              const { xMin, xMax, yMin, yMax } = bbox;
+              const center = new LngLatBounds(
+                [xMin, yMin],
+                [xMax, yMax]
+              ).getCenter();
+              window.open(
+                `http://maps.google.com/maps?q=&layer=c&cbll=${center.lat},${center.lng}&cbp=11,0,0,0,0`
+              );
+            }}
+          >
+            Streetview
+          </button>
+        )}
+        <div
+          className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"
+          onClick={() =>
+            setIsVisible(
+              (prev: { isGeneral: boolean; visibility: boolean }) => {
+                return {
+                  ...prev,
+                  isGeneral: false,
+                  visibility: true,
+                };
+              }
+            )
+          }
         >
-          Streetview
-        </button>
-      )}
+          Comment
+        </div>
+      </div>
       {project.id ? (
         <>
           <h2 className="mt-0">

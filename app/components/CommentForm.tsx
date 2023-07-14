@@ -66,7 +66,7 @@ export default function CommentForm({
       };
 
       const request = await fetch(
-        "https://www.dvrpc.org/data/tip/2023/comments",
+        "https://www.dvrpc.org/data/tip/2024/comments",
         {
           method: "post",
           body: JSON.stringify(createdComment),

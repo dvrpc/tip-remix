@@ -27,6 +27,7 @@ export const boundaryLayers = [
       type: "line",
       paint: {
         "line-color": "#6e6e6e",
+        "line-width": 1.75,
       },
     },
   },
@@ -40,6 +41,7 @@ export const boundaryLayers = [
       type: "line",
       paint: {
         "line-color": "#6e6e6e",
+        "line-width": 1.75,
       },
     },
   },
