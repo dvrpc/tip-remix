@@ -26,7 +26,7 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the Draft DVRPC FY2023 TIP for Pennsylvania (FY24-FY27) on a map. This
+          the Draft DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This
           Draft TIP was developed jointly in cooperation with NJDOT, NJ TRANSIT,
           DRPA/PATCO and DVRPC's member cities and counties.
         </p>
