@@ -126,8 +126,8 @@ export default function ProjectDetails() {
             className="mr-1"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M3 19V1H17V5H21V23H7V19H3ZM15 17V3H5V17H15ZM17 7V19H9V21H19V7H17Z"
               fill="currentColor"
             />
@@ -226,11 +226,11 @@ export default function ProjectDetails() {
               {project.funding?.data.map((row: number[]) => {
                 const totals = convertToCurrency(row.slice(2));
                 return (
-                  <tr key={row[0] + row[1]} className="border-b-white/5">
+                  <tr key={row.join()} className="border-b-white/5">
                     <td>{row[0]}</td>
                     <td>{row[1]}</td>
-                    {totals?.map((total) => (
-                      <td>{total}</td>
+                    {totals?.map((total, i) => (
+                      <td key={i}>{total}</td>
                     ))}
                   </tr>
                 );
