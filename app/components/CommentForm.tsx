@@ -3,6 +3,7 @@ import { useParams } from "remix";
 import Input from "./Input";
 import { getProject } from "~/project";
 import { VisibilityProps } from "./Modal";
+import { extractIdFromSplat } from "~/utils";
 
 export default function CommentForm({
   isVisible,
@@ -14,8 +15,10 @@ export default function CommentForm({
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { id } = useParams();
 
+  const params = useParams();
+  const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
+  
   // autofill mpms
   useEffect(() => {
     if (!id) {
@@ -66,7 +69,7 @@ export default function CommentForm({
       };
 
       const request = await fetch(
-        "https://www.dvrpc.org/data/tip/2024/comments",
+        "https://www2.dvrpc.org/data/tip/2024/comments",
         {
           method: "post",
           body: JSON.stringify(createdComment),
