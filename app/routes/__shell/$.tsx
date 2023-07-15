@@ -126,8 +126,8 @@ export default function ProjectDetails() {
             className="mr-1"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M3 19V1H17V5H21V23H7V19H3ZM15 17V3H5V17H15ZM17 7V19H9V21H19V7H17Z"
               fill="currentColor"
             />
@@ -206,7 +206,7 @@ export default function ProjectDetails() {
             </thead>
             <tbody className="border-y-2">
               {project.funding?.data.map((row: number[]) => (
-                <tr key={row[0] + row[1]} className="border-b-white/5">
+                <tr key={row.join()} className="border-b-white/5">
                   <td>{row[0]}</td>
                   <td>{row[1]}</td>
                   <td>${row[2]}</td>
