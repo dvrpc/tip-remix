@@ -128,24 +128,6 @@ export default function Projects() {
       </nav>
       <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
         <ul className="divide-x flex gap-4 items-center justify-end w-full">
-          <li className="md:mr-auto">
-            <div
-              className="cursor-pointer underline"
-              onClick={() =>
-                setIsVisible((prev) => {
-                  return {
-                    ...prev,
-                    isGeneral: true,
-                    visibility: true,
-                  };
-                })
-              }
-            >
-              <strong className="bg-yellow-400 hover:bg-yellow-500 inline-block no-underline p-2 rounded text-stone-700">
-                General Comment
-              </strong>
-            </div>
-          </li>
           <li>
             <a className="underline" href="https://www.dvrpc.org/TIP/draft">
               Overview &amp; Documents

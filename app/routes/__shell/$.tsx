@@ -161,22 +161,6 @@ export default function ProjectDetails() {
             Streetview
           </button>
         )}
-        <div
-          className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"
-          onClick={() =>
-            setIsVisible(
-              (prev: { isGeneral: boolean; visibility: boolean }) => {
-                return {
-                  ...prev,
-                  isGeneral: false,
-                  visibility: true,
-                };
-              }
-            )
-          }
-        >
-          Comment
-        </div>
       </div>
       {project.id ? (
         <>
