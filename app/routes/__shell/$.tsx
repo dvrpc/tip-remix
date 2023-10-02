@@ -348,11 +348,7 @@ const convertToCurrency = (cost: number[]): string[] | null => {
   // add commas
   return cost.map((fund) =>
     fund === 0
-      ? fund.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-          maximumFractionDigits: 0,
-        })
+      ? "$0"
       : fund.toLocaleString("en-US", {
           style: "currency",
           currency: "USD",
