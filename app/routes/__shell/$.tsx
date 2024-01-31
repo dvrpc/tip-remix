@@ -192,10 +192,10 @@ export default function ProjectDetails() {
             <thead>
               <tr>
                 <th>
-                  <a href="/TIP/Draft/pdf/CodesAbbr.pdf">Phase</a>
+                  <a href="/TIP/NJ/pdf/CodesAbbr.pdf">Phase</a>
                 </th>
                 <th>
-                  <a href="/TIP/Draft/pdf/CodesAbbr.pdf">Fund</a>
+                  <a href="/TIP/NJ/pdf/CodesAbbr.pdf">Fund</a>
                 </th>
                 <th>FY{startYear}</th>
                 <th>FY{startYear + 1}</th>
