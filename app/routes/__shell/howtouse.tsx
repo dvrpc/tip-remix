@@ -26,8 +26,8 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the Draft DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This
-          Draft TIP was developed jointly in cooperation with NJDOT, NJ TRANSIT,
+          the  DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This
+          TIP was developed jointly in cooperation with NJDOT, NJ TRANSIT,
           DRPA/PATCO and DVRPC's member cities and counties.
         </p>
         <p>
@@ -36,18 +36,6 @@ export default function HowToUse() {
           on the overall program. When this site is not open for the submission
           of comments, it is always available to review or map the program and
           individual projects in an interactive way.
-        </p>
-        <p>
-          <strong>
-            Comments are now accepted for the Draft DVRPC FY2024 TIP for New
-            Jersey (FY24-FY27) from Monday, July 17, 2023 until 5:00 p.m. on
-            Friday, August 18, 2023 local time.
-          </strong>
-        </p>
-        <p>
-          The Draft TIP, including comments submitted during the comment period
-          and any recommended changes, will be presented to DVRPC stakeholders
-          and the DVRPC Board for adoption on Thursday, September 28, 2023.
         </p>
         <h2>How to Use & Map Navigation</h2>
         <p>
@@ -61,7 +49,7 @@ export default function HowToUse() {
           various colors.
         </p>
         <p>
-          You can search and view all Draft TIP projects by searching by keyword
+          You can search and view all TIP projects by searching by keyword
           or by NJDOT’s DB number which is a unique identifier, which is located
           in the main header. You can also use several filters from drop downs
           under the search bar. You can sort by ID (DB #), Name, or category.
@@ -75,7 +63,7 @@ export default function HowToUse() {
           decision-making in the region, you can choose to turn on or off the
           geospatial boundary or layer information that are located at the top
           right corner of the map. This function can allow you to better
-          understand and see the relevance of a Draft TIP project’s relation to
+          understand and see the relevance of a TIP project’s relation to
           important planning components, such as Environmental Justice,
           Congestion, or Freight Corridors, for example.
         </p>
@@ -92,11 +80,6 @@ export default function HowToUse() {
           just to the left of the “Overview & Documents” link. A comment form
           will open for you to complete. Once the form is completed, click on
           the “Submit” button.
-        </p>
-        <h2>Read Comments</h2>
-        <p>
-          Public Comments and responses will not be available until after the
-          September 28, 2023 DVRPC Board meeting.
         </p>
       </div>
     </article>
