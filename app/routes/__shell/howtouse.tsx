@@ -40,9 +40,10 @@ export default function HowToUse() {
         </p>
         <p>
           <strong>
-            Comments are now accepted for the Draft DVRPC FY2023 TIP for
-            Pennsylvania (FY23-FY26) from Friday, May 27, 2022 until 5:00 p.m.
-            on Tuesday, June 28, 2022 local time.
+            The Draft TIP, including comments submitted during the comment
+            period and any recommended changes, were presented to DVRPC
+            stakeholders and the DVRPC Board for adoption on Thursday, July 28,
+            2022.
           </strong>
         </p>
         <p>
@@ -96,8 +97,13 @@ export default function HowToUse() {
         </p>
         <h2>Read Comments</h2>
         <p>
-          Public Comments and responses will not be available until after the
-          July 28, 2022 DVRPC Board meeting.
+          Read Comments{" "}
+          <a
+            href="https://www.dvrpc.org/asp/PATIPComment/comments.aspx"
+            target="_blank"
+          >
+            Here
+          </a>
         </p>
       </div>
     </article>
