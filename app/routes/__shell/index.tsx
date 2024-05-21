@@ -153,9 +153,9 @@ export default function Panel() {
         {projects.length ? (
           projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
             return mappedProjects.has(p.id) && !projectsWithinView.size ? (
-              <ProjectLink p={p} />
+              <ProjectLink p={p} key={p.id} />
             ) : (
-              projectsWithinView.has(p.id) && <ProjectLink p={p} />
+              projectsWithinView.has(p.id) && <ProjectLink p={p} key={p.id} />
             );
           })
         ) : (

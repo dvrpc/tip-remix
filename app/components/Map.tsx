@@ -237,7 +237,7 @@ export default function MapContainer({
           </Source>
         ))}
 
-      {showPopup ? (
+      {showPopup?.feature ? (
         <Popup
           longitude={showPopup.longitude}
           latitude={showPopup.latitude}

@@ -139,10 +139,10 @@ export default function ProjectDetails() {
         <button
           className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
           onClick={() => {
-            const features = ["nj-tip-points", "nj-tip-lines"]
+            const features = ["pa-tip-points", "pa-tip-lines"]
               .map((layer) =>
                 map.current?.querySourceFeatures(layer, {
-                  filter: ["in", "dbnum", project.id],
+                  filter: ["in", "mpms_id", project.id],
                 })
               )
               .reduce((prev, curr) => [...prev, ...curr]);
