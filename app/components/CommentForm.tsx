@@ -70,6 +70,7 @@ export default function CommentForm({
         {
           method: "post",
           body: JSON.stringify(createdComment),
+          headers: { "Content-Type": "application/json" },
         }
       );
       if (request.ok) {
