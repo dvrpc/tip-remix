@@ -74,13 +74,3 @@ export function getCategoryColor(category: string): string {
   if (category in categories) return categories[category];
   else return categories.Other;
 }
-
-/**
- * extracts id from splat params.
- * @param {Object} params 
- * @returns {number} id from url
- */
-export function extractIdFromSplat(params) {
-  params = params["*"]?.split("/");
-  return params[params.length - 1];
-}

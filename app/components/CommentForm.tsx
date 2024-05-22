@@ -1,7 +1,6 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useParams } from "remix";
 import Input from "./Input";
-import { getProject } from "~/project";
 import { VisibilityProps } from "./Modal";
 import Spinner from "./Spinner";
 
@@ -11,44 +10,13 @@ export default function CommentForm({
 }: VisibilityProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [projectId, setProjectId] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const { id } = useParams();
 
-  // autofill mpms
-  useEffect(() => {
-    if (!id) {
-      setProjectId("");
-      return;
-    }
-
-    (async () => {
-      const data = await getProject(id);
-      setProjectId(data.id);
-    })();
-  }, [id, setProjectId, getProject]);
-
-  const validate = (params = [projectId, fullName, email, comment]) => {
-    let ret = true;
-    // only validate the fields required for general comments
-    if (isVisible.isGeneral) params = params.slice(2);
-    params.forEach((param: string) => {
-      if (!param) {
-        setError("One or more fields is empty");
-        ret = false;
-      }
-    });
-    return ret;
-  };
-
-  const clear = (
-    arr = [setProjectId, setFullName, setEmail, setComment, setError]
-  ) => {
-    // if there is a project selected clear all fields except those that have been autofilled ie the first 2
-    if (id) arr = arr.slice(2);
+  const clear = (arr = [setComment, setError]) => {
     arr.forEach((func) => {
       func("");
     });
@@ -56,9 +24,6 @@ export default function CommentForm({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!validate()) {
-      return;
-    }
 
     const timer = (ms: any) => new Promise((res) => setTimeout(res, ms));
 
@@ -67,15 +32,14 @@ export default function CommentForm({
         Name: fullName,
         email,
         comment_text: comment,
-        ...(!isVisible.isGeneral && { MPMS: projectId }),
+        ...(!isVisible.isGeneral && { MPMS: id }),
       };
 
       const request = await fetch(
-        "https://www.dvrpc.org/data/tip/2025/comments",
+        "https://www2.dvrpc.org/data/tip/2025/comments",
         {
           method: "post",
           body: JSON.stringify(createdComment),
-          headers: { "Content-Type": "application/json" },
         }
       );
 
@@ -86,18 +50,12 @@ export default function CommentForm({
         setLoading(false);
         setError("");
         setSuccess("Comment saved successfully!");
-        await timer(2000);
-        setSuccess("");
         clear();
-        setIsVisible((prev: any) => {
-          return {
-            ...prev,
-            visibility: false,
-          };
-        });
       }
     } catch (err) {
-      setError("An error has occurred");
+      setError(
+        "An error has occurred. Please email tip@dvrpc.org with your comments."
+      );
     }
   };
 
@@ -105,12 +63,13 @@ export default function CommentForm({
     <>
       <div className="flex pt-4 px-4">
         <h2 className="text-xl">
-          Leave a Comment{!isVisible.isGeneral && <> for Project {projectId}</>}
+          Leave a Comment{!isVisible.isGeneral && <> for Project {id}</>}
         </h2>
         <span
           className="close cursor-pointer ml-auto text-2xl"
           onClick={() => {
             clear();
+            setSuccess("");
             setIsVisible((prev: any) => {
               return {
                 ...prev,
@@ -131,6 +90,7 @@ export default function CommentForm({
           label={"Full name"}
           value={fullName}
           setValue={setFullName}
+          required={true}
           disabled={loading || success.length ? true : false}
         />
         <Input
@@ -138,15 +98,16 @@ export default function CommentForm({
           value={email}
           type="email"
           setValue={setEmail}
+          required={true}
           disabled={loading || success.length ? true : false}
         />
-        {!isVisible.isGeneral && <input type="hidden" value={projectId} />}
+        {!isVisible.isGeneral && <input type="hidden" value={id} />}
         <label>
           Comment{" "}
           {!isVisible.isGeneral ? (
             <>
               {" "}
-              for Project {projectId}{" "}
+              for Project {id}{" "}
               <small
                 className="cursor-pointer hover:text-stone-300 underline"
                 onClick={() =>
@@ -180,6 +141,7 @@ export default function CommentForm({
           ) : null}
           <textarea
             disabled={loading || success.length ? true : false}
+            required={true}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="appearance-none bg-stone-600 disabled:bg-transparent disabled:border-2 disabled:border-stone-600 disabled:shadow-transparent flex-1 h-36 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"

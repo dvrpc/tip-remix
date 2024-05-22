@@ -9,7 +9,7 @@ import {
 } from "remix";
 import { getProject } from "~/project";
 import { useAppContext } from "~/AppContext";
-import { extractIdFromSplat, getBoundingBox } from "~/utils";
+import { getBoundingBox } from "~/utils";
 import { LngLatBounds } from "mapbox-gl";
 
 type Project = {
@@ -27,8 +27,7 @@ type Project = {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const id = extractIdFromSplat(params);
-  return id && json(await getProject(id));
+  return params.id && json(await getProject(params.id));
 };
 
 /**

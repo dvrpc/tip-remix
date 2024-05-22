@@ -4,6 +4,7 @@ interface InputProps {
   styles?: object;
   type?: string;
   disabled?: boolean;
+  required?: boolean;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -13,6 +14,7 @@ export default function Input({
   styles,
   type,
   disabled = false,
+  required = false,
   setValue,
 }: InputProps) {
   return (
@@ -20,6 +22,7 @@ export default function Input({
       {label}
       <input
         disabled={disabled}
+        required={required}
         type={type ? type : ""}
         value={value}
         onChange={(e) => setValue(e.target.value)}
