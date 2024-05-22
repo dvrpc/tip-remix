@@ -137,7 +137,7 @@ export default function ProjectDetails() {
       </div>
       {mappedProjects.has(project.id) && (
         <button
-          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
+          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 mr-4 no-underline p-2 rounded text-stone-700"
           onClick={() => {
             const features = ["pa-tip-points", "pa-tip-lines"]
               .map((layer) =>
@@ -160,6 +160,20 @@ export default function ProjectDetails() {
           Streetview
         </button>
       )}
+      <div
+        className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"
+        onClick={() =>
+          setIsVisible((prev: { isGeneral: boolean; visibility: boolean }) => {
+            return {
+              ...prev,
+              isGeneral: false,
+              visibility: true,
+            };
+          })
+        }
+      >
+        Comment
+      </div>
       {project.id ? (
         <>
           <h2 className="mt-0">
