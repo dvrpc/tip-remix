@@ -3,6 +3,7 @@ import { useParams } from "remix";
 import Input from "./Input";
 import { getProject } from "~/project";
 import { VisibilityProps } from "./Modal";
+import Spinner from "./Spinner";
 
 export default function CommentForm({
   isVisible,
@@ -13,6 +14,7 @@ export default function CommentForm({
   const [projectId, setProjectId] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const { id } = useParams();
 
@@ -57,6 +59,9 @@ export default function CommentForm({
     if (!validate()) {
       return;
     }
+
+    const timer = (ms: any) => new Promise((res) => setTimeout(res, ms));
+
     try {
       const createdComment = {
         Name: fullName,
@@ -73,19 +78,23 @@ export default function CommentForm({
           headers: { "Content-Type": "application/json" },
         }
       );
+
+      setLoading(true);
+      await timer(2000);
+
       if (request.ok) {
+        setLoading(false);
         setError("");
         setSuccess("Comment saved successfully!");
-        setTimeout(() => {
-          setSuccess("");
-          clear();
-          setIsVisible((prev: any) => {
-            return {
-              ...prev,
-              visibility: false,
-            };
-          });
-        }, 2000);
+        await timer(2000);
+        setSuccess("");
+        clear();
+        setIsVisible((prev: any) => {
+          return {
+            ...prev,
+            visibility: false,
+          };
+        });
       }
     } catch (err) {
       setError("An error has occurred");
@@ -113,9 +122,24 @@ export default function CommentForm({
           &times;
         </span>
       </div>
-      <form className="flex flex-col p-4" onSubmit={handleSubmit} id="test">
-        <Input label={"Full name"} value={fullName} setValue={setFullName} />
-        <Input label={"Email"} value={email} type="email" setValue={setEmail} />
+      <form
+        className="flex flex-col p-4 relative"
+        onSubmit={handleSubmit}
+        id="test"
+      >
+        <Input
+          label={"Full name"}
+          value={fullName}
+          setValue={setFullName}
+          disabled={loading || success.length ? true : false}
+        />
+        <Input
+          label={"Email"}
+          value={email}
+          type="email"
+          setValue={setEmail}
+          disabled={loading || success.length ? true : false}
+        />
         {!isVisible.isGeneral && <input type="hidden" value={projectId} />}
         <label>
           Comment{" "}
@@ -155,19 +179,26 @@ export default function CommentForm({
             </small>
           ) : null}
           <textarea
+            disabled={loading || success.length ? true : false}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="appearance-none bg-stone-600 flex-1 h-36 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
+            className="appearance-none bg-stone-600 disabled:bg-transparent disabled:border-2 disabled:border-stone-600 disabled:shadow-transparent flex-1 h-36 p-2 placeholder:text-stone-300 rounded shadow-[inset_0_0_0_1000px] shadow-stone-600 w-full"
           />
         </label>
         {error && <div className="text-red-500">{error}</div>}
         {success && <div className="text-green-500">{success}</div>}
         <button
           type="submit"
-          className="bg-yellow-400 font-bold hover:bg-yellow-500 inline-block mb-4 mt-2 no-underline p-2 rounded text-stone-700"
+          className="bg-yellow-400 disable:bg-yellow-600 disabled:cursor-auto disabled:opacity-75 enabled:hover:bg-yellow-500 font-bold inline-block mb-4 mt-2 no-underline p-2 rounded text-stone-700"
+          disabled={loading || success.length ? true : false}
         >
           Submit
         </button>
+        {loading && (
+          <div className="-ml-2.5 absolute left-1/2 top-[35%] transform-y-1/2">
+            <Spinner />
+          </div>
+        )}
       </form>
     </>
   );
