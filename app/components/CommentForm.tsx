@@ -25,7 +25,7 @@ export default function CommentForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const timer = (ms: any) => new Promise((res) => setTimeout(res, ms));
+    const timer = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     try {
       const createdComment = {
@@ -42,20 +42,27 @@ export default function CommentForm({
           body: JSON.stringify(createdComment),
         }
       );
-
+      setError("");
+      setSuccess("");
       setLoading(true);
-      await timer(2000);
+      await timer(1000);
 
       if (request.ok) {
         setLoading(false);
         setError("");
         setSuccess("Comment saved successfully!");
         clear();
+      } else {
+        setError(
+          "An error has occurred. Please email tip@dvrpc.org with your comments."
+        );
+        setLoading(false);
       }
     } catch (err) {
       setError(
         "An error has occurred. Please email tip@dvrpc.org with your comments."
       );
+      setLoading(false);
     }
   };
 
@@ -91,7 +98,7 @@ export default function CommentForm({
           value={fullName}
           setValue={setFullName}
           required={true}
-          disabled={loading || success.length ? true : false}
+          disabled={loading}
         />
         <Input
           label={"Email"}
@@ -99,7 +106,7 @@ export default function CommentForm({
           type="email"
           setValue={setEmail}
           required={true}
-          disabled={loading || success.length ? true : false}
+          disabled={loading}
         />
         {!isVisible.isGeneral && <input type="hidden" value={id} />}
         <label>
@@ -140,7 +147,7 @@ export default function CommentForm({
             </small>
           ) : null}
           <textarea
-            disabled={loading || success.length ? true : false}
+            disabled={loading}
             required={true}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -152,7 +159,7 @@ export default function CommentForm({
         <button
           type="submit"
           className="bg-yellow-400 disable:bg-yellow-600 disabled:cursor-auto disabled:opacity-75 enabled:hover:bg-yellow-500 font-bold inline-block mb-4 mt-2 no-underline p-2 rounded text-stone-700"
-          disabled={loading || success.length ? true : false}
+          disabled={loading}
         >
           Submit
         </button>
