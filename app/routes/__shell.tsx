@@ -147,7 +147,7 @@ export default function Projects() {
             </div>
           </li>
           <li>
-            <a className="underline" href="https://www.dvrpc.org/TIP/pa/">
+            <a className="underline" href="https://www.dvrpc.org/tip/draft/">
               Overview &amp; Documents
             </a>
           </li>
