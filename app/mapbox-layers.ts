@@ -279,7 +279,7 @@ export const togglableLayers = [
     key: "freight",
     id: "Freight Centers",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2045_Freight_Centers/FeatureServer/0/query?where=1%3D1&outFields=types&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Freight/freight_centers/FeatureServer/0/query?where=1%3D1&outFields=types&outSR=4326&f=geojson",
     layer: {
       id: "freight",
       type: "fill",
