@@ -44,7 +44,10 @@ export default function NotMapped() {
               >
                 <div className="border-b border-stone-400 flex flex-1 items-center">
                   <Link
-                    to={{ pathname: p.id.toString(), search: location.search }}
+                    to={{
+                      pathname: `${basename}/${p.id.toString()}`,
+                      search: location.search,
+                    }}
                     className="flex gap-4 items-center"
                   >
                     <CategoryIcon categoryName={p.category} />
