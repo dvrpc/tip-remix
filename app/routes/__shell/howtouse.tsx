@@ -26,9 +26,9 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the Draft DVRPC FY2023 TIP for Pennsylvania (FY23-FY26) on a map. This
+          the Draft DVRPC FY2025 TIP for Pennsylvania (FY25-FY28) on a map. This
           Draft TIP was developed jointly in cooperation with PennDOT, SEPTA,
-          Pottstown Area Rapid Transit (PART), and DVRPC's member cities and
+          Pottstown Area Rapid Transit (PART), and DVRPC&#39;s member cities and
           counties.
         </p>
         <p>
@@ -40,16 +40,15 @@ export default function HowToUse() {
         </p>
         <p>
           <strong>
-            The Draft TIP, including comments submitted during the comment
-            period and any recommended changes, were presented to DVRPC
-            stakeholders and the DVRPC Board for adoption on Thursday, July 28,
-            2022.
+            Comments are now accepted for the Draft DVRPC FY2025 TIP for
+            Pennsylvania (FY25- FY28) from Thursday, May 23, 2024 until 5:00
+            p.m. on Monday, June 24, 2024 local time.
           </strong>
         </p>
         <p>
           The Draft TIP, including comments submitted during the comment period
           and any recommended changes, will be presented to DVRPC stakeholders
-          and the DVRPC Board for adoption on Thursday, July 28, 2022.
+          and the DVRPC Board for adoption on Thursday, July 25, 2024.
         </p>
         <h2>How to Use & Map Navigation</h2>
         <p>
@@ -85,25 +84,20 @@ export default function HowToUse() {
         <p>
           To leave a comment on a Draft TIP project, first select that project
           on the map or from the list on the right-hand side. Then, click on the
-          yellow “Comment” button above the name of the project and then
-          complete the comment form. Click “Submit” when completed.
+          yellow <b>“Comment”</b> button above the name of the project and then
+          complete the comment form. Click <b>“Submit”</b> when completed.
         </p>
         <p>
           To leave a general comment about the Draft TIP document, click on the
-          yellow "General Comment” button at the top of the webmap application,
-          just to the left of the “Overview & Documents” link. A comment form
-          will open for you to complete. Once the form is completed, click on
-          the “Submit” button.
+          yellow <b>“General Comment”</b> button at the top of the webmap
+          application, just to the left of the <b>“Overview &amp; Documents”</b>{" "}
+          link. A comment form will open for you to complete. Once the form is
+          completed, click on the <b>“Submit”</b> button.
         </p>
         <h2>Read Comments</h2>
         <p>
-          Read Comments{" "}
-          <a
-            href="https://www.dvrpc.org/asp/PATIPComment/comments.aspx"
-            target="_blank"
-          >
-            Here
-          </a>
+          Public Comments and responses will not be available until after the
+          July 25, 2024 DVRPC Board meeting.
         </p>
       </div>
     </article>
