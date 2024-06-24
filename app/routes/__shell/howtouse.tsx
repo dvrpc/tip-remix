@@ -38,13 +38,13 @@ export default function HowToUse() {
           of comments, it is always available to review or map the program and
           individual projects in an interactive way.
         </p>
-        <p>
+        {/* <p>
           <strong>
             Comments are now accepted for the Draft DVRPC FY2025 TIP for
             Pennsylvania (FY25- FY28) from Thursday, May 23, 2024 until 5:00
             p.m. on Monday, June 24, 2024 local time.
           </strong>
-        </p>
+        </p> */}
         <p>
           The Draft TIP, including comments submitted during the comment period
           and any recommended changes, will be presented to DVRPC stakeholders
@@ -80,7 +80,7 @@ export default function HowToUse() {
           important planning components, such as Environmental Justice,
           Congestion, or Freight Corridors, for example.
         </p>
-        <h2>Submit Comments</h2>
+        {/* <h2>Submit Comments</h2>
         <p>
           To leave a comment on a Draft TIP project, first select that project
           on the map or from the list on the right-hand side. Then, click on the
@@ -93,7 +93,7 @@ export default function HowToUse() {
           application, just to the left of the <b>“Overview &amp; Documents”</b>{" "}
           link. A comment form will open for you to complete. Once the form is
           completed, click on the <b>“Submit”</b> button.
-        </p>
+        </p> */}
         <h2>Read Comments</h2>
         <p>
           Public Comments and responses will not be available until after the
