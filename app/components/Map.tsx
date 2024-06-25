@@ -162,7 +162,7 @@ export default function MapContainer({
       maxBounds={maxExtent}
       initialViewState={{ bounds: maxExtent }}
       mapStyle="mapbox://styles/crvanpollard/cl309ua6g006a15qks975tm31"
-      mapboxAccessToken="pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNseHRkcXU4YzF3bnYybG9wMXAyN3R6ZWwifQ.kezQHP6Q07BTMlZvR6PxSw"
+      mapboxAccessToken="pk.eyJ1IjoiY3J2YW5wb2xsYXJkIiwiYSI6ImNseHVpZmprazI4bWoycXB2MTljMWF1YjUifQ.jLMaSXqIUV5N2IxYlk5ZiQ"
       interactiveLayerIds={interactiveLayerIds}
       onMouseMove={onHover}
       onMouseLeave={onMouseLeave}
