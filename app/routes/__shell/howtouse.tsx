@@ -96,8 +96,9 @@ export default function HowToUse() {
         </p> */}
         <h2>Read Comments</h2>
         <p>
-          Public Comments and responses will not be available until after the
-          July 25, 2024 DVRPC Board meeting.
+          Click <a href="https://dvrpc.org/tip/fy25patipcomments/">here</a> to
+          view Comments and responses submitted to the Draft FY2025 TIP for
+          Pennsylvania (FY25-FY28)
         </p>
       </div>
     </article>

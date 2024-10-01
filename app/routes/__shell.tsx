@@ -129,7 +129,7 @@ export default function Projects() {
       <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
         <ul className="divide-x flex gap-4 items-center justify-end w-full">
           <li>
-            <a className="underline" href="https://www.dvrpc.org/tip/draft/">
+            <a className="underline" href="https://www.dvrpc.org/tip/pa/">
               Overview &amp; Documents
             </a>
           </li>
