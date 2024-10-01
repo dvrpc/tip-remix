@@ -26,9 +26,9 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the  DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This
-          TIP was developed jointly in cooperation with NJDOT, NJ TRANSIT,
-          DRPA/PATCO and DVRPC's member cities and counties.
+          the DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This TIP was
+          developed jointly in cooperation with NJDOT, NJ TRANSIT, DRPA/PATCO
+          and DVRPC's member cities and counties.
         </p>
         <p>
           During times when the public is asked to comment on a Draft TIP, this
@@ -49,9 +49,9 @@ export default function HowToUse() {
           various colors.
         </p>
         <p>
-          You can search and view all TIP projects by searching by keyword
-          or by NJDOT’s DB number which is a unique identifier, which is located
-          in the main header. You can also use several filters from drop downs
+          You can search and view all TIP projects by searching by keyword or by
+          NJDOT’s DB number which is a unique identifier, which is located in
+          the main header. You can also use several filters from drop downs
           under the search bar. You can sort by ID (DB #), Name, or category.
           You can filter by category (bike/ped improvement, bridge
           rehab/replace, transit improvements, etc…), by Air Quality Code, Fund,
@@ -67,19 +67,11 @@ export default function HowToUse() {
           important planning components, such as Environmental Justice,
           Congestion, or Freight Corridors, for example.
         </p>
-        <h2>Submit Comments</h2>
+        <h2>Read Comments</h2>
         <p>
-          To leave a comment on a Draft TIP project, first select that project
-          on the map or from the list on the right-hand side. Then, click on the
-          yellow “Comment” button above the name of the project and then
-          complete the comment form. Click “Submit” when completed.
-        </p>
-        <p>
-          To leave a general comment about the Draft TIP document, click on the
-          yellow "General Comment” button at the top of the webmap application,
-          just to the left of the “Overview & Documents” link. A comment form
-          will open for you to complete. Once the form is completed, click on
-          the “Submit” button.
+          Click <a href="https://www.dvrpc.org/asp/NJTIPComment/">here</a> to
+          view Comments and responses submitted to the Draft FY2024 TIP for New
+          Jersey (FY24-FY27)
         </p>
       </div>
     </article>
