@@ -348,8 +348,8 @@ export const togglableLayers = [
     },
   },
   {
-    key: "urbanizedareas",
-    id: "Urbanized Areas",
+    key: "urbanareas",
+    id: "Urban Areas",
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/UrbanAreas_NJDOT_Adjusted_2020/FeatureServer/0/query?where=1=1&outfields=uace20&outsr=4326&f=geojson",
     layer: {
