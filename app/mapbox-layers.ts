@@ -363,6 +363,7 @@ export const togglableLayers = [
         ["#D79E9E", "Leisuretowne, NJ"],
         ["#FF7F7F", "Hammonton, NJ"],
         ["#FFD37F", "Vineland, NJ"],
+        ["#ABCD66", "Mystic Island--Little Egg Harbor, NJ "],
       ],
       paint: {
         "fill-color": [
@@ -381,6 +382,8 @@ export const togglableLayers = [
           "#FF7F7F",
           ["==", ["get", "name20"], "Vineland, NJ"],
           "#FFD37F",
+          ["==", ["get", "name20"], "Mystic Island--Little Egg Harbor, NJ "],
+          "#ABCD66",
           "#9C9C9C",
         ],
         "fill-opacity": 0.4,
