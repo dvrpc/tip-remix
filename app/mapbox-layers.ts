@@ -13,7 +13,7 @@ export const boundaryLayers = [
       type: "line",
       paint: {
         "line-color": "#6e6e6e",
-        "line-width": 1.75,
+        "line-width": 2,
       },
     },
   },
@@ -27,6 +27,7 @@ export const boundaryLayers = [
       type: "line",
       paint: {
         "line-color": "#6e6e6e",
+        "line-width": 2,
       },
     },
   },
@@ -39,7 +40,8 @@ export const boundaryLayers = [
       id: "senate",
       type: "line",
       paint: {
-        "line-color": "#777",
+        "line-color": "#6e6e6e",
+        "line-width": 2,
       },
     },
   },
