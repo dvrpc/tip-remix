@@ -26,7 +26,7 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the DVRPC FY2024 TIP for New Jersey (FY24-FY27) on a map. This TIP was
+          the DVRPC FY2026 TIP for New Jersey (FY24-FY27) on a map. This TIP was
           developed jointly in cooperation with NJDOT, NJ TRANSIT, DRPA/PATCO
           and DVRPC's member cities and counties.
         </p>
@@ -70,8 +70,8 @@ export default function HowToUse() {
         <h2>Read Comments</h2>
         <p>
           Click <a href="https://www.dvrpc.org/asp/NJTIPComment/">here</a> to
-          view Comments and responses submitted to the Draft FY2024 TIP for New
-          Jersey (FY24-FY27)
+          view Comments and responses submitted to the Draft FY2026 TIP for New
+          Jersey (FY26-FY29)
         </p>
       </div>
     </article>

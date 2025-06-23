@@ -16,9 +16,9 @@ import styles from "./styles/app.css";
 
 const globals = {
   basename: "/tip/nj/map",
-  appName: "FY2024 TIP for NJ",
-  startYear: 24,
-  endYear: 27,
+  appName: "FY2026 TIP for NJ",
+  startYear: 26,
+  endYear: 29,
   ga_tracking_id: "UA-9825778-1",
 };
 
