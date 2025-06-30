@@ -4,6 +4,7 @@ import Input from "./Input";
 import { getProject } from "~/project";
 import { VisibilityProps } from "./Modal";
 import { extractIdFromSplat } from "~/utils";
+import Spinner from "./Spinner";
 
 export default function CommentForm({
   isVisible,
@@ -14,42 +15,11 @@ export default function CommentForm({
   const [projectId, setProjectId] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const { "*": id } = useParams();
 
-  const params = useParams();
-  const id = Object.keys(params).length > 0 ? extractIdFromSplat(params) : null;
-  
-  // autofill mpms
-  useEffect(() => {
-    if (!id) {
-      setProjectId("");
-      return;
-    }
-
-    (async () => {
-      const data = await getProject(id);
-      setProjectId(data.id);
-    })();
-  }, [id, setProjectId, getProject]);
-
-  const validate = (params = [projectId, fullName, email, comment]) => {
-    let ret = true;
-    // only validate the fields required for general comments
-    if (isVisible.isGeneral) params = params.slice(2);
-    params.forEach((param: string) => {
-      if (!param) {
-        setError("One or more fields is empty");
-        ret = false;
-      }
-    });
-    return ret;
-  };
-
-  const clear = (
-    arr = [setProjectId, setFullName, setEmail, setComment, setError]
-  ) => {
-    // if there is a project selected clear all fields except those that have been autofilled ie the first 2
-    if (id) arr = arr.slice(2);
+  const clear = (arr = [setComment, setError]) => {
     arr.forEach((func) => {
       func("");
     });
@@ -57,40 +27,45 @@ export default function CommentForm({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!validate()) {
-      return;
-    }
+
+    const timer = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
     try {
       const createdComment = {
         Name: fullName,
         email,
         comment_text: comment,
-        ...(!isVisible.isGeneral && { MPMS: projectId }),
+        ...(!isVisible.isGeneral && { MPMS: id }),
       };
 
       const request = await fetch(
-        "https://www2.dvrpc.org/data/tip/2024/comments",
+        "https://www2.dvrpc.org/data/tip/2026/comments",
         {
           method: "post",
           body: JSON.stringify(createdComment),
         }
       );
+      setError("");
+      setSuccess("");
+      setLoading(true);
+      await timer(1000);
+
       if (request.ok) {
+        setLoading(false);
         setError("");
         setSuccess("Comment saved successfully!");
-        setTimeout(() => {
-          setSuccess("");
-          clear();
-          setIsVisible((prev: any) => {
-            return {
-              ...prev,
-              visibility: false,
-            };
-          });
-        }, 2000);
+        clear();
+      } else {
+        setError(
+          "An error has occurred. Please email tip@dvrpc.org with your comments."
+        );
+        setLoading(false);
       }
     } catch (err) {
-      setError("An error has occurred");
+      setError(
+        "An error has occurred. Please email tip@dvrpc.org with your comments."
+      );
+      setLoading(false);
     }
   };
 
@@ -170,6 +145,12 @@ export default function CommentForm({
         >
           Submit
         </button>
+
+        {loading && (
+          <div className="-ml-2.5 absolute left-1/2 top-[35%] transform-y-1/2">
+            <Spinner />
+          </div>
+        )}
       </form>
     </>
   );
