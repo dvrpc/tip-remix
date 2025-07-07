@@ -15,8 +15,8 @@ import * as gtag from "~/utils/gtags.client";
 import styles from "./styles/app.css";
 
 const globals = {
-  basename: "/tip/nj/map",
-  appName: "FY2026 TIP for NJ",
+  basename: "/tip/draft/map",
+  appName: "FY2026 Draft TIP for NJ",
   startYear: 26,
   endYear: 29,
   ga_tracking_id: "UA-9825778-1",
