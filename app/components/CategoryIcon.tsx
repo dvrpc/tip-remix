@@ -10,12 +10,11 @@ export default function CategoryIcon({
   categoryName: string;
 }) {
   if (categoryName) {
-    const className = `category-${categoryName.replace(/ /g, "_")}`;
     return (
       <img
         title={categoryName}
-        src="https://tiles.dvrpc.org/data/styles/dvrpc-pa-tip/sprite.png"
-        className={`inline-block w-[62px] h-[62px] scale-75 -mr-2 object-none ${className}`}
+        src={`https://dvrpc.org/tip/icons/${categoryName.replace(/ |\//g, "-")}.svg`}
+        className="inline-block w-[62px] h-[62px] scale-75 -mr-2 object-none"
       />
     );
   } else {
