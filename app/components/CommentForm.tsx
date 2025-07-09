@@ -12,14 +12,15 @@ export default function CommentForm({
 }: VisibilityProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [projectId, setProjectId] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const { "*": id } = useParams();
 
-  const clear = (arr = [setComment, setError]) => {
+  const clear = (
+    arr = [setFullName, setEmail, setComment, setError, setSuccess]
+  ) => {
     arr.forEach((func) => {
       func("");
     });
@@ -31,6 +32,17 @@ export default function CommentForm({
     const timer = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     try {
+      let params = [fullName, email, comment];
+      let validate = true;
+      if (isVisible.isGeneral) params = params.slice(1);
+      params.forEach((param: string) => {
+        if (!param) {
+          setError("One or more fields is empty");
+          validate = false;
+        }
+      });
+      if (!validate) return;
+
       const createdComment = {
         Name: fullName,
         email,
@@ -54,7 +66,14 @@ export default function CommentForm({
         setLoading(false);
         setError("");
         setSuccess("Comment saved successfully!");
+        await timer(1000);
         clear();
+        setIsVisible((prev: any) => {
+          return {
+            ...prev,
+            visibility: !prev.visibility,
+          };
+        });
       } else {
         setError(
           "An error has occurred. Please email tip@dvrpc.org with your comments."
@@ -73,7 +92,7 @@ export default function CommentForm({
     <>
       <div className="flex pt-4 px-4">
         <h2 className="text-xl">
-          Leave a Comment{!isVisible.isGeneral && <> for Project {projectId}</>}
+          Leave a Comment{!isVisible.isGeneral && <> for Project {id}</>}
         </h2>
         <span
           className="close cursor-pointer ml-auto text-2xl"
@@ -93,13 +112,13 @@ export default function CommentForm({
       <form className="flex flex-col p-4" onSubmit={handleSubmit} id="test">
         <Input label={"Full name"} value={fullName} setValue={setFullName} />
         <Input label={"Email"} value={email} type="email" setValue={setEmail} />
-        {!isVisible.isGeneral && <input type="hidden" value={projectId} />}
+        {!isVisible.isGeneral && <input type="hidden" value={id} />}
         <label>
           Comment{" "}
           {!isVisible.isGeneral ? (
             <>
               {" "}
-              for Project {projectId}{" "}
+              for Project {id}{" "}
               <small
                 className="cursor-pointer hover:text-stone-300 underline"
                 onClick={() =>
