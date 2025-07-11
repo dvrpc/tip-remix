@@ -50,9 +50,9 @@ export const boundaryLayers = [
 export const togglableLayers = [
   {
     key: "ipd",
-    id: "Indicators of Potential Disadvantage (2022)",
+    id: "Indicators of Potential Disadvantage (2023)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2022/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/ipd_2023/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
       link: "https://www.dvrpc.org/webmaps/ipd/#map",
       id: "ipd",
@@ -107,9 +107,9 @@ export const togglableLayers = [
   },
   {
     key: "racialminority",
-    id: "Racial Minority Population Group (IPD 2022)",
+    id: "Title VI Populations (IPD 2023)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2022/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=RM_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/ipd_2023/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=*&outSR=4326&f=geojson",
     layer: {
       id: "racialminority",
       link: "https://www.dvrpc.org/webmaps/ipd/#map",
@@ -125,7 +125,7 @@ export const togglableLayers = [
         "fill-color": [
           "interpolate",
           ["linear"],
-          ["get", "rm_score"],
+          ["get", "t6_score"],
           0,
           "#ffffcc",
           1,
@@ -155,9 +155,9 @@ export const togglableLayers = [
   },
   {
     key: "lowincome",
-    id: "Low-Income Popluation Group (IPD 2022)",
+    id: "Low-Income Popluation Group (IPD 2023)",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/IPD_2022/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/ipd_2023/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
     layer: {
       id: "lowincome",
       type: "fill",
