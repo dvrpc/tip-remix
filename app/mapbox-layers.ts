@@ -50,7 +50,7 @@ export const boundaryLayers = [
 export const togglableLayers = [
   {
     key: "ipd",
-    id: "Indicators of Potential Disadvantage (2023)",
+    id: "Title VI Composite Score (2023)",
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/ipd_2023/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=IPD_SCORE&outSR=4326&f=geojson",
     layer: {
