@@ -13,8 +13,11 @@ export default function CategoryIcon({
     return (
       <img
         title={categoryName}
-        src={`https://dvrpc.org/tip/icons/${categoryName.replace(/ |\//g, "-")}.svg`}
-        className="inline-block w-[62px] h-[62px] scale-75 -mr-2 object-none"
+        src={`https://www.dvrpc.org/tip/icons/${categoryName.replace(
+          / |\//g,
+          "-"
+        )}.svg`}
+        className="-mr-2 h-[62px] inline-block object-none scale-75 w-[62px]"
       />
     );
   } else {
