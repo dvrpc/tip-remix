@@ -26,9 +26,9 @@ export default function HowToUse() {
       <div>
         <p>
           This application allows you to search for and see projects included in
-          the DVRPC FY2026 TIP for New Jersey (FY24-FY27) on a map. This TIP was
-          developed jointly in cooperation with NJDOT, NJ TRANSIT, DRPA/PATCO
-          and DVRPC's member cities and counties.
+          the Draft DVRPC FFY2026 TIP for New Jersey (FFY26-FFY29) on a map.
+          This Draft TIP was developed jointly in cooperation with NJDOT, NJ
+          TRANSIT, DRPA/PATCO and DVRPC's member cities and counties.
         </p>
         <p>
           During times when the public is asked to comment on a Draft TIP, this
@@ -36,6 +36,16 @@ export default function HowToUse() {
           on the overall program. When this site is not open for the submission
           of comments, it is always available to review or map the program and
           individual projects in an interactive way.
+        </p>
+        <p className="font-bold">
+          Comments are now accepted for the Draft DVRPC FFY2026 TIP for New
+          Jersey (FFY26-FFY29) from Friday, July 18, 2025 until 5:00 p.m. on
+          Wednesday, August 20, 2025 local time.
+        </p>
+        <p>
+          The Draft TIP, including comments submitted during the comment period
+          and any recommended changes, will be presented to DVRPC stakeholders
+          and the DVRPC Board for adoption on Thursday, September 25, 2025.
         </p>
         <h2>How to Use & Map Navigation</h2>
         <p>
@@ -63,15 +73,28 @@ export default function HowToUse() {
           decision-making in the region, you can choose to turn on or off the
           geospatial boundary or layer information that are located at the top
           right corner of the map. This function can allow you to better
-          understand and see the relevance of a TIP project’s relation to
-          important planning components, such as Environmental Justice,
-          Congestion, or Freight Corridors, for example.
+          understand and see the relevance of a Draft TIP project’s relation to
+          important planning components, such as Congestion, Freight Corridors
+          or Land Use, for example.
+        </p>
+        <h2>Submit Comments</h2>
+        <p>
+          To leave a comment on a Draft TIP project, first select that project
+          on the map or from the list on the right-hand side. Then, click on the
+          yellow <b>“Comment”</b> button above the name of the project and then
+          complete the comment form. Click <b>“Submit”</b> when completed.
+        </p>
+        <p>
+          To leave a general comment about the Draft TIP document, click on the
+          yellow <b>"General Comment” button</b> at the top of the webmap
+          application, just to the left of the “Overview & Documents” link. A
+          comment form will open for you to complete. Once the form is
+          completed, click on the <b>“Submit”</b> button.
         </p>
         <h2>Read Comments</h2>
         <p>
-          Click <a href="https://www.dvrpc.org/asp/NJTIPComment/">here</a> to
-          view Comments and responses submitted to the Draft FY2026 TIP for New
-          Jersey (FY26-FY29)
+          Public Comments and responses will not be available until after the
+          September 25, 2025 DVRPC Board meeting.
         </p>
       </div>
     </article>
