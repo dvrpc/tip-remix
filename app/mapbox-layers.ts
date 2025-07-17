@@ -159,6 +159,7 @@ export const togglableLayers = [
     type: "geojson",
     data: "https://arcgis.dvrpc.org/portal/rest/services/Demographics/ipd_2023/FeatureServer/0/query?where=geoid20+like+%2734%25%27&outFields=LI_SCORE&outSR=4326&f=geojson",
     layer: {
+      link: "https://www.dvrpc.org/webmaps/ipd/#map",
       id: "lowincome",
       type: "fill",
       legend: [
@@ -305,7 +306,7 @@ export const togglableLayers = [
     key: "freight",
     id: "Freight Centers",
     type: "geojson",
-    data: "https://arcgis.dvrpc.org/portal/rest/services/Planning/LRP_2045_Freight_Centers/FeatureServer/0/query?where=1%3D1&outFields=types&outSR=4326&f=geojson",
+    data: "https://arcgis.dvrpc.org/portal/rest/services/planning/lrp_2050_freight_centers/FeatureServer/0/query?where=1%3D1&outFields=types&outSR=4326&f=geojson",
     layer: {
       id: "freight",
       type: "fill",
