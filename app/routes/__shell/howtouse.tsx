@@ -5,20 +5,15 @@ export default function HowToUse() {
   const {
     appContext: { basename },
   } = useAppContext();
-  const { location, setIsVisible } = useOutletContext();
+  const { location, setVisibility, setIsGeneral } = useOutletContext();
   return (
     <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
       <Link
         to={{ pathname: basename, search: location.search }}
         className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
         onClick={() => {
-          setIsVisible((prev: { isGeneral: boolean; visibility: boolean }) => {
-            return {
-              ...prev,
-              isGeneral: false,
-              visibility: false,
-            };
-          });
+          setVisibility(false);
+          setIsGeneral(false);
         }}
       >
         &#10094; Back
