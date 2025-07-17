@@ -1,19 +1,24 @@
 import CommentForm from "./CommentForm";
 
-export interface VisibilityProps {
-  isVisible: { visibility: boolean; isGeneral: boolean };
-  setIsVisible: React.Dispatch<
+export interface ModalProps {
+  visibility: boolean;
+  setVisibility: React.Dispatch<
     React.SetStateAction<{ visibility: boolean; isGeneral: boolean }>
   >;
+  children: ReactNode | ReactNode[];
 }
 
-export default function Modal({ isVisible, setIsVisible }: VisibilityProps) {
-  const display = isVisible.visibility ? "fixed" : "hidden";
+export default function Modal({
+  visibility,
+  setVisibility,
+  children,
+}: ModalProps) {
+  const display = visibility ? "fixed" : "hidden";
   return (
     <div
-      className={`${display} bg-stone-700 modal mt-20 p-2 rounded text-white w-1/3 z-50`}
+      className={`${display} bg-stone-700 rounded text-white w-1/3 m-auto left-0 right-0 mt-20 p-2 z-50`}
     >
-      <CommentForm isVisible={isVisible} setIsVisible={setIsVisible} />
+      {children}
     </div>
   );
 }

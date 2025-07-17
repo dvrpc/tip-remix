@@ -14,6 +14,7 @@ import { searchProjects } from "~/project";
 import { getFunds } from "~/fund";
 import Map, { links as mapLinks } from "~/components/Map";
 import Modal from "~/components/Modal";
+import CommentForm from "~/components/CommentForm";
 
 import type { MapRef } from "react-map-gl";
 
@@ -84,10 +85,9 @@ export default function Projects() {
   const [showPopup, setShowPopup] = useState(null);
   const [hoverProject, setHoverProject] = useState(null);
   const mapData = useFetcher();
-  const [isVisible, setIsVisible] = useState({
-    visibility: false,
-    isGeneral: false,
-  });
+  const [visibility, setVisibility] = useState(false);
+  const [isGeneral, setIsGeneral] = useState(false);
+  const [projectId, setProjectId] = useState();
 
   const { data } = mapData;
   const [mappedProjects, setMappedProjects] = useState(new Set());
@@ -131,17 +131,10 @@ export default function Projects() {
           <li className="md:mr-auto">
             <div
               className="cursor-pointer underline"
-              onClick={() =>
-                setIsVisible((prev) => {
-                  return {
-                    ...prev,
-
-                    isGeneral: true,
-
-                    visibility: true,
-                  };
-                })
-              }
+              onClick={() => {
+                setVisibility(true);
+                setIsGeneral(true);
+              }}
             >
               <strong className="bg-yellow-400 hover:bg-yellow-500 inline-block no-underline p-2 rounded text-stone-700">
                 General Comment
@@ -198,15 +191,27 @@ export default function Projects() {
             mrpFilterState,
             location,
             categories,
-            setIsVisible,
+            visibility,
+            setVisibility,
+            isGeneral,
+            setIsGeneral,
             mappedProjects,
             projectsWithinView,
             map,
+            setProjectId,
           }}
         />
       </main>
       <aside className="flex justify-center md:col-span-3">
-        <Modal isVisible={isVisible} setIsVisible={setIsVisible} />
+        <Modal visibility={visibility} setVisibility={setVisibility}>
+          <CommentForm
+            visibility={visibility}
+            setVisibility={setVisibility}
+            isGeneral={isGeneral}
+            setIsGeneral={setIsGeneral}
+            id={projectId}
+          />
+        </Modal>
         <Map
           map={map}
           projects={projects}

@@ -1,22 +1,31 @@
 import { useEffect, useState, FormEvent } from "react";
-import { useParams } from "remix";
+import { useParams, useLoaderData, useOutletContext } from "remix";
 import Input from "./Input";
 import { getProject } from "~/project";
-import { VisibilityProps } from "./Modal";
+import { ModalProps } from "./Modal";
 import { extractIdFromSplat } from "~/utils";
 import Spinner from "./Spinner";
 
+interface CommentFormProps extends ModalProps {
+  isGeneral: boolean;
+  setIsGeneral: React.Dispatch<
+    React.SetStateAction<{ visibility: boolean; isGeneral: boolean }>
+  >;
+}
+
 export default function CommentForm({
-  isVisible,
-  setIsVisible,
-}: VisibilityProps) {
+  visibility,
+  setVisibility,
+  id,
+  isGeneral,
+  setIsGeneral,
+}: CommentFormProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
-  const { "*": id } = useParams();
 
   const clear = (
     arr = [setFullName, setEmail, setComment, setError, setSuccess]
@@ -34,7 +43,7 @@ export default function CommentForm({
     try {
       let params = [fullName, email, comment];
       let validate = true;
-      if (isVisible.isGeneral) params = params.slice(1);
+      if (isGeneral) params = params.slice(1);
       params.forEach((param: string) => {
         if (!param) {
           setError("One or more fields is empty");
@@ -47,7 +56,7 @@ export default function CommentForm({
         Name: fullName,
         email,
         comment_text: comment,
-        ...(!isVisible.isGeneral && { MPMS: id }),
+        ...(!isGeneral && { MPMS: id }),
       };
 
       const request = await fetch(
@@ -68,12 +77,7 @@ export default function CommentForm({
         setSuccess("Comment saved successfully!");
         await timer(1000);
         clear();
-        setIsVisible((prev: any) => {
-          return {
-            ...prev,
-            visibility: !prev.visibility,
-          };
-        });
+        setVisibility((prev: any) => !prev);
       } else {
         setError(
           "An error has occurred. Please email tip@dvrpc.org with your comments."
@@ -92,18 +96,13 @@ export default function CommentForm({
     <>
       <div className="flex pt-4 px-4">
         <h2 className="text-xl">
-          Leave a Comment{!isVisible.isGeneral && <> for Project {id}</>}
+          Leave a Comment{!isGeneral && <> for Project {id}</>}
         </h2>
         <span
           className="close cursor-pointer ml-auto text-2xl"
           onClick={() => {
             clear();
-            setIsVisible((prev: any) => {
-              return {
-                ...prev,
-                visibility: !prev.visibility,
-              };
-            });
+            setVisibility(false);
           }}
         >
           &times;
@@ -112,24 +111,19 @@ export default function CommentForm({
       <form className="flex flex-col p-4" onSubmit={handleSubmit} id="test">
         <Input label={"Full name"} value={fullName} setValue={setFullName} />
         <Input label={"Email"} value={email} type="email" setValue={setEmail} />
-        {!isVisible.isGeneral && <input type="hidden" value={id} />}
+        {!isGeneral && <input type="hidden" value={id} />}
         <label>
           Comment{" "}
-          {!isVisible.isGeneral ? (
+          {!isGeneral ? (
             <>
               {" "}
               for Project {id}{" "}
               <small
                 className="cursor-pointer hover:text-stone-300 underline"
-                onClick={() =>
-                  setIsVisible((prev) => {
-                    return {
-                      ...prev,
-                      isGeneral: true,
-                      visibility: true,
-                    };
-                  })
-                }
+                onClick={() => {
+                  setVisibility(true);
+                  setIsGeneral(true);
+                }}
               >
                 (Want to leave a general comment instead?)
               </small>
@@ -137,15 +131,10 @@ export default function CommentForm({
           ) : id ? (
             <small
               className="cursor-pointer hover:text-stone-300 underline"
-              onClick={() =>
-                setIsVisible((prev) => {
-                  return {
-                    ...prev,
-                    isGeneral: false,
-                    visibility: true,
-                  };
-                })
-              }
+              onClick={() => {
+                setVisibility(true);
+                setIsGeneral(false);
+              }}
             >
               (Want to leave a comment about Project {id}?)
             </small>

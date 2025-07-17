@@ -78,7 +78,17 @@ export default function ProjectDetails() {
   const funding = project.funding?.data
     ? getTotals(project.funding?.data)
     : null;
-  const { setIsVisible, mappedProjects, map } = useOutletContext();
+  const {
+    visibility,
+    isGeneral,
+    setVisibility,
+    setIsGeneral,
+    mappedProjects,
+    map,
+    setProjectId,
+  } = useOutletContext();
+
+  setProjectId(project.id);
 
   return (
     <article className="bg-stone-700 max-h-full max-w-full overflow-auto p-8 prose prose-stone sm:prose-invert">
@@ -90,15 +100,8 @@ export default function ProjectDetails() {
           }}
           className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
           onClick={() => {
-            setIsVisible(
-              (prev: { isGeneral: boolean; visibility: boolean }) => {
-                return {
-                  ...prev,
-                  isGeneral: false,
-                  visibility: false,
-                };
-              }
-            );
+            setVisibility(false);
+            setIsGeneral(false);
           }}
         >
           &#10094; Back
@@ -164,15 +167,10 @@ export default function ProjectDetails() {
       </div>
       <div
         className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"
-        onClick={() =>
-          setIsVisible((prev: { isGeneral: boolean; visibility: boolean }) => {
-            return {
-              ...prev,
-              isGeneral: false,
-              visibility: true,
-            };
-          })
-        }
+        onClick={() => {
+          setIsGeneral(false);
+          setVisibility(true);
+        }}
       >
         Comment
       </div>
