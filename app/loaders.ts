@@ -1,7 +1,7 @@
 export async function getPoints(ids: string) {
-  const param = ids.split(',').map(id => `'${id}'`)
+  const param = ids.split(",").map((id) => `'${id}'`);
   const data = await fetch(
-    `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2024_2027_Point/FeatureServer/0/query`,
+    `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2026_2029_Point/FeatureServer/0/query`,
     {
       method: "POST",
       body: `where=dbnum in (${param.toString()}) and mapfea <> 'Linear'&returnGeometry=true&outSR=4326&outFields=*&f=geojson`,
@@ -14,9 +14,9 @@ export async function getPoints(ids: string) {
 }
 
 export async function getLines(ids: string) {
-  const param = ids.split(',').map(id => `'${id}'`)
+  const param = ids.split(",").map((id) => `'${id}'`);
   const data = await fetch(
-    `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2024_2027_Line/FeatureServer/0/query`,
+    `https://arcgis.dvrpc.org/portal/rest/services/Transportation/NJTIP_FY2026_2029_Line/FeatureServer/0/query`,
     {
       method: "POST",
       body: `where=dbnum in (${param.toString()})&outFields=*&returnGeometry=true&outSR=4326&f=geojson`,
