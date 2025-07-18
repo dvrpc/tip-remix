@@ -26,6 +26,7 @@ export default function CommentForm({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  console.log(success.length);
 
   const clear = (
     arr = [setFullName, setEmail, setComment, setError, setSuccess]
@@ -149,7 +150,8 @@ export default function CommentForm({
         {success && <div className="text-green-500">{success}</div>}
         <button
           type="submit"
-          className="bg-yellow-400 font-bold hover:bg-yellow-500 inline-block mb-4 mt-2 no-underline p-2 rounded text-stone-700"
+          className="bg-yellow-400 disabled:bg-yellow-500 font-bold hover:bg-yellow-500 inline-block mb-4 mt-2 no-underline p-2 rounded text-stone-700"
+          disabled={loading || success.length}
         >
           Submit
         </button>
