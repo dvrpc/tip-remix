@@ -26,7 +26,6 @@ export default function CommentForm({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
-  console.log(success.length);
 
   const clear = (
     arr = [setFullName, setEmail, setComment, setError, setSuccess]

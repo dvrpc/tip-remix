@@ -147,7 +147,7 @@ export default function Projects() {
           <li>
             <a
               className="underline"
-              href="https://www.dvrpc.org/webmaps/mrp2050/"
+              href="https://www.dvrpc.org/plan/draft/"
               target="_blank"
             >
               Major Regional Projects
