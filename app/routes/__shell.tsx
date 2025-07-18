@@ -121,9 +121,7 @@ export default function Projects() {
               />
             </a>
           </div>
-          <h2 className="font-bold text-xl">
-            {appName} (FY{startYear}-FY{endYear})
-          </h2>
+          <h2 className="font-bold text-xl">{appName}</h2>
         </div>
       </nav>
       <nav className="col-span-2 flex items-center justify-end pr-4 z-50">
