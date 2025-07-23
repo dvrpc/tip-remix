@@ -8,11 +8,15 @@ export async function getProject(id: string) {
   return await data.json();
 }
 
-export async function searchProjects(keyword: string | null, filters = "") {
+export async function searchProjects(
+  keyword: string | null,
+  filters = "",
+  mapped = true
+) {
   const data = await fetch(
     `https://www.dvrpc.org/data/TIP/2026/list/${
       keyword ? keyword : "_"
-    }/${filters}`
+    }/${filters}?mapped=${mapped ? 1 : 0}`
   );
   return await data.json();
 }

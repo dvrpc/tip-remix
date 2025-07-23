@@ -78,12 +78,12 @@ export default function ProjectDetails() {
   const funding = project.funding?.data
     ? getTotals(project.funding?.data)
     : null;
+
   const {
     visibility,
     isGeneral,
     setVisibility,
     setIsGeneral,
-    mappedProjects,
     map,
     setProjectId,
   } = useOutletContext();
@@ -139,31 +139,29 @@ export default function ProjectDetails() {
         </button>
       </div>
       <div className="flex">
-        {mappedProjects.has(project.id) && (
-          <button
-            className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
-            onClick={() => {
-              const features = ["nj-tip-points", "nj-tip-lines"]
-                .map((layer) =>
-                  map.current?.querySourceFeatures(layer, {
-                    filter: ["in", "dbnum", project.id],
-                  })
-                )
-                .reduce((prev, curr) => [...prev, ...curr]);
-              const bbox = getBoundingBox({ features });
-              const { xMin, xMax, yMin, yMax } = bbox;
-              const center = new LngLatBounds(
-                [xMin, yMin],
-                [xMax, yMax]
-              ).getCenter();
-              window.open(
-                `http://maps.google.com/maps?q=&layer=c&cbll=${center.lat},${center.lng}&cbp=11,0,0,0,0`
-              );
-            }}
-          >
-            Streetview
-          </button>
-        )}
+        <button
+          className="bg-yellow-400 hover:bg-yellow-500 inline-block mb-4 no-underline p-2 rounded text-stone-700"
+          onClick={() => {
+            const features = ["nj-tip-points", "nj-tip-lines"]
+              .map((layer) =>
+                map.current?.querySourceFeatures(layer, {
+                  filter: ["in", "dbnum", project.id],
+                })
+              )
+              .reduce((prev, curr) => [...prev, ...curr]);
+            const bbox = getBoundingBox({ features });
+            const { xMin, xMax, yMin, yMax } = bbox;
+            const center = new LngLatBounds(
+              [xMin, yMin],
+              [xMax, yMax]
+            ).getCenter();
+            window.open(
+              `http://maps.google.com/maps?q=&layer=c&cbll=${center.lat},${center.lng}&cbp=11,0,0,0,0`
+            );
+          }}
+        >
+          Streetview
+        </button>
       </div>
       <div
         className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"

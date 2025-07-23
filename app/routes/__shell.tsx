@@ -88,17 +88,7 @@ export default function Projects() {
   const [visibility, setVisibility] = useState(false);
   const [isGeneral, setIsGeneral] = useState(false);
   const [projectId, setProjectId] = useState();
-
   const { data } = mapData;
-  const [mappedProjects, setMappedProjects] = useState(new Set());
-  if (data && !mappedProjects.size) {
-    let ret = new Set();
-    Object.keys(data).map((key) => {
-      let { features } = data[key];
-      features.map((feature) => ret.add(feature.properties.dbnum));
-    });
-    setMappedProjects(ret);
-  }
   const [projectsWithinView, setProjectsWithinView] = useState(new Set());
   const map = useRef<MapRef>();
 
@@ -193,7 +183,6 @@ export default function Projects() {
             setVisibility,
             isGeneral,
             setIsGeneral,
-            mappedProjects,
             projectsWithinView,
             map,
             setProjectId,

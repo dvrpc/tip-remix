@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Form, Link, useNavigate, useOutletContext, useSubmit } from "remix";
+import { useAppContext } from "~/AppContext";
 import { sortByProperty } from "~/utils";
 import DetailsToggle from "~/components/DetailsToggle";
 import CategoryIcon, {
@@ -29,7 +30,6 @@ export default function Panel() {
     mrpFilterState,
     location,
     categories,
-    mappedProjects,
     projectsWithinView,
   } = useOutletContext();
   const [keyword, setKeyword] = keywordState;
@@ -43,6 +43,9 @@ export default function Panel() {
   const formRef = useRef<HTMLFormElement>(null);
   const submit = () => submitHandler(formRef.current);
   let params = new URLSearchParams(location.search);
+  const {
+    appContext: { basename },
+  } = useAppContext();
 
   return (
     <article
@@ -152,7 +155,7 @@ export default function Panel() {
       <ul className="flex flex-col overflow-auto p-8 pt-0">
         {projects.length ? (
           projects?.sort(sortByProperty(sortKey, true)).map((p: any) => {
-            return mappedProjects.has(p.id) && !projectsWithinView.size ? (
+            return !projectsWithinView.size ? (
               <ProjectLink p={p} />
             ) : (
               projectsWithinView.has(p.id) && <ProjectLink p={p} />
@@ -175,7 +178,19 @@ export default function Panel() {
             <h1 className="mb-0 text-2xl text-white">
               Sorry no projects found
             </h1>
-            <div>Try seaching/filtering again...</div>
+            <p className="text-white">
+              Check{" "}
+              <Link
+                className="text-white underline"
+                to={{
+                  pathname: `${basename}/notmapped`,
+                  search: location.search,
+                }}
+              >
+                Unmapped Projects
+              </Link>{" "}
+              or try seaching/filtering again...
+            </p>
           </div>
         )}
       </ul>
