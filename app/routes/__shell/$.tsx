@@ -163,15 +163,6 @@ export default function ProjectDetails() {
           Streetview
         </button>
       </div>
-      <div
-        className="bg-yellow-400 cursor-pointer hover:bg-yellow-500 inline-block mb-4 ml-auto no-underline p-2 rounded text-stone-700"
-        onClick={() => {
-          setIsGeneral(false);
-          setVisibility(true);
-        }}
-      >
-        Comment
-      </div>
       {project.id ? (
         <>
           <h2 className="mt-0">
