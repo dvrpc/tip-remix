@@ -16,7 +16,7 @@ import styles from "./styles/app.css";
 
 const globals = {
   basename: "/tip/draft/map",
-  appName: "FFY2026 Draft TIP for NJ (FFY26-FFY29)",
+  appName: "FFY2026 TIP for NJ (FFY26-FFY29)",
   startYear: 26,
   endYear: 29,
   ga_tracking_id: "UA-9825778-1",
