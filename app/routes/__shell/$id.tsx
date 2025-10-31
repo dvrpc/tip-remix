@@ -16,7 +16,7 @@ type Project = {
   municipalities?: string;
   county: string;
   id: string;
-  road_name: string;
+  roadname: string;
   description: string;
   limits: string;
   aq_code: string;
@@ -74,8 +74,8 @@ export default function ProjectDetails() {
   const project = useLoaderData();
   const location = useLocation();
   const mcds = formatLocation(project);
-  const funding = project.funding?.data
-    ? getTotals(project.funding?.data)
+  const funding = JSON.parse(project.funding)
+    ? getTotals(JSON.parse(project.funding))
     : null;
   const { setIsVisible, mappedProjects, map } = useOutletContext();
 
@@ -204,17 +204,20 @@ export default function ProjectDetails() {
               </tr>
             </thead>
             <tbody className="border-y-2">
-              {project.funding?.data.map((row: number[]) => (
-                <tr key={row.join()} className="border-b-white/5">
-                  <td>{row[0]}</td>
-                  <td>{row[1]}</td>
-                  <td>${row[2]}</td>
-                  <td>${row[3]}</td>
-                  <td>${row[4]}</td>
-                  <td>${row[5]}</td>
-                  <td>${row[6] + row[7]}</td>
-                </tr>
-              ))}
+              {JSON.parse(project.funding)?.map((row: number[]) => {
+                row = Object.values(row);
+                return (
+                  <tr key={row.join()} className="border-b-white/5">
+                    <td>{row[0]}</td>
+                    <td>{row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
+                    <td>${row[4]}</td>
+                    <td>${row[5]}</td>
+                    <td>${row[6] + row[7]}</td>
+                  </tr>
+                );
+              })}
               <tr>
                 <td colSpan={2}>Program Year Totals:</td>
                 <td className="font-bold">{funding && funding[0]}</td>

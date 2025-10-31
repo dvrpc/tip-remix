@@ -63,7 +63,7 @@ export default function Projects() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const transition = useTransition();
-  const sortState = useState("road_name");
+  const sortState = useState("roadname");
   const categoryFilterState = useState(
     searchParams.getAll("categories").map((i) => ({
       value: i,

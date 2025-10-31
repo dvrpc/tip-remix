@@ -1,4 +1,5 @@
 export async function getFunds() {
-  const data = await fetch("https://www.dvrpc.org/data/tip/2025/funds");
-  return await data.json();
+  const res = await fetch("https://apps.dvrpc.org/ords/patip2025_p/tip/funds");
+  const data = await res.json();
+  return data.items;
 }

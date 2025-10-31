@@ -1,18 +1,22 @@
 export async function getProjects() {
-  const data = await fetch("https://www.dvrpc.org/data/TIP/2025/list");
-  return await data.json();
+  const res = await fetch(
+    "https://apis.dvrpc.org/internal/patip2025_p/tip/projects/list/_?limit=300"
+  );
+  const data = await res.json();
+  return data.items;
 }
 
 export async function getProject(id: string) {
-  const data = await fetch(`https://www.dvrpc.org/data/TIP/2025/id/${id}`);
+  const data = await fetch(
+    `https://apis.dvrpc.org/internal/patip2025_p/tip/projects/id/${id}`
+  );
   return await data.json();
 }
 
 export async function searchProjects(keyword: string | null, filters = "") {
-  const data = await fetch(
-    `https://www.dvrpc.org/data/TIP/2025/list/${
-      keyword ? keyword : "_"
-    }/${filters}`
+  const res = await fetch(
+    `https://apis.dvrpc.org/internal/patip2025_p/tip/projects/list/_${filters}?limit=300`
   );
-  return await data.json();
+  const data = await res.json();
+  return data.items;
 }
