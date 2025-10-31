@@ -96,7 +96,7 @@ export default function Panel() {
               <DetailsToggle
                 options={[
                   { value: "id", label: "ID" },
-                  { value: "road_name", label: "Name" },
+                  { value: "roadname", label: "Name" },
                   { value: "category", label: "Category" },
                 ]}
                 name="sortKey"
