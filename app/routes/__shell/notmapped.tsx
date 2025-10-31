@@ -75,7 +75,7 @@ export default function NotMapped() {
                 >
                   <CategoryIcon categoryName={p.category} />
                   <strong>{p.id}</strong>
-                  <span className="leading-tight">{p.road_name}</span>
+                  <span className="leading-tight">{p.roadname}</span>
                 </Link>
               </div>
             </li>

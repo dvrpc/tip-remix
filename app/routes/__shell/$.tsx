@@ -16,7 +16,7 @@ type Project = {
   municipalities?: string;
   county: string;
   id: string;
-  road_name: string;
+  roadname: string;
   description: string;
   limits: string;
   aq_code: string;
@@ -212,7 +212,8 @@ export default function ProjectDetails() {
               </tr>
             </thead>
             <tbody className="border-y-2">
-              {project.funding?.data.map((row: number[]) => {
+              {JSON.parse(project.funding)?.map((row: number[]) => {
+                row = Object.values(row);
                 const totals = convertToCurrency(row.slice(2));
                 return (
                   <tr key={row.join()} className="border-b-white/5">

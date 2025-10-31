@@ -1,4 +1,7 @@
 export async function getFunds() {
-  const data = await fetch("https://www.dvrpc.org/data/tip/2026/funds");
-  return await data.json();
+  const res = await fetch(
+    "https://apis.dvrpc.org/internal/njtip2026comment/tip/funds"
+  );
+  const data = await res.json();
+  return data.items;
 }
