@@ -13,9 +13,15 @@ export async function getProject(id: string) {
   return await data.json();
 }
 
-export async function searchProjects(keyword: string | null, filters = "") {
+export async function searchProjects(
+  keyword: string | null,
+  filters = "",
+  mapped = true
+) {
   const res = await fetch(
-    `https://apis.dvrpc.org/internal/njtip2026comment/tip/projects/list/_${filters}?limit=300`
+    `https://apis.dvrpc.org/internal/njtip2026comment/tip/projects/list/_${filters}?mapped=${
+      mapped ? 1 : 0
+    }&limit=300`
   );
   const data = await res.json();
   return data.items;
