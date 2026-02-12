@@ -126,7 +126,7 @@ export default function Panel() {
               multiple
               filter={aqcodeFilter}
               setFilter={setAqcodeFilter}
-              options={[...new Set(projects?.map((p) => p.aq_code))].sort()}
+              options={[...new Set(projects?.map((p) => p.aqcode))].sort()}
               title="AQ Code"
               name="aqcodes"
               submit={submit}
@@ -135,7 +135,7 @@ export default function Panel() {
               multiple
               filter={fundFilter}
               setFilter={setFundFilter}
-              options={[...new Set(funds.map((f) => f.code))].sort()}
+              options={[...new Set(funds.map((f) => f.fund))].sort()}
               title="Fund"
               name="funds"
               submit={submit}

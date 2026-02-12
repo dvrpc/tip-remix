@@ -19,7 +19,7 @@ type Project = {
   roadname: string;
   description: string;
   limits: string;
-  aq_code: string;
+  aqcode: string;
   funding: any;
   milestones: {
     data: any[];
@@ -181,9 +181,9 @@ export default function ProjectDetails() {
               <strong>Limits:</strong> {project.limits}
             </div>
           )}
-          {project.aq_code && (
+          {project.aqcode && (
             <div>
-              <strong>Air Quality Code</strong>: {project.aq_code}
+              <strong>Air Quality Code</strong>: {project.aqcode}
             </div>
           )}
           <table className="mt-0 table-fixed">

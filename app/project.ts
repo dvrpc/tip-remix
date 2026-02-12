@@ -19,10 +19,11 @@ export async function searchProjects(
   mapped = true
 ) {
   const res = await fetch(
-    `https://apis.dvrpc.org/internal/njtip2026comment/tip/projects/list/_${filters}?mapped=${
-      mapped ? 1 : 0
-    }&limit=300`
+    `https://apis.dvrpc.org/internal/njtip2026comment/tip/projects/list/${
+      keyword || "_"
+    }?mapped=${mapped ? 1 : 0}&limit=300&${filters}`
   );
+
   const data = await res.json();
   return data.items;
 }
