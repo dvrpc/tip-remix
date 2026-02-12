@@ -15,7 +15,9 @@ export async function getProject(id: string) {
 
 export async function searchProjects(keyword: string | null, filters = "") {
   const res = await fetch(
-    `https://apis.dvrpc.org/internal/patip2025_p/tip/projects/list/_${filters}?limit=300`
+    `https://apis.dvrpc.org/internal/patip2025_p/tip/projects/list/${
+      keyword || "_"
+    }?limit=300&${filters}`
   );
   const data = await res.json();
   return data.items;
