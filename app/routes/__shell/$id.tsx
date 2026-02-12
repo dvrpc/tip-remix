@@ -179,7 +179,7 @@ export default function ProjectDetails() {
           )}
           {project.aqcode && (
             <div>
-              <strong>Air Quality Code</strong>: {project.aq_code}
+              <strong>Air Quality Code</strong>: {project.aqcode}
             </div>
           )}
           <table className="mt-0 table-fixed">
